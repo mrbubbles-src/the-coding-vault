@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'The Code Vault',
+  title: 'The Coding Vault',
   description: 'Work in progress. Stay tuned.',
 };
 
