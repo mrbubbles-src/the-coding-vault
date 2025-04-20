@@ -1,10 +1,17 @@
-import prisma from '@/lib/prisma';
+// import { fetchEntriesMetadata } from '@/lib/db';
 
-export default async function Home() {
-  const publishedPosts = await prisma.vaultEntry.findMany({
-    where: { published: true },
-  });
-  console.log(publishedPosts);
+// export async function generateStaticParams() {
+//   const entriesMetadata = await fetchEntriesMetadata();
+//   return entriesMetadata.map(
+//     (data: { slug: string; title: string; category: string }) => ({
+//       slug: data.slug,
+//       title: data.title,
+//       category: data.category,
+//     }),
+//   );
+// }
+
+export default function Home() {
   return (
     <>
       <h1>This is currently a Work in progress. Stay tuned</h1>
