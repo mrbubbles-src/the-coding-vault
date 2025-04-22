@@ -17,6 +17,7 @@ export async function POST(req: Request) {
       { msg: 'Der Username ist bereits vergeben.' },
       {
         status: 400,
+        statusText: 'Bad Request',
       },
     );
   if (emailTaken)
@@ -24,6 +25,7 @@ export async function POST(req: Request) {
       { msg: 'Die E-mail ist bereits registriert.' },
       {
         status: 400,
+        statusText: 'Bad Request',
       },
     );
   try {
@@ -38,12 +40,15 @@ export async function POST(req: Request) {
     });
     return NextResponse.json(
       { msg: 'Neuer User erstellt.', newUser },
-      { status: 201 },
+      { status: 201, statusText: 'Created' },
     );
   } catch (error) {
-    return NextResponse.json({
-      msg: 'Fehler beim erstellen des neuen Users.',
-      error,
-    });
+    return NextResponse.json(
+      {
+        msg: 'Fehler beim erstellen des neuen Users.',
+        error,
+      },
+      { status: 422, statusText: 'Unprocessable Content' },
+    );
   }
 }
