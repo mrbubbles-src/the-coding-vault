@@ -23,5 +23,9 @@ const createCookie = async (token?: string, theme?: string): Promise<void> => {
     });
   }
 };
-
-export { createCookie };
+const getCookie = async (cookieName: string): Promise<string | undefined> => {
+  const cookie = await cookies();
+  const cookieResponse = cookie.get(cookieName);
+  return cookieResponse?.value;
+};
+export { createCookie, getCookie };
