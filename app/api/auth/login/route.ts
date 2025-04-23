@@ -31,8 +31,8 @@ export async function POST(req: Request) {
   try {
     const token = createJWT({ id: user.id, role: user.role });
     await createCookie(token);
-    revalidatePath('/admin/dashboard'); // TODO: anpassen auf admin bereich
-    return redirect('/admin/dashboard'); // TODO: Anpassen auf admin bereich
+    revalidatePath('/admin/dashboard');
+    return redirect('/admin/dashboard');
   } catch (error) {
     return NextResponse.json(
       {
