@@ -1,9 +1,3 @@
-import Sidebar from './sidebar';
-import SidebarContent from './sidebar-content';
-import SidebarFooter from './sidebar-footer';
-import SidebarGroup from './sidebar-group';
-import SidebarHeader from './sidebar-header';
-
 /**
  * AppSidebar component is a composition of various Sidebar elements to create a complete sidebar layout.
  *
@@ -17,14 +11,5 @@ import SidebarHeader from './sidebar-header';
  * @returns A fully composed sidebar component with header, content, and footer sections.
  */
 export function AppSidebar() {
-  return (
-    <Sidebar>
-      <SidebarHeader />
-      <SidebarContent>
-        <SidebarGroup />
-        <SidebarGroup />
-      </SidebarContent>
-      <SidebarFooter />
-    </Sidebar>
-  );
+  return <></>;
 }
