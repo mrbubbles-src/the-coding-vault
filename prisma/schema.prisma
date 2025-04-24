@@ -16,7 +16,7 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "./node_modules/@prisma/client"
+  output   = "../generated/prisma/client"
 }
 
 datasource db {
@@ -50,6 +50,7 @@ model VaultEntry {
   title     String
   slug      String   @unique
   content   String
+  category  String
   authorId  String
   author    User     @relation(fields: [authorId], references: [id])
   published Boolean  @default(false)
