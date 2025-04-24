@@ -4,8 +4,9 @@ import '../globals.css';
 import {
   SidebarProvider,
   SidebarTrigger,
-} from '@/components/ui/sidebar/shadcn/sidebar';
-import { AppSidebar } from '@/components/ui/sidebar/app-sidebar';
+} from '@/components/ui/sidebar/base/sidebar';
+import AppSidebar from '@/components/ui/sidebar/vault/app-sidebar';
+import { cookies } from 'next/headers';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -22,16 +23,18 @@ export const metadata: Metadata = {
   description: 'Work in progress. Stay tuned.',
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const cookieStore = await cookies();
+  const defaultOpen = cookieStore.get('sidebar_state')?.value === 'true';
   return (
-    <html lang="en">
+    <html lang="de" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <SidebarProvider>
+        <SidebarProvider defaultOpen={defaultOpen}>
           <AppSidebar />
           <main>
             <SidebarTrigger />
