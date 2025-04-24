@@ -22,7 +22,7 @@ export async function POST(req: Request) {
     );
   if (emailTaken)
     return NextResponse.json(
-      { msg: 'Die E-mail ist bereits registriert.' },
+      { msg: 'Die E-Mail ist bereits registriert.' },
       {
         status: 400,
         statusText: 'Bad Request',
