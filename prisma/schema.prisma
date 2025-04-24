@@ -44,16 +44,25 @@ model User {
   updatedAt  DateTime     @default(now())
 }
 
+model Category {
+  id      String       @id @default(uuid())
+  name    String       @unique
+  slug    String       @unique
+  order   Int
+  entries VaultEntry[]
+}
+
 model VaultEntry {
-  id        String   @id @default(uuid())
-  numericId Int      @unique @default(autoincrement())
-  title     String
-  slug      String   @unique
-  content   String
-  category  String
-  authorId  String
-  author    User     @relation(fields: [authorId], references: [id])
-  published Boolean  @default(false)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
+  id         String   @id @default(uuid())
+  numericId  Int      @unique @default(autoincrement())
+  title      String
+  slug       String   @unique
+  content    String
+  categoryId String
+  category   Category @relation(fields: [categoryId], references: [id])
+  authorId   String
+  author     User     @relation(fields: [authorId], references: [id])
+  published  Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @default(now())
 }
