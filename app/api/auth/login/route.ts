@@ -3,7 +3,6 @@ import { createCookie } from '@/lib/cookies';
 import prisma from '@/lib/prisma';
 import bcrypt from 'bcryptjs';
 import { revalidatePath } from 'next/cache';
-import { redirect } from 'next/navigation';
 import { NextResponse } from 'next/server';
 
 export async function POST(req: Request) {
@@ -29,10 +28,9 @@ export async function POST(req: Request) {
     );
 
   try {
-    const token = createJWT({ id: user.id, role: user.role });
+    const token = await createJWT({ id: user.id, role: user.role });
     await createCookie(token);
-    revalidatePath('/admin/dashboard');
-    return redirect('/admin/dashboard');
+    return NextResponse.json({ success: true });
   } catch (error) {
     return NextResponse.json(
       {
@@ -41,5 +39,7 @@ export async function POST(req: Request) {
       },
       { status: 401, statusText: 'Unauthorized' },
     );
+  } finally {
+    revalidatePath('/admin/dashboard');
   }
 }
