@@ -1,3 +1,11 @@
 export type TRole = 'SUPERADMIN' | 'MODERATOR' | 'GUEST';
 
-export type TJWT = { id: string; role: TRole };
+export interface IJWT {
+  id: string;
+  role: TRole;
+}
+
+export interface IInputs {
+  username: string;
+  password: string;
+}
