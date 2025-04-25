@@ -11,6 +11,7 @@ export interface IInputs {
 }
 
 export type TIconKey =
+  | 'git'
   | 'github'
   | 'node'
   | 'html'
