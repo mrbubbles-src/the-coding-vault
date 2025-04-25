@@ -1,4 +1,4 @@
-import { Atom, ChevronUp, User2 } from 'lucide-react';
+import { Atom, ChevronDown, ChevronUp, User2 } from 'lucide-react';
 import {
   Sidebar,
   SidebarContent,
@@ -20,13 +20,18 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '../base/dropdown-menu';
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from '../base/collapsible';
 
 const items = [
   { title: 'Home', url: '/', icon: Atom },
-  { title: 'Dashboard', url: '/', icon: Atom },
-  { title: 'Settings', url: '/', icon: Atom },
-  { title: 'Profile', url: '/', icon: Atom },
-  { title: 'Help', url: '/', icon: Atom },
+  { title: 'Dashboard', url: '#', icon: Atom },
+  { title: 'Settings', url: '#', icon: Atom },
+  { title: 'Profile', url: '#', icon: Atom },
+  { title: 'Help', url: '#', icon: Atom },
 ];
 /**
  * AppSidebar component is a composition of various Sidebar elements to create a complete sidebar layout.
@@ -61,23 +66,32 @@ const AppSidebar = () => {
       {/* ? Content Start */}
       <SidebarContent>
         {/* ? Group 1 Start */}
-        <SidebarGroup>
-          <SidebarGroupLabel>HTML</SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {items.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <Link href={item.url}>
-                      <item.icon />
-                      <span>{item.title}</span>
-                    </Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
+        <Collapsible className="group/collapsible">
+          <SidebarGroup>
+            <SidebarGroupLabel asChild>
+              <CollapsibleTrigger>
+                HTML
+                <ChevronDown className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180" />
+              </CollapsibleTrigger>
+            </SidebarGroupLabel>
+            <CollapsibleContent>
+              <SidebarGroupContent>
+                <SidebarMenu>
+                  {items.map((item) => (
+                    <SidebarMenuItem key={item.title}>
+                      <SidebarMenuButton asChild isActive>
+                        <Link href={item.url}>
+                          <item.icon />
+                          <span>{item.title}</span>
+                        </Link>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  ))}
+                </SidebarMenu>
+              </SidebarGroupContent>
+            </CollapsibleContent>
+          </SidebarGroup>
+        </Collapsible>
         {/* ? Group 1 End */}
       </SidebarContent>
       {/* ? Content End */}
