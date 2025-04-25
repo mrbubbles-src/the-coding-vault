@@ -6,6 +6,7 @@ import {
   faCss3Alt,
   faJs,
   IconDefinition,
+  faGit,
 } from '@fortawesome/free-brands-svg-icons';
 import {
   faDatabase,
@@ -15,6 +16,7 @@ import {
 import { TIconKey } from './types';
 
 export const iconMap: Record<TIconKey, IconDefinition> = {
+  git: faGit,
   github: faGithub,
   node: faNodeJs,
   html: faHtml5,
