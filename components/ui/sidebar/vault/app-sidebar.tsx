@@ -1,4 +1,6 @@
-import { Atom, ChevronDown, ChevronUp, User2 } from 'lucide-react';
+import { ChevronDown, ChevronUp, User2 } from 'lucide-react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { iconMap } from '@/lib/icon-map';
 import {
   Sidebar,
   SidebarContent,
@@ -8,8 +10,12 @@ import {
   SidebarGroupLabel,
   SidebarHeader,
   SidebarMenu,
+  SidebarMenuBadge,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarMenuSkeleton,
+  SidebarMenuSub,
+  SidebarMenuSubItem,
   SidebarSeparator,
 } from '../base/sidebar';
 import Link from 'next/link';
@@ -27,11 +33,11 @@ import {
 } from '../base/collapsible';
 
 const items = [
-  { title: 'Home', url: '/', icon: Atom },
-  { title: 'Dashboard', url: '#', icon: Atom },
-  { title: 'Settings', url: '#', icon: Atom },
-  { title: 'Profile', url: '#', icon: Atom },
-  { title: 'Help', url: '#', icon: Atom },
+  { title: 'Home', url: '/' },
+  { title: 'Dashboard', url: '#' },
+  { title: 'Settings', url: '#' },
+  { title: 'Profile', url: '#' },
+  { title: 'Help', url: '#' },
 ];
 /**
  * AppSidebar component is a composition of various Sidebar elements to create a complete sidebar layout.
@@ -67,27 +73,29 @@ const AppSidebar = () => {
       <SidebarContent>
         {/* ? Group 1 Start */}
         <Collapsible className="group/collapsible">
+          {/* <SidebarMenuSkeleton />  ladezustand simulieren */}
           <SidebarGroup>
             <SidebarGroupLabel asChild>
               <CollapsibleTrigger>
+                <FontAwesomeIcon icon={iconMap.html} />
+                <SidebarMenuBadge>5</SidebarMenuBadge>
                 HTML
                 <ChevronDown className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180" />
               </CollapsibleTrigger>
             </SidebarGroupLabel>
             <CollapsibleContent>
               <SidebarGroupContent>
-                <SidebarMenu>
+                <SidebarMenuSub>
                   {items.map((item) => (
-                    <SidebarMenuItem key={item.title}>
+                    <SidebarMenuSubItem key={item.title}>
                       <SidebarMenuButton asChild isActive>
                         <Link href={item.url}>
-                          <item.icon />
                           <span>{item.title}</span>
                         </Link>
                       </SidebarMenuButton>
-                    </SidebarMenuItem>
+                    </SidebarMenuSubItem>
                   ))}
-                </SidebarMenu>
+                </SidebarMenuSub>
               </SidebarGroupContent>
             </CollapsibleContent>
           </SidebarGroup>
@@ -102,8 +110,9 @@ const AppSidebar = () => {
           <SidebarMenuItem>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <SidebarMenuButton>
-                  <User2 /> Admin <ChevronUp className="ml-auto" />
+                <SidebarMenuButton className="group">
+                  <User2 /> Admin{' '}
+                  <ChevronUp className="ml-auto transition-transform group-data-[state=open]:rotate-180" />
                 </SidebarMenuButton>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
