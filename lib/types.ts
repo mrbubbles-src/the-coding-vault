@@ -9,3 +9,14 @@ export interface IInputs {
   username: string;
   password: string;
 }
+
+export type TIconKey =
+  | 'github'
+  | 'node'
+  | 'html'
+  | 'css'
+  | 'js'
+  | 'react'
+  | 'backend'
+  | 'database'
+  | 'default';
