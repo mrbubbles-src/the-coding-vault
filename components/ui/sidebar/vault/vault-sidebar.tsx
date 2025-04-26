@@ -31,6 +31,7 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from '@/components/ui/shadcn/collapsible';
+import { cn } from '@/lib/utils';
 
 const items = [
   { title: 'Home', url: '/' },
@@ -51,7 +52,7 @@ const items = [
  *
  * @returns A fully composed sidebar component with header, content, and footer sections.
  */
-const AppSidebar = () => {
+const VaultSidebar = () => {
   return (
     <Sidebar collapsible="icon" variant="floating">
       {/* ? Header Start */}
@@ -127,4 +128,4 @@ const AppSidebar = () => {
   );
 };
 
-export default AppSidebar;
+export default VaultSidebar;
