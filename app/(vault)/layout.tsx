@@ -4,9 +4,10 @@ import '../globals.css';
 import {
   SidebarProvider,
   SidebarTrigger,
-} from '@/components/ui/sidebar/base/sidebar';
+} from '@/components/ui/shadcn/sidebar';
 import AppSidebar from '@/components/ui/sidebar/vault/app-sidebar';
 import { cookies } from 'next/headers';
+import { ThemeProvider } from '@/context/theme-provider';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -34,13 +35,19 @@ export default async function RootLayout({
     <html lang="de" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <SidebarProvider defaultOpen={defaultOpen}>
-          <AppSidebar />
-          <main>
-            <SidebarTrigger />
-            {children}
-          </main>
-        </SidebarProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange>
+          <SidebarProvider defaultOpen={defaultOpen}>
+            <AppSidebar />
+            <main>
+              <SidebarTrigger />
+              {children}
+            </main>
+          </SidebarProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
