@@ -1,8 +1,11 @@
 import type { Metadata } from 'next';
+import { cookies } from 'next/headers';
 import { Fira_Code, Fira_Mono, Montserrat, Poppins } from 'next/font/google';
-import '../globals.css';
+import { SidebarProvider } from '@/components/ui/shadcn/sidebar';
 import { ThemeProvider } from '@/context/theme-provider';
+import AdminSidebar from '@/components/ui/sidebar/admin/admin-sidebar';
 import Navbar from '@/components/ui/navigation/navbar';
+import '../globals.css';
 
 const firaCode = Fira_Code({
   variable: '--font-fira-code',
@@ -30,11 +33,13 @@ export const metadata: Metadata = {
   description: 'Work in progress. Stay tuned.',
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const cookieStore = await cookies();
+  const defaultOpen = cookieStore.get('sidebar_state')?.value === 'true';
   return (
     <html lang="de" suppressHydrationWarning>
       <body
@@ -44,8 +49,13 @@ export default function RootLayout({
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange>
-          <Navbar />
-          <main>{children}</main>
+          <SidebarProvider defaultOpen={defaultOpen}>
+            <AdminSidebar />
+            <div className="w-full py-2 pr-2 pl-1">
+              <Navbar />
+              <main className="py-2 pr-2 pl-1">{children}</main>
+            </div>
+          </SidebarProvider>
         </ThemeProvider>
       </body>
     </html>
