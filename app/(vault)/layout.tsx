@@ -3,9 +3,10 @@ import { cookies } from 'next/headers';
 import { Fira_Code, Fira_Mono, Montserrat, Poppins } from 'next/font/google';
 import { SidebarProvider } from '@/components/ui/shadcn/sidebar';
 import { ThemeProvider } from '@/context/theme-provider';
-import VaultSidebar from '@/components/ui/sidebar/vault/vault-sidebar';
-import Navbar from '@/components/ui/navigation/navbar';
+import VaultSidebar from '@/components/layout/sidebar/vault/vault-sidebar';
+import Navbar from '@/components/layout/navbar';
 import '../globals.css';
+import Footer from '@/components/layout/footer';
 
 const firaCode = Fira_Code({
   variable: '--font-fira-code',
@@ -43,7 +44,7 @@ export default async function RootLayout({
   return (
     <html lang="de" suppressHydrationWarning>
       <body
-        className={`${firaCode.variable} ${firaCodeMono.variable} ${montserrat.variable} ${poppins.variable} antialiased`}>
+        className={`${firaCode.variable} ${firaCodeMono.variable} ${montserrat.variable} ${poppins.variable} flex min-h-screen flex-col scroll-smooth antialiased`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -51,9 +52,10 @@ export default async function RootLayout({
           disableTransitionOnChange>
           <SidebarProvider defaultOpen={defaultOpen}>
             <VaultSidebar />
-            <div className="w-full py-2 pr-2 pl-1">
+            <div className="flex w-full flex-col py-2 pr-2 pl-1">
               <Navbar />
-              <main className="py-2 pr-2 pl-1">{children}</main>
+              <main className="flex-1 py-2 pr-2 pl-1">{children}</main>
+              <Footer />
             </div>
           </SidebarProvider>
         </ThemeProvider>
