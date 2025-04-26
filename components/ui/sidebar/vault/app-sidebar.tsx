@@ -17,7 +17,7 @@ import {
   SidebarMenuSub,
   SidebarMenuSubItem,
   SidebarSeparator,
-} from '../base/sidebar';
+} from '@/components/ui/shadcn/sidebar';
 import Link from 'next/link';
 import Image from 'next/image';
 import {
@@ -25,12 +25,12 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '../base/dropdown-menu';
+} from '@/components/ui/shadcn/dropdown-menu';
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from '../base/collapsible';
+} from '@/components/ui/shadcn/collapsible';
 
 const items = [
   { title: 'Home', url: '/' },
