@@ -13,7 +13,6 @@ import {
   SidebarMenuBadge,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarMenuSkeleton,
   SidebarMenuSub,
   SidebarMenuSubItem,
   SidebarSeparator,
@@ -33,9 +32,13 @@ import {
 } from '@/components/ui/shadcn/collapsible';
 import { getCategories } from '@/lib/db';
 import { ICategories } from '@/lib/types';
+import { headers } from 'next/headers';
 
 const VaultSidebar = async () => {
   const categories: Array<ICategories> = await getCategories();
+  const headersList = await headers();
+  const referer = headersList.get('referer') || '';
+  const pathname = referer ? new URL(referer).pathname : '';
 
   return (
     <Sidebar collapsible="icon" variant="floating">
@@ -63,23 +66,22 @@ const VaultSidebar = async () => {
         {categories &&
           categories.map((category) => (
             <Collapsible key={category.name} className="group/collapsible">
-              {/* <SidebarMenuSkeleton />  ladezustand simulieren */}
               <SidebarGroup>
                 <div className="flex items-center gap-2">
                   <FontAwesomeIcon
                     icon={iconMap[category.iconKey]}
-                    className="h-5 w-5 shrink-0"
+                    className="ml-[0.400rem] h-5 w-5 shrink-0"
                   />
                   <SidebarGroupLabel asChild>
                     <CollapsibleTrigger className="flex flex-1 items-center gap-2">
                       <span className="text-lg font-semibold">
                         {category.name}
                       </span>
-                      <aside className="flex justify-around">
-                        <SidebarMenuBadge className="text-[1.2rem]">
-                          55
+                      <aside className="flex items-center justify-end">
+                        <SidebarMenuBadge className="text-sm">
+                          ({categories.entries.length})
+                          <ChevronDown className="mr-2 ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180" />
                         </SidebarMenuBadge>
-                        <ChevronDown className="mr-2 ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180" />
                       </aside>
                     </CollapsibleTrigger>
                   </SidebarGroupLabel>
@@ -88,7 +90,11 @@ const VaultSidebar = async () => {
                   <SidebarGroupContent>
                     <SidebarMenuSub>
                       <SidebarMenuSubItem key={category.name}>
-                        <SidebarMenuButton asChild isActive>
+                        <SidebarMenuButton
+                          asChild
+                          isActive={pathname.startsWith(
+                            `/vault/${category.slug}`,
+                          )}>
                           <Link href={`/vault/${category.slug}`}>
                             <span>{category.name}</span>
                           </Link>
