@@ -1,6 +1,11 @@
-import { ChevronDown, ChevronUp, User2 } from 'lucide-react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { iconMap } from '@/lib/icon-map';
+import {
+  ChevronDown,
+  ChevronUp,
+  NotebookPen,
+  User2,
+  Users,
+  Vault,
+} from 'lucide-react';
 import {
   Sidebar,
   SidebarContent,
@@ -30,27 +35,10 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from '@/components/ui/shadcn/collapsible';
+import { handleLogout } from '@/lib/utils';
+import { LogoutButton } from '@/components/ui/user-logout';
 
-const items = [
-  { title: 'Home', url: '/' },
-  { title: 'Dashboard', url: '#' },
-  { title: 'Settings', url: '#' },
-  { title: 'Profile', url: '#' },
-  { title: 'Help', url: '#' },
-];
-/**
- * AppSidebar component is a composition of various Sidebar elements to create a complete sidebar layout.
- *
- * The sidebar is structured as follows:
- * - `Sidebar`: The main container for the sidebar.
- * - `SidebarHeader`: A sticky header section at the top of the sidebar.
- * - `SidebarContent`: A scrollable container for the main content of the sidebar.
- * - `SidebarGroup`: A section within the `SidebarContent` to group related items.
- * - `SidebarFooter`: A sticky footer section at the bottom of the sidebar.
- *
- * @returns A fully composed sidebar component with header, content, and footer sections.
- */
-const AdminSidebar = () => {
+const AdminSidebar = async () => {
   return (
     <Sidebar collapsible="icon" variant="floating">
       {/* ? Header Start */}
@@ -59,8 +47,8 @@ const AdminSidebar = () => {
           <SidebarMenuItem>
             <SidebarMenuButton asChild>
               <Link href={'/'}>
-                <Image src={'next.svg'} alt="logo" width={80} height={20} />
-                <span>The Coding Vault</span>
+                <Image src={'vercel.svg'} alt="logo" width={20} height={20} />
+                <span>TCV Admin Dashboard</span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
@@ -73,32 +61,137 @@ const AdminSidebar = () => {
         {/* ? Group 1 Start */}
         <Collapsible className="group/collapsible">
           <SidebarGroup>
-            <SidebarGroupLabel asChild>
-              <CollapsibleTrigger>
-                <FontAwesomeIcon icon={iconMap.html} />
-                <SidebarMenuBadge>5</SidebarMenuBadge>
-                HTML
-                <ChevronDown className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180" />
-              </CollapsibleTrigger>
-            </SidebarGroupLabel>
+            <div className="flex items-center gap-2">
+              <Vault className="h-5 w-5 shrink-0" />
+              <SidebarGroupLabel asChild>
+                <CollapsibleTrigger className="flex flex-1 items-center gap-2">
+                  <span className="text-lg font-semibold">Vault Entries</span>
+                  <ChevronDown className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180" />
+                </CollapsibleTrigger>
+              </SidebarGroupLabel>
+            </div>
             <CollapsibleContent>
               <SidebarGroupContent>
                 <SidebarMenuSub>
-                  {items.map((item) => (
-                    <SidebarMenuSubItem key={item.title}>
-                      <SidebarMenuButton asChild isActive>
-                        <Link href={item.url}>
-                          <span>{item.title}</span>
-                        </Link>
-                      </SidebarMenuButton>
-                    </SidebarMenuSubItem>
-                  ))}
+                  <SidebarMenuSubItem>
+                    <SidebarMenuButton>
+                      <Link href={`/`}>
+                        <span>All Entries</span>
+                      </Link>
+                    </SidebarMenuButton>
+                    <SidebarMenuBadge className="text-sm">(3)</SidebarMenuBadge>
+                  </SidebarMenuSubItem>
+                </SidebarMenuSub>
+              </SidebarGroupContent>
+              <SidebarGroupContent>
+                <SidebarMenuSub>
+                  <SidebarMenuSubItem>
+                    <SidebarMenuButton>
+                      <Link href={`/`}>
+                        <span>Publisehd Entries</span>
+                      </Link>
+                    </SidebarMenuButton>
+                    <SidebarMenuBadge className="text-sm">(3)</SidebarMenuBadge>
+                  </SidebarMenuSubItem>
+                </SidebarMenuSub>
+              </SidebarGroupContent>
+              <SidebarGroupContent>
+                <SidebarMenuSub>
+                  <SidebarMenuSubItem>
+                    <SidebarMenuButton>
+                      <Link href={`/`}>
+                        <span>Unpublished Entries</span>
+                      </Link>
+                      <SidebarMenuBadge className="text-sm">
+                        (3)
+                      </SidebarMenuBadge>
+                    </SidebarMenuButton>
+                  </SidebarMenuSubItem>
                 </SidebarMenuSub>
               </SidebarGroupContent>
             </CollapsibleContent>
           </SidebarGroup>
         </Collapsible>
         {/* ? Group 1 End */}
+        {/* ? Group 2 Start */}
+        <Collapsible className="group/collapsible">
+          <SidebarGroup>
+            <div className="flex items-center gap-2">
+              <NotebookPen className="h-5 w-5 shrink-0" />
+              <SidebarGroupLabel asChild>
+                <CollapsibleTrigger className="flex flex-1 items-center gap-2">
+                  <span className="text-lg font-semibold">New Entries</span>
+                  <ChevronDown className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180" />
+                </CollapsibleTrigger>
+              </SidebarGroupLabel>
+            </div>
+            <CollapsibleContent>
+              <SidebarGroupContent>
+                <SidebarMenuSub>
+                  <SidebarMenuSubItem>
+                    <SidebarMenuButton>
+                      <Link href={``}>
+                        <span>Submit Entry</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuSubItem>
+                </SidebarMenuSub>
+              </SidebarGroupContent>
+            </CollapsibleContent>
+          </SidebarGroup>
+        </Collapsible>
+        {/* ? Group 2 End */}
+        {/* ? Group 3 Start */}
+        <Collapsible className="group/collapsible">
+          <SidebarGroup>
+            <div className="flex items-center gap-2">
+              <Users className="h-5 w-5 shrink-0" />
+              <SidebarGroupLabel asChild>
+                <CollapsibleTrigger className="flex flex-1 items-center gap-2">
+                  <span className="text-lg font-semibold">User Management</span>
+                  <ChevronDown className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180" />
+                </CollapsibleTrigger>
+              </SidebarGroupLabel>
+            </div>
+            <CollapsibleContent>
+              <SidebarGroupContent>
+                <SidebarMenuSub>
+                  <SidebarMenuSubItem>
+                    <SidebarMenuButton>
+                      <Link href={``}>
+                        <span>All Users</span>
+                      </Link>
+                    </SidebarMenuButton>
+                    <SidebarMenuBadge className="text-sm">(3)</SidebarMenuBadge>
+                  </SidebarMenuSubItem>
+                </SidebarMenuSub>
+              </SidebarGroupContent>
+              <SidebarGroupContent>
+                <SidebarMenuSub>
+                  <SidebarMenuSubItem>
+                    <SidebarMenuButton>
+                      <Link href={``}>
+                        <span>Create New User</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuSubItem>
+                </SidebarMenuSub>
+              </SidebarGroupContent>
+              <SidebarGroupContent>
+                <SidebarMenuSub>
+                  <SidebarMenuSubItem>
+                    <SidebarMenuButton>
+                      <Link href={``}>
+                        <span>Delete User</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuSubItem>
+                </SidebarMenuSub>
+              </SidebarGroupContent>
+            </CollapsibleContent>
+          </SidebarGroup>
+        </Collapsible>
+        {/* ? Group 3 End */}
       </SidebarContent>
       {/* ? Content End */}
       <SidebarSeparator />
@@ -114,7 +207,9 @@ const AdminSidebar = () => {
                 </SidebarMenuButton>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
-                <DropdownMenuItem>Login</DropdownMenuItem>
+                <DropdownMenuItem>
+                  <LogoutButton />
+                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </SidebarMenuItem>
