@@ -43,12 +43,16 @@ import {
   canManageUsers,
   canSubmitEntry,
   canViewEntries,
+  getAdminPrefix,
 } from '@/lib/roles';
 
 const AdminSidebar = async () => {
   const token = await getCookie('token');
   if (!token) return null;
   const loggedInUser = await verifyJWT(token);
+  const adminPrefix = loggedInUser
+    ? getAdminPrefix(loggedInUser.role)
+    : '/admin/dashboard';
   return (
     <Sidebar collapsible="icon" variant="floating">
       {/* ? Header Start */}
@@ -56,7 +60,7 @@ const AdminSidebar = async () => {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton asChild>
-              <Link href={'/admin/dashboard'}>
+              <Link href={`${adminPrefix}`} prefetch={false}>
                 <Image src={'vercel.svg'} alt="logo" width={20} height={20} />
                 <span>TCV Admin Dashboard</span>
               </Link>
@@ -87,7 +91,9 @@ const AdminSidebar = async () => {
                     <SidebarMenuSub>
                       <SidebarMenuSubItem>
                         <SidebarMenuButton>
-                          <Link href={'/admin/dashboard/entries/all'}>
+                          <Link
+                            href={`${adminPrefix}/entries/all`}
+                            prefetch={false}>
                             <span>All Entries</span>
                           </Link>
                         </SidebarMenuButton>
@@ -101,8 +107,10 @@ const AdminSidebar = async () => {
                     <SidebarMenuSub>
                       <SidebarMenuSubItem>
                         <SidebarMenuButton>
-                          <Link href={'/admin/dashboard/entries/published'}>
-                            <span>Publisehd Entries</span>
+                          <Link
+                            href={`${adminPrefix}/entries/published`}
+                            prefetch={false}>
+                            <span>Published Entries</span>
                           </Link>
                         </SidebarMenuButton>
                         <SidebarMenuBadge className="text-sm">
@@ -115,7 +123,9 @@ const AdminSidebar = async () => {
                     <SidebarMenuSub>
                       <SidebarMenuSubItem>
                         <SidebarMenuButton>
-                          <Link href={'/admin/dashboard/entries/unpublished'}>
+                          <Link
+                            href={`${adminPrefix}/entries/unpublished`}
+                            prefetch={false}>
                             <span>Unpublished Entries</span>
                           </Link>
                           <SidebarMenuBadge className="text-sm">
@@ -132,7 +142,9 @@ const AdminSidebar = async () => {
                   <SidebarMenuSub>
                     <SidebarMenuSubItem>
                       <SidebarMenuButton>
-                        <Link href={'/admin/dashboard/entries/delete'}>
+                        <Link
+                          href={`${adminPrefix}/entries/delete`}
+                          prefetch={false}>
                           <span>Delete Entry</span>
                         </Link>
                       </SidebarMenuButton>
@@ -162,7 +174,9 @@ const AdminSidebar = async () => {
                   <SidebarMenuSub>
                     <SidebarMenuSubItem>
                       <SidebarMenuButton>
-                        <Link href={'/admin/dashboard/entries/submit'}>
+                        <Link
+                          href={`${adminPrefix}/entries/submit`}
+                          prefetch={false}>
                           <span>Submit Entry</span>
                         </Link>
                       </SidebarMenuButton>
@@ -194,7 +208,9 @@ const AdminSidebar = async () => {
                   <SidebarMenuSub>
                     <SidebarMenuSubItem>
                       <SidebarMenuButton>
-                        <Link href={'/admin/dashboard/users/all'}>
+                        <Link
+                          href={`${adminPrefix}/users/all`}
+                          prefetch={false}>
                           <span>All Users</span>
                         </Link>
                       </SidebarMenuButton>
@@ -208,7 +224,9 @@ const AdminSidebar = async () => {
                   <SidebarMenuSub>
                     <SidebarMenuSubItem>
                       <SidebarMenuButton>
-                        <Link href={'/admin/dashboard/users/create'}>
+                        <Link
+                          href={`${adminPrefix}/users/create`}
+                          prefetch={false}>
                           <span>Create New User</span>
                         </Link>
                       </SidebarMenuButton>
@@ -219,7 +237,9 @@ const AdminSidebar = async () => {
                   <SidebarMenuSub>
                     <SidebarMenuSubItem>
                       <SidebarMenuButton>
-                        <Link href={'/admin/dashboard/users/delete'}>
+                        <Link
+                          href={`${adminPrefix}/users/delete`}
+                          prefetch={false}>
                           <span>Delete User</span>
                         </Link>
                       </SidebarMenuButton>
@@ -247,7 +267,9 @@ const AdminSidebar = async () => {
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 <DropdownMenuItem>
-                  <Link href={'/'}>Vault</Link>
+                  <Link href={'/'} prefetch={false}>
+                    Vault
+                  </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem variant="destructive">
                   <LogoutButton />
