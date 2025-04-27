@@ -37,8 +37,9 @@ import { headers } from 'next/headers';
 const VaultSidebar = async () => {
   const categories: Array<ICategories> = await getCategories();
   const headersList = await headers();
-  const referer = headersList.get('referer') || '';
-  const pathname = referer ? new URL(referer).pathname : '';
+  const pathname = headersList.get('x-pathname') || '';
+  // const referer = headersList.get('referer') || '';
+  // const pathname = referer ? new URL(referer).pathname : '';
 
   return (
     <Sidebar collapsible="icon" variant="floating">
@@ -60,10 +61,9 @@ const VaultSidebar = async () => {
       {/* ? Content Start */}
       <SidebarContent>
         {/* ? Group Start */}
-        {/* {categories &&
-          categories.entries &&
-          categories.entries.length > 0 && */}
         {categories &&
+          categories.entries &&
+          categories.entries.length > 0 &&
           categories.map((category) => (
             <Collapsible key={category.name} className="group/collapsible">
               <SidebarGroup>
@@ -90,15 +90,19 @@ const VaultSidebar = async () => {
                   <SidebarGroupContent>
                     <SidebarMenuSub>
                       <SidebarMenuSubItem key={category.name}>
-                        <SidebarMenuButton
-                          asChild
-                          isActive={pathname.startsWith(
-                            `/vault/${category.slug}`,
-                          )}>
-                          <Link href={`/vault/${category.slug}`}>
-                            <span>{category.name}</span>
-                          </Link>
-                        </SidebarMenuButton>
+                        {category.entries &&
+                          category.entries.map((entry) => (
+                            <SidebarMenuButton
+                              key={entry.slug}
+                              asChild
+                              isActive={pathname.startsWith(
+                                `/vault/${entry.slug}`,
+                              )}>
+                              <Link href={`/vault/${entry.slug}`}>
+                                <span>{entry.title}</span>
+                              </Link>
+                            </SidebarMenuButton>
+                          ))}
                       </SidebarMenuSubItem>
                     </SidebarMenuSub>
                   </SidebarGroupContent>
@@ -106,7 +110,7 @@ const VaultSidebar = async () => {
               </SidebarGroup>
             </Collapsible>
           ))}
-        {/* ? Group 1 End */}
+        {/* ? Group End */}
       </SidebarContent>
       {/* ? Content End */}
       <SidebarSeparator />
