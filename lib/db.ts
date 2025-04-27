@@ -1,24 +1,17 @@
-// import { cache } from 'react';
-// import prisma from './prisma';
+import { cache } from 'react';
+import prisma from './prisma';
+import { ICategories } from './types';
 
-// const fetchEntriesMetadata = cache(
-//   async (): Promise<
-//     Array<{
-//       slug: string;
-//       title: string;
-//       category: string;
-//     }>
-//   > => {
-//     return prisma.vaultEntry.findMany({
-//       select: { slug: true, title: true, category: true },
-//       where: { published: true },
-//     });
-//   },
-// );
+const getCategories = cache(
+  async (): Promise<Array<ICategories>> =>
+    await prisma.category.findMany({
+      orderBy: { order: 'asc' },
+    }),
+);
+// const getEntryBySlug = async () => {};
 // const fetchEntryBySlug = async () => {};
 // // const getEntryBySlug = async () => {};
 // // const getEntryBySlug = async () => {};
 // // const getEntryBySlug = async () => {};
-// // const getEntryBySlug = async () => {};
 
-// export { fetchEntryBySlug, fetchEntriesMetadata };
+export { getCategories };
