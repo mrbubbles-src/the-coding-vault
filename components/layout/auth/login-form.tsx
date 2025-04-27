@@ -3,7 +3,6 @@ import { IInputs } from '@/lib/types';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import Spinner from '@/components/ui/loading/spinner';
 import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
 import {
   Form,
   FormControl,
@@ -15,7 +14,6 @@ import {
 import { Button } from '../../ui/shadcn/button';
 import { Input } from '../../ui/shadcn/input';
 const LoginForm = () => {
-  const router = useRouter();
   const form = useForm<IInputs>({
     defaultValues: { username: '', password: '' },
   });
@@ -33,8 +31,8 @@ const LoginForm = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       });
-      if (res.ok) {
-        router.push('/admin/dashboard');
+      if (res.redirected) {
+        window.location.href = res.url;
       } else {
         const error = await res.json();
         console.error('Login fehlgeschlagen:', error.msg);
