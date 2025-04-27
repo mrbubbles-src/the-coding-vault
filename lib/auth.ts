@@ -31,4 +31,15 @@ const verifyRole = async (requiredRole: TRole): Promise<boolean> => {
   }
 };
 
-export { createJWT, verifyJWT, verifyRole };
+const logoutUser = async () => {
+  try {
+    const res = await fetch('/api/auth/logout', {
+      method: 'POST',
+    });
+    return res;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export { createJWT, verifyJWT, verifyRole, logoutUser };

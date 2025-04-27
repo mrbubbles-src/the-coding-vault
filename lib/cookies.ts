@@ -28,4 +28,5 @@ const getCookie = async (cookieName: string): Promise<string | undefined> => {
   const cookieResponse = cookie.get(cookieName);
   return cookieResponse?.value;
 };
+
 export { createCookie, getCookie };
