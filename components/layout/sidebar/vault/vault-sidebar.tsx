@@ -75,12 +75,12 @@ const VaultSidebar = async () => {
                       <span className="text-lg font-semibold">
                         {category.name}
                       </span>
-                      {/* <aside className="flex justify-around"> */}
-                      <SidebarMenuBadge className="text-[1.2rem]">
-                        55
-                      </SidebarMenuBadge>
-                      <ChevronDown className="mr-2 ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180" />
-                      {/* </aside> */}
+                      <aside className="flex justify-around">
+                        <SidebarMenuBadge className="text-[1.2rem]">
+                          55
+                        </SidebarMenuBadge>
+                        <ChevronDown className="mr-2 ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180" />
+                      </aside>
                     </CollapsibleTrigger>
                   </SidebarGroupLabel>
                 </div>
