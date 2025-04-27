@@ -2,6 +2,7 @@ export type TRole = 'SUPERADMIN' | 'MODERATOR' | 'GUEST';
 
 export interface IJWT {
   id: string;
+  username: string;
   role: TRole;
 }
 
