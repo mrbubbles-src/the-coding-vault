@@ -60,7 +60,7 @@ const VaultSidebar = async () => {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton asChild>
-              <Link href={'/'}>
+              <Link href={'/'} prefetch={false}>
                 <Image src={'vercel.svg'} alt="logo" width={20} height={20} />
                 <span>The Coding Vault</span>
               </Link>
@@ -110,7 +110,9 @@ const VaultSidebar = async () => {
                               isActive={pathname.startsWith(
                                 `/vault/${entry.slug}`,
                               )}>
-                              <Link href={`/vault/${entry.slug}`}>
+                              <Link
+                                href={`/vault/${entry.slug}`}
+                                prefetch={false}>
                                 <span>{entry.title}</span>
                               </Link>
                             </SidebarMenuButton>
@@ -140,9 +142,13 @@ const VaultSidebar = async () => {
               <DropdownMenuContent align="end">
                 <DropdownMenuItem>
                   {loggedInUser ? (
-                    <Link href={'/admin/dashboard'}>Admin Panel</Link>
+                    <Link href={'/admin/dashboard'} prefetch={false}>
+                      Admin Panel
+                    </Link>
                   ) : (
-                    <Link href={'/admin/login'}>Login</Link>
+                    <Link href={'/admin/login'} prefetch={false}>
+                      Login
+                    </Link>
                   )}
                 </DropdownMenuItem>
                 {loggedInUser ? (
