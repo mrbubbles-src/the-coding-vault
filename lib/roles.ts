@@ -10,4 +10,8 @@ const canSubmitEntry = (role: string) => {
   return ['SUPERADMIN', 'MODERATOR', 'GUEST'].includes(role);
 };
 
-export { canDeleteEntry, canManageUsers, canSubmitEntry };
+const canViewEntries = (role: string) => {
+  return ['SUPERADMIN', 'MODERATOR', 'GUEST'].includes(role);
+};
+
+export { canDeleteEntry, canManageUsers, canSubmitEntry, canViewEntries };
