@@ -7,6 +7,9 @@ const nextConfig: NextConfig = {
   pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
   // Optionally, add any other Next.js config below
   serverExternalPackages: ['@prisma/client'],
+  experimental: {
+    useCache: true,
+  },
 };
 const withMDX = createMDX({
   // Add markdown plugins here, as desired
