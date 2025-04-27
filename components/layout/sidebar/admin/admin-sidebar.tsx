@@ -56,7 +56,7 @@ const AdminSidebar = async () => {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton asChild>
-              <Link href={'/'}>
+              <Link href={'/admin/dashboard'}>
                 <Image src={'vercel.svg'} alt="logo" width={20} height={20} />
                 <span>TCV Admin Dashboard</span>
               </Link>
@@ -87,7 +87,7 @@ const AdminSidebar = async () => {
                     <SidebarMenuSub>
                       <SidebarMenuSubItem>
                         <SidebarMenuButton>
-                          <Link href={`/`}>
+                          <Link href={'/admin/dashboard/entries/all'}>
                             <span>All Entries</span>
                           </Link>
                         </SidebarMenuButton>
@@ -101,7 +101,7 @@ const AdminSidebar = async () => {
                     <SidebarMenuSub>
                       <SidebarMenuSubItem>
                         <SidebarMenuButton>
-                          <Link href={`/`}>
+                          <Link href={'/admin/dashboard/entries/published'}>
                             <span>Publisehd Entries</span>
                           </Link>
                         </SidebarMenuButton>
@@ -115,7 +115,7 @@ const AdminSidebar = async () => {
                     <SidebarMenuSub>
                       <SidebarMenuSubItem>
                         <SidebarMenuButton>
-                          <Link href={`/`}>
+                          <Link href={'/admin/dashboard/entries/unpublished'}>
                             <span>Unpublished Entries</span>
                           </Link>
                           <SidebarMenuBadge className="text-sm">
@@ -132,7 +132,7 @@ const AdminSidebar = async () => {
                   <SidebarMenuSub>
                     <SidebarMenuSubItem>
                       <SidebarMenuButton>
-                        <Link href={`/`}>
+                        <Link href={'/admin/dashboard/entries/delete'}>
                           <span>Delete Entry</span>
                         </Link>
                       </SidebarMenuButton>
@@ -162,7 +162,7 @@ const AdminSidebar = async () => {
                   <SidebarMenuSub>
                     <SidebarMenuSubItem>
                       <SidebarMenuButton>
-                        <Link href={``}>
+                        <Link href={'/admin/dashboard/entries/submit'}>
                           <span>Submit Entry</span>
                         </Link>
                       </SidebarMenuButton>
@@ -194,7 +194,7 @@ const AdminSidebar = async () => {
                   <SidebarMenuSub>
                     <SidebarMenuSubItem>
                       <SidebarMenuButton>
-                        <Link href={``}>
+                        <Link href={'/admin/dashboard/users/all'}>
                           <span>All Users</span>
                         </Link>
                       </SidebarMenuButton>
@@ -208,7 +208,7 @@ const AdminSidebar = async () => {
                   <SidebarMenuSub>
                     <SidebarMenuSubItem>
                       <SidebarMenuButton>
-                        <Link href={``}>
+                        <Link href={'/admin/dashboard/users/create'}>
                           <span>Create New User</span>
                         </Link>
                       </SidebarMenuButton>
@@ -219,7 +219,7 @@ const AdminSidebar = async () => {
                   <SidebarMenuSub>
                     <SidebarMenuSubItem>
                       <SidebarMenuButton>
-                        <Link href={``}>
+                        <Link href={'/admin/dashboard/users/delete'}>
                           <span>Delete User</span>
                         </Link>
                       </SidebarMenuButton>
