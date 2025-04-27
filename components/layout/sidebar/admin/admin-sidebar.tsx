@@ -13,7 +13,6 @@ import {
   SidebarMenuBadge,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarMenuSkeleton,
   SidebarMenuSub,
   SidebarMenuSubItem,
   SidebarSeparator,
@@ -31,7 +30,6 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from '@/components/ui/shadcn/collapsible';
-import { cn } from '@/lib/utils';
 
 const items = [
   { title: 'Home', url: '/' },
@@ -74,7 +72,6 @@ const AdminSidebar = () => {
       <SidebarContent>
         {/* ? Group 1 Start */}
         <Collapsible className="group/collapsible">
-          {/* <SidebarMenuSkeleton />  ladezustand simulieren */}
           <SidebarGroup>
             <SidebarGroupLabel asChild>
               <CollapsibleTrigger>
