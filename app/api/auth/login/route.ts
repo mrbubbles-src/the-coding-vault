@@ -28,7 +28,11 @@ export async function POST(req: Request) {
     );
 
   try {
-    const token = await createJWT({ id: user.id, role: user.role });
+    const token = await createJWT({
+      id: user.id,
+      username: user.username,
+      role: user.role,
+    });
     await createCookie(token);
     return NextResponse.json({ success: true });
   } catch (error) {
