@@ -1,8 +1,8 @@
+import { redirect } from 'next/navigation';
 import { createJWT } from '@/lib/auth';
 import { createCookie } from '@/lib/cookies';
 import prisma from '@/lib/prisma';
 import bcrypt from 'bcryptjs';
-import { revalidatePath } from 'next/cache';
 import { NextResponse } from 'next/server';
 
 export async function POST(req: Request) {
@@ -34,7 +34,8 @@ export async function POST(req: Request) {
       role: user.role,
     });
     await createCookie(token);
-    return NextResponse.json({ success: true });
+
+    return NextResponse.redirect(new URL('/admin/dashboard', req.url));
   } catch (error) {
     return NextResponse.json(
       {
@@ -43,7 +44,5 @@ export async function POST(req: Request) {
       },
       { status: 401, statusText: 'Unauthorized' },
     );
-  } finally {
-    revalidatePath('/admin/dashboard');
   }
 }
