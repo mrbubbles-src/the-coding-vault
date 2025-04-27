@@ -7,28 +7,28 @@ import { PanelLeftIcon } from 'lucide-react';
 
 import { useIsMobile } from '@/hooks/use-mobile';
 import { cn } from '@/lib/utils';
-import { Button } from '@/components/ui/sidebar/shadcn/button';
-import { Input } from '@/components/ui/sidebar/shadcn/input';
-import { Separator } from '@/components/ui/sidebar/shadcn/separator';
+import { Button } from '@/components/ui/shadcn/button';
+import { Input } from '@/components/ui/shadcn/input';
+import { Separator } from '@/components/ui/shadcn/separator';
 import {
   Sheet,
   SheetContent,
   SheetDescription,
   SheetHeader,
   SheetTitle,
-} from '@/components/ui/sidebar/shadcn/sheet';
-import { Skeleton } from '@/components/ui/sidebar/shadcn/skeleton';
+} from '@/components/ui/shadcn/sheet';
+import { Skeleton } from '@/components/ui/shadcn/skeleton';
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '@/components/ui/sidebar/shadcn/tooltip';
+} from '@/components/ui/shadcn/tooltip';
 
 const SIDEBAR_COOKIE_NAME = 'sidebar_state';
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7;
-const SIDEBAR_WIDTH = '16rem';
-const SIDEBAR_WIDTH_MOBILE = '18rem';
+const SIDEBAR_WIDTH = '20rem';
+const SIDEBAR_WIDTH_MOBILE = '20rem';
 const SIDEBAR_WIDTH_ICON = '3rem';
 const SIDEBAR_KEYBOARD_SHORTCUT = 'b';
 
@@ -352,12 +352,14 @@ function SidebarSeparator({
   ...props
 }: React.ComponentProps<typeof Separator>) {
   return (
-    <Separator
-      data-slot="sidebar-separator"
-      data-sidebar="separator"
-      className={cn('bg-sidebar-border mx-2 w-auto', className)}
-      {...props}
-    />
+    <div className="px-2">
+      <Separator
+        data-slot="sidebar-separator"
+        data-sidebar="separator"
+        className={cn('bg-sidebar-border w-full', className)}
+        {...props}
+      />
+    </div>
   );
 }
 
