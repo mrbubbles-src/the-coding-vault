@@ -33,6 +33,7 @@ import {
 import { getCategories } from '@/lib/db';
 import { ICategories } from '@/lib/types';
 import { headers } from 'next/headers';
+import { getCookie } from '@/lib/cookies';
 
 const VaultSidebar = async () => {
   const categories: Array<ICategories> = await getCategories();
@@ -40,6 +41,7 @@ const VaultSidebar = async () => {
   const pathname = headersList.get('x-pathname') || '';
   // const referer = headersList.get('referer') || '';
   // const pathname = referer ? new URL(referer).pathname : '';
+  const loggedInUser = await getCookie('token');
 
   return (
     <Sidebar collapsible="icon" variant="floating">
@@ -126,7 +128,13 @@ const VaultSidebar = async () => {
                 </SidebarMenuButton>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
-                <DropdownMenuItem>Login</DropdownMenuItem>
+                <DropdownMenuItem>
+                  {loggedInUser ? (
+                    <Link href={'/admin/dashboard'}>Admin Panel</Link>
+                  ) : (
+                    <Link href={'/admin/login'}>Login</Link>
+                  )}
+                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </SidebarMenuItem>
