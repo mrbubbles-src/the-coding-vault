@@ -38,7 +38,12 @@ import {
 import { LogoutButton } from '@/components/ui/user-logout';
 import { getCookie } from '@/lib/cookies';
 import { verifyJWT } from '@/lib/auth';
-import { canDeleteEntry, canManageUsers } from '@/lib/roles';
+import {
+  canDeleteEntry,
+  canManageUsers,
+  canSubmitEntry,
+  canViewEntries,
+} from '@/lib/roles';
 
 const AdminSidebar = async () => {
   const token = await getCookie('token');
@@ -76,44 +81,52 @@ const AdminSidebar = async () => {
               </SidebarGroupLabel>
             </div>
             <CollapsibleContent>
-              <SidebarGroupContent>
-                <SidebarMenuSub>
-                  <SidebarMenuSubItem>
-                    <SidebarMenuButton>
-                      <Link href={`/`}>
-                        <span>All Entries</span>
-                      </Link>
-                    </SidebarMenuButton>
-                    <SidebarMenuBadge className="text-sm">(3)</SidebarMenuBadge>
-                  </SidebarMenuSubItem>
-                </SidebarMenuSub>
-              </SidebarGroupContent>
-              <SidebarGroupContent>
-                <SidebarMenuSub>
-                  <SidebarMenuSubItem>
-                    <SidebarMenuButton>
-                      <Link href={`/`}>
-                        <span>Publisehd Entries</span>
-                      </Link>
-                    </SidebarMenuButton>
-                    <SidebarMenuBadge className="text-sm">(3)</SidebarMenuBadge>
-                  </SidebarMenuSubItem>
-                </SidebarMenuSub>
-              </SidebarGroupContent>
-              <SidebarGroupContent>
-                <SidebarMenuSub>
-                  <SidebarMenuSubItem>
-                    <SidebarMenuButton>
-                      <Link href={`/`}>
-                        <span>Unpublished Entries</span>
-                      </Link>
-                      <SidebarMenuBadge className="text-sm">
-                        (3)
-                      </SidebarMenuBadge>
-                    </SidebarMenuButton>
-                  </SidebarMenuSubItem>
-                </SidebarMenuSub>
-              </SidebarGroupContent>
+              {loggedInUser && canViewEntries(loggedInUser.role) && (
+                <>
+                  <SidebarGroupContent>
+                    <SidebarMenuSub>
+                      <SidebarMenuSubItem>
+                        <SidebarMenuButton>
+                          <Link href={`/`}>
+                            <span>All Entries</span>
+                          </Link>
+                        </SidebarMenuButton>
+                        <SidebarMenuBadge className="text-sm">
+                          (3)
+                        </SidebarMenuBadge>
+                      </SidebarMenuSubItem>
+                    </SidebarMenuSub>
+                  </SidebarGroupContent>
+                  <SidebarGroupContent>
+                    <SidebarMenuSub>
+                      <SidebarMenuSubItem>
+                        <SidebarMenuButton>
+                          <Link href={`/`}>
+                            <span>Publisehd Entries</span>
+                          </Link>
+                        </SidebarMenuButton>
+                        <SidebarMenuBadge className="text-sm">
+                          (3)
+                        </SidebarMenuBadge>
+                      </SidebarMenuSubItem>
+                    </SidebarMenuSub>
+                  </SidebarGroupContent>
+                  <SidebarGroupContent>
+                    <SidebarMenuSub>
+                      <SidebarMenuSubItem>
+                        <SidebarMenuButton>
+                          <Link href={`/`}>
+                            <span>Unpublished Entries</span>
+                          </Link>
+                          <SidebarMenuBadge className="text-sm">
+                            (3)
+                          </SidebarMenuBadge>
+                        </SidebarMenuButton>
+                      </SidebarMenuSubItem>
+                    </SidebarMenuSub>
+                  </SidebarGroupContent>
+                </>
+              )}
               {loggedInUser && canDeleteEntry(loggedInUser.role) && (
                 <SidebarGroupContent>
                   <SidebarMenuSub>
@@ -132,32 +145,34 @@ const AdminSidebar = async () => {
         </Collapsible>
         {/* ? Group 1 End */}
         {/* ? Group 2 Start */}
-        <Collapsible className="group/collapsible">
-          <SidebarGroup>
-            <div className="flex items-center gap-2">
-              <NotebookPen className="h-5 w-5 shrink-0" />
-              <SidebarGroupLabel asChild>
-                <CollapsibleTrigger className="flex flex-1 items-center gap-2">
-                  <span className="text-lg font-semibold">New Entries</span>
-                  <ChevronDown className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180" />
-                </CollapsibleTrigger>
-              </SidebarGroupLabel>
-            </div>
-            <CollapsibleContent>
-              <SidebarGroupContent>
-                <SidebarMenuSub>
-                  <SidebarMenuSubItem>
-                    <SidebarMenuButton>
-                      <Link href={``}>
-                        <span>Submit Entry</span>
-                      </Link>
-                    </SidebarMenuButton>
-                  </SidebarMenuSubItem>
-                </SidebarMenuSub>
-              </SidebarGroupContent>
-            </CollapsibleContent>
-          </SidebarGroup>
-        </Collapsible>
+        {loggedInUser && canSubmitEntry(loggedInUser.role) && (
+          <Collapsible className="group/collapsible">
+            <SidebarGroup>
+              <div className="flex items-center gap-2">
+                <NotebookPen className="h-5 w-5 shrink-0" />
+                <SidebarGroupLabel asChild>
+                  <CollapsibleTrigger className="flex flex-1 items-center gap-2">
+                    <span className="text-lg font-semibold">New Entries</span>
+                    <ChevronDown className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180" />
+                  </CollapsibleTrigger>
+                </SidebarGroupLabel>
+              </div>
+              <CollapsibleContent>
+                <SidebarGroupContent>
+                  <SidebarMenuSub>
+                    <SidebarMenuSubItem>
+                      <SidebarMenuButton>
+                        <Link href={``}>
+                          <span>Submit Entry</span>
+                        </Link>
+                      </SidebarMenuButton>
+                    </SidebarMenuSubItem>
+                  </SidebarMenuSub>
+                </SidebarGroupContent>
+              </CollapsibleContent>
+            </SidebarGroup>
+          </Collapsible>
+        )}
         {/* ? Group 2 End */}
         {/* ? Group 3 Start */}
         {loggedInUser && canManageUsers(loggedInUser.role) && (
