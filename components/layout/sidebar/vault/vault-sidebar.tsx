@@ -45,7 +45,7 @@ const VaultSidebar = async () => {
           <SidebarMenuItem>
             <SidebarMenuButton asChild>
               <Link href={'/'}>
-                <Image src={'next.svg'} alt="logo" width={80} height={20} />
+                <Image src={'vercel.svg'} alt="logo" width={20} height={20} />
                 <span>The Coding Vault</span>
               </Link>
             </SidebarMenuButton>
