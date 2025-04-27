@@ -34,17 +34,6 @@ import {
 import { getCategories } from '@/lib/db';
 import { ICategories } from '@/lib/types';
 
-// export async function generateStaticParams() {
-//   const categories = await getCategories();
-
-//   return categories.map((category: ICategories) => ({
-//     name: category.name,
-//     slug: category.slug,
-//     iconKey: category.iconKey,
-//     order: category.order,
-//   }));
-// }
-
 const VaultSidebar = async () => {
   const categories: Array<ICategories> = await getCategories();
 
@@ -68,45 +57,49 @@ const VaultSidebar = async () => {
       {/* ? Content Start */}
       <SidebarContent>
         {/* ? Group Start */}
-        {categories.map((category) => (
-          <Collapsible key={category.name} className="group/collapsible">
-            {/* <SidebarMenuSkeleton />  ladezustand simulieren */}
-            <SidebarGroup>
-              <div className="flex items-center gap-2">
-                <FontAwesomeIcon
-                  icon={iconMap[category.iconKey]}
-                  className="h-5 w-5 shrink-0"
-                />
-                <SidebarGroupLabel asChild>
-                  <CollapsibleTrigger className="flex flex-1 items-center gap-2">
-                    <span className="text-lg font-semibold">
-                      {category.name}
-                    </span>
-                    {/* <aside className="flex justify-around"> */}
-                    <SidebarMenuBadge className="text-[1.2rem]">
-                      55
-                    </SidebarMenuBadge>
-                    <ChevronDown className="mr-2 ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180" />
-                    {/* </aside> */}
-                  </CollapsibleTrigger>
-                </SidebarGroupLabel>
-              </div>
-              <CollapsibleContent>
-                <SidebarGroupContent>
-                  <SidebarMenuSub>
-                    <SidebarMenuSubItem key={category.name}>
-                      <SidebarMenuButton asChild isActive>
-                        <Link href={`/vault/${category.slug}`}>
-                          <span>{category.name}</span>
-                        </Link>
-                      </SidebarMenuButton>
-                    </SidebarMenuSubItem>
-                  </SidebarMenuSub>
-                </SidebarGroupContent>
-              </CollapsibleContent>
-            </SidebarGroup>
-          </Collapsible>
-        ))}
+        {/* {categories &&
+          categories.entries &&
+          categories.entries.length > 0 && */}
+        {categories &&
+          categories.map((category) => (
+            <Collapsible key={category.name} className="group/collapsible">
+              {/* <SidebarMenuSkeleton />  ladezustand simulieren */}
+              <SidebarGroup>
+                <div className="flex items-center gap-2">
+                  <FontAwesomeIcon
+                    icon={iconMap[category.iconKey]}
+                    className="h-5 w-5 shrink-0"
+                  />
+                  <SidebarGroupLabel asChild>
+                    <CollapsibleTrigger className="flex flex-1 items-center gap-2">
+                      <span className="text-lg font-semibold">
+                        {category.name}
+                      </span>
+                      {/* <aside className="flex justify-around"> */}
+                      <SidebarMenuBadge className="text-[1.2rem]">
+                        55
+                      </SidebarMenuBadge>
+                      <ChevronDown className="mr-2 ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180" />
+                      {/* </aside> */}
+                    </CollapsibleTrigger>
+                  </SidebarGroupLabel>
+                </div>
+                <CollapsibleContent>
+                  <SidebarGroupContent>
+                    <SidebarMenuSub>
+                      <SidebarMenuSubItem key={category.name}>
+                        <SidebarMenuButton asChild isActive>
+                          <Link href={`/vault/${category.slug}`}>
+                            <span>{category.name}</span>
+                          </Link>
+                        </SidebarMenuButton>
+                      </SidebarMenuSubItem>
+                    </SidebarMenuSub>
+                  </SidebarGroupContent>
+                </CollapsibleContent>
+              </SidebarGroup>
+            </Collapsible>
+          ))}
         {/* ? Group 1 End */}
       </SidebarContent>
       {/* ? Content End */}
