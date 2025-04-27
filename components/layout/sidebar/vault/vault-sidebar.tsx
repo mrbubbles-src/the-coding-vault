@@ -34,6 +34,8 @@ import { getCategories } from '@/lib/db';
 import { ICategories } from '@/lib/types';
 import { headers } from 'next/headers';
 import { getCookie } from '@/lib/cookies';
+import { verifyJWT } from '@/lib/auth';
+import { LogoutButton } from '@/components/ui/user-logout';
 
 const VaultSidebar = async () => {
   const categories: Array<ICategories> = await getCategories();
@@ -41,8 +43,16 @@ const VaultSidebar = async () => {
   const pathname = headersList.get('x-pathname') || '';
   // const referer = headersList.get('referer') || '';
   // const pathname = referer ? new URL(referer).pathname : '';
-  const loggedInUser = await getCookie('token');
+  const token = await getCookie('token');
+  let loggedInUser = null;
 
+  if (token) {
+    try {
+      loggedInUser = await verifyJWT(token);
+    } catch (error) {
+      console.error('Token verification failed:', error);
+    }
+  }
   return (
     <Sidebar collapsible="icon" variant="floating">
       {/* ? Header Start */}
@@ -123,7 +133,7 @@ const VaultSidebar = async () => {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <SidebarMenuButton className="group">
-                  <User2 /> Admin{' '}
+                  <User2 /> {loggedInUser ? loggedInUser.username : 'Vaulty'}
                   <ChevronUp className="ml-auto transition-transform group-data-[state=open]:rotate-180" />
                 </SidebarMenuButton>
               </DropdownMenuTrigger>
@@ -135,6 +145,11 @@ const VaultSidebar = async () => {
                     <Link href={'/admin/login'}>Login</Link>
                   )}
                 </DropdownMenuItem>
+                {loggedInUser ? (
+                  <DropdownMenuItem variant="destructive">
+                    <LogoutButton />
+                  </DropdownMenuItem>
+                ) : null}
               </DropdownMenuContent>
             </DropdownMenu>
           </SidebarMenuItem>
