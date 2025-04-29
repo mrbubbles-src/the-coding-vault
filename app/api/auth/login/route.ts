@@ -1,4 +1,3 @@
-import { redirect } from 'next/navigation';
 import { createJWT } from '@/lib/auth';
 import { createCookie } from '@/lib/cookies';
 import prisma from '@/lib/prisma';
