@@ -10,9 +10,9 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '../../ui/shadcn/form';
-import { Button } from '../../ui/shadcn/button';
-import { Input } from '../../ui/shadcn/input';
+} from '@/components/ui/shadcn/form';
+import { Button } from '@/components/ui/shadcn/button';
+import { Input } from '@/components/ui/shadcn/input';
 const LoginForm = () => {
   const form = useForm<IInputs>({
     defaultValues: { username: '', password: '' },
