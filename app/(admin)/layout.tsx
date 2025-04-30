@@ -32,6 +32,23 @@ const poppins = Poppins({
 export const metadata: Metadata = {
   title: 'The Coding Vault',
   description: 'Work in progress. Stay tuned.',
+  openGraph: {
+    title: 'The Coding Vault',
+    description: 'Work in progress. Stay tuned.',
+    images: [
+      {
+        url: '/images/homelogo.svg',
+        width: 1200,
+        height: 630,
+        alt: 'The Coding Vault Hero',
+      },
+    ],
+    type: 'website',
+    locale: 'de_DE',
+  },
+  other: {
+    'apple-mobile-web-app-title': 'The Coding Vault',
+  },
 };
 
 export default async function RootLayout({
