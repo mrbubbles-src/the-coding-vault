@@ -38,6 +38,7 @@ import { headers } from 'next/headers';
 import { getCookie } from '@/lib/cookies';
 import { verifyJWT } from '@/lib/auth';
 import { LogoutButton } from '@/components/ui/user-logout';
+import { Route } from 'next';
 
 const VaultSidebar = async () => {
   const categories: Array<ICategories> = await getCategories();
@@ -118,7 +119,7 @@ const VaultSidebar = async () => {
                                 `/vault/${entry.slug}`,
                               )}>
                               <Link
-                                href={`/vault/${entry.slug}`}
+                                href={`/vault/${entry.slug}` as Route}
                                 prefetch={false}>
                                 <span>{entry.title}</span>
                               </Link>
