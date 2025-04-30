@@ -1,3 +1,5 @@
+import Icon from '@/public/images/icon.svg';
+import Logo from '@/public/images/sidebarlogo.svg';
 import {
   ChevronDown,
   ChevronUp,
@@ -59,10 +61,15 @@ const AdminSidebar = async () => {
       <SidebarHeader className="py-4">
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton asChild>
+            <SidebarMenuButton asChild size={'lg'}>
               <Link href={`${adminPrefix}`} prefetch={false}>
-                <Image src={'vercel.svg'} alt="logo" width={20} height={20} />
-                <span>TCV Admin Dashboard</span>
+                <Image src={Icon} alt="vaulty-icon" width={45} height={45} />
+                <Image
+                  src={Logo}
+                  alt="the-coding-vault-logo"
+                  width={210}
+                  height={45}
+                />
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
@@ -76,7 +83,7 @@ const AdminSidebar = async () => {
         <Collapsible className="group/collapsible">
           <SidebarGroup>
             <div className="flex items-center gap-2">
-              <Vault className="h-5 w-5 shrink-0" />
+              <Vault className="ml-[1.2rem] h-5 w-5 shrink-0" />
               <SidebarGroupLabel asChild>
                 <CollapsibleTrigger className="flex flex-1 items-center gap-2">
                   <span className="text-lg font-semibold">Vault Entries</span>
@@ -161,7 +168,7 @@ const AdminSidebar = async () => {
           <Collapsible className="group/collapsible">
             <SidebarGroup>
               <div className="flex items-center gap-2">
-                <NotebookPen className="h-5 w-5 shrink-0" />
+                <NotebookPen className="ml-[1.2rem] h-5 w-5 shrink-0" />
                 <SidebarGroupLabel asChild>
                   <CollapsibleTrigger className="flex flex-1 items-center gap-2">
                     <span className="text-lg font-semibold">New Entries</span>
@@ -193,7 +200,7 @@ const AdminSidebar = async () => {
           <Collapsible className="group/collapsible">
             <SidebarGroup>
               <div className="flex items-center gap-2">
-                <Users className="h-5 w-5 shrink-0" />
+                <Users className="ml-[1.2rem] h-5 w-5 shrink-0" />
                 <SidebarGroupLabel asChild>
                   <CollapsibleTrigger className="flex flex-1 items-center gap-2">
                     <span className="text-lg font-semibold">
