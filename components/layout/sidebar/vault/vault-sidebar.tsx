@@ -83,7 +83,7 @@ const VaultSidebar = async () => {
         {/* ? Group Start */}
         {categories &&
           categories.entries &&
-          categories.entries.length > 0 &&
+          categories.entries.length === 0 &&
           categories.map((category) => (
             <Collapsible key={category.name} className="group/collapsible">
               <SidebarGroup>
