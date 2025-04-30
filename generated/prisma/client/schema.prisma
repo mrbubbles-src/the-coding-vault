@@ -1,0 +1,85 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+// generator client {
+//   provider = "prisma-client-js"
+//   output   = "../app/generated/prisma"
+// }
+
+// datasource db {
+//   provider = "postgresql"
+//   url      = env("DATABASE_URL")
+// }
+
+generator client {
+  provider   = "prisma-client-js"
+  engineType = "binary"
+  output     = "../generated/prisma/client"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+enum Role {
+  SUPERADMIN
+  MODERATOR
+  GUEST
+}
+
+enum IconKey {
+  git
+  github
+  node
+  html
+  css
+  js
+  react
+  backend
+  database
+  default
+}
+
+model User {
+  id         String       @id @default(uuid())
+  numericId  Int          @unique @default(autoincrement())
+  username   String       @unique
+  password   String
+  email      String       @unique
+  role       Role         @default(GUEST)
+  authorName String?
+  entries    VaultEntry[]
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @default(now())
+}
+
+model Category {
+  id        String       @id @default(uuid())
+  name      String       @unique
+  slug      String       @unique
+  iconKey   IconKey      @default(default)
+  order     Int
+  entries   VaultEntry[]
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @default(now())
+}
+
+model VaultEntry {
+  id         String   @id @default(uuid())
+  numericId  Int      @unique @default(autoincrement())
+  title      String
+  slug       String   @unique
+  content    String
+  categoryId String
+  category   Category @relation(fields: [categoryId], references: [id])
+  authorId   String
+  author     User     @relation(fields: [authorId], references: [id])
+  published  Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @default(now())
+}
