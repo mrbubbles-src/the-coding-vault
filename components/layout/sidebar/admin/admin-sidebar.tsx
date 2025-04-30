@@ -83,7 +83,7 @@ const AdminSidebar = async () => {
         <Collapsible className="group/collapsible">
           <SidebarGroup>
             <div className="flex items-center gap-2">
-              <Vault className="ml-[1.2rem] h-5 w-5 shrink-0" />
+              <Vault className="ml-[0.4rem] h-5 w-5 shrink-0" />
               <SidebarGroupLabel asChild>
                 <CollapsibleTrigger className="flex flex-1 items-center gap-2">
                   <span className="text-lg font-semibold">Vault Entries</span>
@@ -168,7 +168,7 @@ const AdminSidebar = async () => {
           <Collapsible className="group/collapsible">
             <SidebarGroup>
               <div className="flex items-center gap-2">
-                <NotebookPen className="ml-[1.2rem] h-5 w-5 shrink-0" />
+                <NotebookPen className="ml-[0.4rem] h-5 w-5 shrink-0" />
                 <SidebarGroupLabel asChild>
                   <CollapsibleTrigger className="flex flex-1 items-center gap-2">
                     <span className="text-lg font-semibold">New Entries</span>
@@ -200,7 +200,7 @@ const AdminSidebar = async () => {
           <Collapsible className="group/collapsible">
             <SidebarGroup>
               <div className="flex items-center gap-2">
-                <Users className="ml-[1.2rem] h-5 w-5 shrink-0" />
+                <Users className="ml-[0.4rem] h-5 w-5 shrink-0" />
                 <SidebarGroupLabel asChild>
                   <CollapsibleTrigger className="flex flex-1 items-center gap-2">
                     <span className="text-lg font-semibold">

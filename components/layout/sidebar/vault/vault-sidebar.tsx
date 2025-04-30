@@ -82,14 +82,14 @@ const VaultSidebar = async () => {
         {/* ? Group Start */}
         {categories &&
           categories.entries &&
-          categories.entries.length === 0 &&
+          categories.entries.length > 0 &&
           categories.map((category) => (
             <Collapsible key={category.name} className="group/collapsible">
               <SidebarGroup>
                 <div className="flex items-center gap-2">
                   <FontAwesomeIcon
                     icon={iconMap[category.iconKey]}
-                    className="ml-[1.2rem] h-5 w-5 shrink-0"
+                    className="ml-[0.4rem] h-5 w-5 shrink-0"
                   />
                   <SidebarGroupLabel asChild>
                     <CollapsibleTrigger className="flex flex-1 items-center gap-2">
