@@ -1,6 +1,7 @@
 import React, { ComponentPropsWithoutRef } from 'react';
 import Link from 'next/link';
 import { highlight } from 'sugar-high';
+import { Route } from 'next';
 
 type HeadingProps = ComponentPropsWithoutRef<'h1'>;
 type ParagraphProps = ComponentPropsWithoutRef<'p'>;
@@ -53,21 +54,21 @@ const components = {
       'text-blue-500 hover:text-blue-700 dark:text-gray-400 hover:dark:text-gray-300 dark:underline dark:underline-offset-2 dark:decoration-gray-800';
     if (href?.startsWith('/')) {
       return (
-        <Link href={href} className={className} {...props}>
+        <Link href={href as Route} className={className} {...props}>
           {children}
         </Link>
       );
     }
     if (href?.startsWith('#')) {
       return (
-        <a href={href} className={className} {...props}>
+        <a href={href as Route} className={className} {...props}>
           {children}
         </a>
       );
     }
     return (
       <a
-        href={href}
+        href={href as Route}
         target="_blank"
         rel="noopener noreferrer"
         className={className}
