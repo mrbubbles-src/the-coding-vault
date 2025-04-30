@@ -47,6 +47,7 @@ import {
   canViewEntries,
   getAdminPrefix,
 } from '@/lib/roles';
+import { Route } from 'next';
 
 const AdminSidebar = async () => {
   const token = await getCookie('token');
@@ -99,7 +100,7 @@ const AdminSidebar = async () => {
                       <SidebarMenuSubItem>
                         <SidebarMenuButton>
                           <Link
-                            href={`${adminPrefix}/entries/all`}
+                            href={`${adminPrefix}/entries/all` as Route}
                             prefetch={false}>
                             <span>All Entries</span>
                           </Link>
@@ -115,7 +116,7 @@ const AdminSidebar = async () => {
                       <SidebarMenuSubItem>
                         <SidebarMenuButton>
                           <Link
-                            href={`${adminPrefix}/entries/published`}
+                            href={`${adminPrefix}/entries/published` as Route}
                             prefetch={false}>
                             <span>Published Entries</span>
                           </Link>
@@ -131,7 +132,7 @@ const AdminSidebar = async () => {
                       <SidebarMenuSubItem>
                         <SidebarMenuButton>
                           <Link
-                            href={`${adminPrefix}/entries/unpublished`}
+                            href={`${adminPrefix}/entries/unpublished` as Route}
                             prefetch={false}>
                             <span>Unpublished Entries</span>
                           </Link>
@@ -150,7 +151,7 @@ const AdminSidebar = async () => {
                     <SidebarMenuSubItem>
                       <SidebarMenuButton>
                         <Link
-                          href={`${adminPrefix}/entries/delete`}
+                          href={`${adminPrefix}/entries/delete` as Route}
                           prefetch={false}>
                           <span>Delete Entry</span>
                         </Link>
@@ -182,7 +183,7 @@ const AdminSidebar = async () => {
                     <SidebarMenuSubItem>
                       <SidebarMenuButton>
                         <Link
-                          href={`${adminPrefix}/entries/submit`}
+                          href={`${adminPrefix}/entries/submit` as Route}
                           prefetch={false}>
                           <span>Submit Entry</span>
                         </Link>
@@ -216,7 +217,7 @@ const AdminSidebar = async () => {
                     <SidebarMenuSubItem>
                       <SidebarMenuButton>
                         <Link
-                          href={`${adminPrefix}/users/all`}
+                          href={`${adminPrefix}/users/all` as Route}
                           prefetch={false}>
                           <span>All Users</span>
                         </Link>
@@ -232,7 +233,7 @@ const AdminSidebar = async () => {
                     <SidebarMenuSubItem>
                       <SidebarMenuButton>
                         <Link
-                          href={`${adminPrefix}/users/create`}
+                          href={`${adminPrefix}/users/create` as Route}
                           prefetch={false}>
                           <span>Create New User</span>
                         </Link>
@@ -245,7 +246,7 @@ const AdminSidebar = async () => {
                     <SidebarMenuSubItem>
                       <SidebarMenuButton>
                         <Link
-                          href={`${adminPrefix}/users/delete`}
+                          href={`${adminPrefix}/users/delete` as Route}
                           prefetch={false}>
                           <span>Delete User</span>
                         </Link>
