@@ -30,6 +30,9 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000',
+  ),
   title: 'The Coding Vault',
   description: 'Work in progress. Stay tuned.',
   openGraph: {
@@ -38,8 +41,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: '/images/homelogo.svg',
-        width: 1200,
-        height: 630,
+        width: 600,
+        height: 600,
         alt: 'The Coding Vault Hero',
       },
     ],
