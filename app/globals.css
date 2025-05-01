@@ -5,6 +5,7 @@
 
 body {
   font-family: var(--font-montserrat), sans-serif;
+  color: var(--foreground);
 }
 h1,
 h2,
@@ -13,10 +14,39 @@ h4,
 h5,
 h6 {
   font-family: var(--font-poppins), sans-serif;
+  font-weight: 600;
 }
+/* Globale Font für alle Code-Elemente */
 code,
 pre {
   font-family: var(--font-fira-code), var(--font-fira-code-mono), monospace;
+}
+/* Inline-Code Styling */
+code:not(pre code):not(.sh__line):not([class*='sh__token']) {
+  background-color: var(--sidebar);
+  padding: 0.2rem 0.4rem;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  font-style: italic;
+}
+/* Codeblöcke */
+pre code {
+  counter-reset: sh-line-number;
+  background-color: var(--sidebar);
+  padding: 1rem;
+  border-radius: var(--radius);
+  display: block;
+  font-size: 1.2rem;
+  box-shadow: var(--shadow-sm);
+  /* width: fit-content; */
+}
+/* Zeilennummern */
+pre code .sh__line::before {
+  counter-increment: sh-line-number 1;
+  content: counter(sh-line-number);
+  margin-right: 1.5rem;
+  text-align: right;
+  color: oklch(0.72 0 0);
 }
 :root {
   --radius: 0.5rem;
@@ -70,6 +100,18 @@ pre {
     1px 1px 6px 0px rgb(from var(--shadow-color) r g b / 0.1),
     1px 8px 10px -1px rgb(from var(--shadow-color) r g b / 0.1);
   --shadow-2xl: 1px 1px 6px 0px rgb(from var(--shadow-color) r g b / 0.1);
+  --sh-class: oklch(0.82 0.097 82.26);
+  --sh-identifier: oklch(0.67 0.1448 17);
+  --sh-sign: oklch(0.69 0.1635 318.21);
+  --sh-property: oklch(0.73 0.0949 63.82);
+  --sh-entity: oklch(0.73 0.1213 245.3);
+  --sh-jsxliterals: oklch(0.77 0.1103 133);
+  --sh-string: oklch(0.77 0.1103 133);
+  --sh-keyword: oklch(0.69 0.1635 318.21);
+  --sh-number: oklch(0.73 0.0949 63.82);
+  --sh-null: oklch(0.73 0.0949 63.82);
+  --sh-break: oklch(0.69 0.1635 318.21);
+  --sh-comment: oklch(0.5 0.0225 262.91);
 }
 
 .dark {
