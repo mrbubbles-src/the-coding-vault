@@ -12,42 +12,31 @@ type BlockquoteProps = ComponentPropsWithoutRef<'blockquote'>;
 
 const components = {
   h1: (props: HeadingProps) => (
-    <h1 className="mb-0 pt-12 font-medium" {...props} />
+    <h1 className="mt-6 mb-4 text-4xl leading-tight text-pretty" {...props} />
   ),
   h2: (props: HeadingProps) => (
-    <h2
-      className="mt-8 mb-3 font-medium text-gray-800 dark:text-zinc-200"
-      {...props}
-    />
+    <h2 className="mt-4 mb-2 text-2xl leading-tight text-pretty" {...props} />
   ),
   h3: (props: HeadingProps) => (
-    <h3
-      className="mt-8 mb-3 font-medium text-gray-800 dark:text-zinc-200"
-      {...props}
-    />
+    <h3 className="mt-4 mb-2 text-lg leading-tight text-pretty" {...props} />
   ),
-  h4: (props: HeadingProps) => <h4 className="font-medium" {...props} />,
   p: (props: ParagraphProps) => (
-    <p className="leading-snug text-gray-800 dark:text-zinc-300" {...props} />
+    <p className="text-lg leading-relaxed" {...props} />
   ),
   ol: (props: ListProps) => (
-    <ol
-      className="list-decimal space-y-2 pl-5 text-gray-800 dark:text-zinc-300"
-      {...props}
-    />
+    <ol className="list-decimal space-y-2 pl-5" {...props} />
   ),
   ul: (props: ListProps) => (
-    <ul
-      className="list-disc space-y-1 pl-5 text-gray-800 dark:text-zinc-300"
-      {...props}
-    />
+    <ul className="list-disc space-y-1 pl-5" {...props} />
   ),
-  li: (props: ListItemProps) => <li className="pl-1" {...props} />,
+  li: (props: ListItemProps) => (
+    <li className="pl-1 text-lg leading-snug" {...props} />
+  ),
   em: (props: ComponentPropsWithoutRef<'em'>) => (
     <em className="font-medium" {...props} />
   ),
   strong: (props: ComponentPropsWithoutRef<'strong'>) => (
-    <strong className="font-medium" {...props} />
+    <strong className="font-bold" {...props} />
   ),
   a: ({ href, children, ...props }: AnchorProps) => {
     const className =
@@ -103,7 +92,7 @@ const components = {
   ),
   blockquote: (props: BlockquoteProps) => (
     <blockquote
-      className="ml-[0.075em] border-l-3 border-gray-300 pl-4 text-gray-700 dark:border-zinc-600 dark:text-zinc-300"
+      className="text-muted-foreground dark:border-primary border-l-4 pl-5 italic"
       {...props}
     />
   ),
