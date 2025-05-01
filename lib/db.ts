@@ -1,9 +1,11 @@
 // import prisma from './prisma';
+import { Route } from 'next';
 import { ICategories } from './types';
 
 const getCategories = async (): Promise<Array<ICategories>> => {
   try {
-    const res = await fetch('/api/vault/categories', {
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL;
+    const res = await fetch(`${baseUrl}/api/vault/categories` as Route, {
       next: { revalidate: 86400 },
     });
     const data: Array<ICategories> = await res.json();
