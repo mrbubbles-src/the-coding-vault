@@ -35,8 +35,7 @@ import {
 import { getCategories } from '@/lib/db';
 import { ICategories } from '@/lib/types';
 import { headers } from 'next/headers';
-import { getCookie } from '@/lib/cookies';
-import { verifyJWT } from '@/lib/auth';
+import { getCurrentUser } from '@/lib/auth';
 import { LogoutButton } from '@/components/ui/user-logout';
 import { Route } from 'next';
 
@@ -46,16 +45,11 @@ const VaultSidebar = async () => {
   const pathname = headersList.get('x-pathname') || '';
   // const referer = headersList.get('referer') || '';
   // const pathname = referer ? new URL(referer).pathname : '';
-  const token = await getCookie('token');
-  let loggedInUser = null;
 
-  if (token) {
-    try {
-      loggedInUser = await verifyJWT(token);
-    } catch (error) {
-      console.error('Token verification failed:', error);
-    }
-  }
+  const result = await getCurrentUser();
+  if ('error' in result) return null;
+
+  const loggedInUser = result.user;
   return (
     <Sidebar collapsible="icon" variant="floating">
       {/* ? Header Start */}

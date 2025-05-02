@@ -38,24 +38,20 @@ import {
   CollapsibleTrigger,
 } from '@/components/ui/shadcn/collapsible';
 import { LogoutButton } from '@/components/ui/user-logout';
-import { getCookie } from '@/lib/cookies';
-import { verifyJWT } from '@/lib/auth';
+import { getCurrentUser } from '@/lib/auth';
 import {
   canDeleteEntry,
   canManageUsers,
   canSubmitEntry,
   canViewEntries,
-  getAdminPrefix,
 } from '@/lib/roles';
 import { Route } from 'next';
 
 const AdminSidebar = async () => {
-  const token = await getCookie('token');
-  if (!token) return null;
-  const loggedInUser = await verifyJWT(token);
-  const adminPrefix = loggedInUser
-    ? getAdminPrefix(loggedInUser.role)
-    : '/admin/dashboard';
+  const result = await getCurrentUser();
+  if ('error' in result) return null;
+
+  const loggedInUser = result.user;
   return (
     <Sidebar collapsible="icon" variant="floating">
       {/* ? Header Start */}
@@ -63,7 +59,7 @@ const AdminSidebar = async () => {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton asChild size={'lg'}>
-              <Link href={`${adminPrefix}`} prefetch={false}>
+              <Link href={'/admin/dashboard' as Route} prefetch={false}>
                 <Image src={Icon} alt="vaulty-icon" width={45} height={45} />
                 <Image
                   src={Logo}
@@ -100,7 +96,7 @@ const AdminSidebar = async () => {
                       <SidebarMenuSubItem>
                         <SidebarMenuButton>
                           <Link
-                            href={`${adminPrefix}/entries/all` as Route}
+                            href={'/admin/dashboard/entries/all' as Route}
                             prefetch={false}>
                             <span>All Entries</span>
                           </Link>
@@ -116,7 +112,7 @@ const AdminSidebar = async () => {
                       <SidebarMenuSubItem>
                         <SidebarMenuButton>
                           <Link
-                            href={`${adminPrefix}/entries/published` as Route}
+                            href={'/admin/dashboard/entries/published' as Route}
                             prefetch={false}>
                             <span>Published Entries</span>
                           </Link>
@@ -132,7 +128,9 @@ const AdminSidebar = async () => {
                       <SidebarMenuSubItem>
                         <SidebarMenuButton>
                           <Link
-                            href={`${adminPrefix}/entries/unpublished` as Route}
+                            href={
+                              '/admin/dashboard/entries/unpublished' as Route
+                            }
                             prefetch={false}>
                             <span>Unpublished Entries</span>
                           </Link>
@@ -151,7 +149,7 @@ const AdminSidebar = async () => {
                     <SidebarMenuSubItem>
                       <SidebarMenuButton>
                         <Link
-                          href={`${adminPrefix}/entries/delete` as Route}
+                          href={'/admin/dashboard/entries/delete' as Route}
                           prefetch={false}>
                           <span>Delete Entry</span>
                         </Link>
@@ -183,7 +181,7 @@ const AdminSidebar = async () => {
                     <SidebarMenuSubItem>
                       <SidebarMenuButton>
                         <Link
-                          href={`${adminPrefix}/entries/submit` as Route}
+                          href={'/admin/dashboard/entries/submit' as Route}
                           prefetch={false}>
                           <span>Submit Entry</span>
                         </Link>
@@ -217,7 +215,7 @@ const AdminSidebar = async () => {
                     <SidebarMenuSubItem>
                       <SidebarMenuButton>
                         <Link
-                          href={`${adminPrefix}/users/all` as Route}
+                          href={'/admin/dashboard/users/all' as Route}
                           prefetch={false}>
                           <span>All Users</span>
                         </Link>
@@ -233,7 +231,7 @@ const AdminSidebar = async () => {
                     <SidebarMenuSubItem>
                       <SidebarMenuButton>
                         <Link
-                          href={`${adminPrefix}/users/create` as Route}
+                          href={'/admin/dashboard/users/create' as Route}
                           prefetch={false}>
                           <span>Create New User</span>
                         </Link>
@@ -246,7 +244,7 @@ const AdminSidebar = async () => {
                     <SidebarMenuSubItem>
                       <SidebarMenuButton>
                         <Link
-                          href={`${adminPrefix}/users/delete` as Route}
+                          href={'/admin/dashboard/users/delete' as Route}
                           prefetch={false}>
                           <span>Delete User</span>
                         </Link>
