@@ -1,3 +1,5 @@
+import { JWTPayload } from 'jose';
+
 export type TRole = 'SUPERADMIN' | 'MODERATOR' | 'GUEST';
 
 export interface IJWT {
@@ -45,3 +47,7 @@ export interface ICategories {
   order: number;
   entries?: Array<IVaultEntry>;
 }
+
+export type UserResult =
+  | { user: IJWT & JWTPayload }
+  | { error: 'no-token' | 'invalid-token' | 'server-error' };

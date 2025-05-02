@@ -1,6 +1,7 @@
 import { JWTPayload, SignJWT, jwtVerify } from 'jose';
 import { getCookie } from './cookies';
-import { IJWT, TRole } from './types';
+import { IJWT, TRole, UserResult } from './types';
+import { redirect } from 'next/navigation';
 
 const createJWT = async (payload: IJWT & JWTPayload): Promise<string> => {
   const secret = new TextEncoder().encode(process.env.JWT_SECRET);
@@ -31,6 +32,44 @@ const verifyRole = async (requiredRole: TRole): Promise<boolean> => {
   }
 };
 
+const getCurrentUser = async (): Promise<UserResult> => {
+  try {
+    const token = await getCookie('token');
+    if (!token) return { error: 'no-token' };
+    const user = await verifyJWT(token);
+    return { user };
+  } catch (err) {
+    if (err instanceof Error && err.message === 'Invalid JWT payload') {
+      return { error: 'invalid-token' };
+    }
+    console.error('getCurrentUser failed:', err);
+    return { error: 'server-error' };
+  }
+};
+
+const authGuard = async (): Promise<IJWT & JWTPayload> => {
+  const result = await getCurrentUser();
+  if ('error' in result) {
+    redirect('/admin/login');
+  }
+  return result.user;
+};
+
+const multiRoleGuard = async (
+  allowedRoles: TRole[],
+): Promise<IJWT & JWTPayload> => {
+  const result = await getCurrentUser();
+  if ('error' in result) {
+    redirect('/admin/login');
+  }
+
+  if (!allowedRoles.includes(result.user.role)) {
+    redirect('/unauthorized');
+  }
+
+  return result.user;
+};
+
 const logoutUser = async () => {
   try {
     const res = await fetch('/api/auth/logout', {
@@ -42,4 +81,12 @@ const logoutUser = async () => {
   }
 };
 
-export { createJWT, verifyJWT, verifyRole, logoutUser };
+export {
+  createJWT,
+  verifyJWT,
+  verifyRole,
+  getCurrentUser,
+  authGuard,
+  multiRoleGuard,
+  logoutUser,
+};
