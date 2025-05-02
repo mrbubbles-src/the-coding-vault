@@ -74,7 +74,9 @@ export default async function RootLayout({
             <VaultSidebar />
             <div className="flex w-full flex-col py-2 pr-2 pl-1">
               <Navbar />
-              <main className="flex-1 py-2 pr-2 pl-1">{children}</main>
+              <main className="flex flex-1 flex-col py-2 pr-2 pl-1">
+                {children}
+              </main>
               <Footer />
             </div>
           </SidebarProvider>
