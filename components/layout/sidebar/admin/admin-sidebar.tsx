@@ -50,8 +50,8 @@ import { Route } from 'next';
 const AdminSidebar = async () => {
   const result = await getCurrentUser();
   if ('error' in result) return null;
-
   const loggedInUser = result.user;
+
   return (
     <Sidebar collapsible="icon" variant="floating">
       {/* ? Header Start */}

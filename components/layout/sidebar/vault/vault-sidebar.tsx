@@ -46,10 +46,14 @@ const VaultSidebar = async () => {
   // const referer = headersList.get('referer') || '';
   // const pathname = referer ? new URL(referer).pathname : '';
 
+  let loggedInUser = null;
   const result = await getCurrentUser();
-  if ('error' in result) return null;
+  if ('error' in result) {
+    loggedInUser = null;
+  } else {
+    loggedInUser = result.user;
+  }
 
-  const loggedInUser = result.user;
   return (
     <Sidebar collapsible="icon" variant="floating">
       {/* ? Header Start */}
