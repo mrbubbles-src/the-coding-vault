@@ -33,7 +33,6 @@ export async function POST(req: Request) {
       role: user.role,
     });
     await createCookie(token);
-
     return NextResponse.redirect(new URL('/admin/dashboard', req.url));
   } catch (error) {
     return NextResponse.json(
