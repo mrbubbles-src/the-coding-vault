@@ -5,18 +5,21 @@ import { getCookie } from './lib/cookies';
 export async function middleware(req: NextRequest) {
   const pathname = req.nextUrl.pathname;
 
-  const token = await getCookie('token');
-  if (!token) return NextResponse.redirect(new URL('/admin/login', req.url));
-
-  let user;
-  try {
-    user = await verifyJWT(token);
-  } catch {
-    return NextResponse.redirect(new URL('/admin/login', req.url));
+  if (pathname.startsWith('/admin/login')) {
+    const token = await getCookie('token');
+    if (token) {
+      const user = await verifyJWT(token);
+      if (user)
+        return NextResponse.redirect(new URL('/admin/dashboard', req.url));
+    } else return NextResponse.next();
   }
 
-  if (pathname.startsWith('/admin/login') && user)
-    return NextResponse.redirect(new URL('/admin/dashboard', req.url));
+  const token = await getCookie('token');
+  if (token) {
+    const user = await verifyJWT(token);
+    if (!user) return NextResponse.redirect(new URL('/admin/login', req.url));
+  }
+
   return NextResponse.next();
 }
 
