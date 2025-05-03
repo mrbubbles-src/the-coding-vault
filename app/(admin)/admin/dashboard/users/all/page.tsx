@@ -1,7 +1,7 @@
 import { multiRoleGuard } from '@/lib/auth';
 
 const AllUsersPage = async () => {
-  const user = await multiRoleGuard(['SUPERADMIN']);
+  await multiRoleGuard(['SUPERADMIN']);
 
   return <div>AllUsersPage</div>;
 };
