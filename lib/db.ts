@@ -1,6 +1,6 @@
 // import prisma from './prisma';
 import { Route } from 'next';
-import { ICategories } from './types';
+import { ICategories } from '@/types/types';
 
 const getCategories = async (): Promise<Array<ICategories>> => {
   try {

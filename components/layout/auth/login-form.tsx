@@ -1,5 +1,5 @@
 'use client';
-import { IInputs } from '@/lib/types';
+import { IInputs } from '@/types/types';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import Spinner from '@/components/ui/loading/spinner';
 import { useEffect } from 'react';

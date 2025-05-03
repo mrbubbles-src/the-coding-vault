@@ -33,7 +33,7 @@ import {
   CollapsibleTrigger,
 } from '@/components/ui/shadcn/collapsible';
 import { getCategories } from '@/lib/db';
-import { ICategories } from '@/lib/types';
+import { ICategories } from '@/types/types';
 import { headers } from 'next/headers';
 import { getCurrentUser } from '@/lib/auth';
 import { LogoutButton } from '@/components/ui/user-logout';

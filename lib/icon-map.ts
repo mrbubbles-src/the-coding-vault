@@ -13,7 +13,7 @@ import {
   faQuestionCircle,
   faServer,
 } from '@fortawesome/free-solid-svg-icons';
-import { TIconKey } from './types';
+import { TIconKey } from '@/types/types';
 
 export const iconMap: Record<TIconKey, IconDefinition> = {
   git: faGit,
