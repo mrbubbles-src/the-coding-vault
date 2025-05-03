@@ -73,7 +73,7 @@ model VaultEntry {
   numericId  Int      @unique @default(autoincrement())
   title      String
   slug       String   @unique
-  content    String
+  content    Json
   categoryId String
   category   Category @relation(fields: [categoryId], references: [id])
   authorId   String
