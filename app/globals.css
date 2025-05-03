@@ -194,3 +194,105 @@ pre code .sh__line::before {
   --shadow-xl: var(--shadow-xl);
   --shadow-2xl: var(--shadow-2xl);
 }
+
+@layer components {
+  .ce-block {
+    @apply bg-sidebar text-sidebar-foreground my-4 p-4;
+  }
+  .ce-delimiter span {
+    @apply text-muted-foreground;
+  }
+  .ce-block__content:has(.cdx-quote) {
+    @apply border-primary bg-card text-muted-foreground rounded border-l-4 pl-4 italic;
+  }
+  h1.ce-header {
+    @apply text-foreground text-4xl font-bold;
+  }
+  h2.ce-header {
+    @apply text-foreground text-3xl font-semibold;
+  }
+  h3.ce-header {
+    @apply text-foreground text-2xl font-semibold;
+  }
+  h4.ce-header {
+    @apply text-foreground text-xl font-semibold;
+  }
+  h5.ce-header {
+    @apply text-foreground text-lg font-semibold;
+  }
+  h6.ce-header {
+    @apply text-foreground text-base font-semibold;
+  }
+  .ce-block {
+    @apply outline-accent outline-1 outline-dashed;
+  }
+}
+.ce-toolbar__plus,
+.ce-toolbar__settings-btn {
+  color: var(--muted-foreground);
+  transition: color 0.2s ease;
+  &:hover {
+    color: var(--sidebar-accent-foreground);
+    background-color: var(--sidebar-accent);
+  }
+}
+.ce-drag {
+  color: var(--muted-foreground);
+  transition: color 0.2s ease;
+  &:hover {
+    color: var(--sidebar-accent-foreground);
+  }
+}
+.ce-popover {
+  .ce-popover__container {
+    border: 1px solid var(--sidebar-accent);
+    background-color: var(--background);
+    padding: 0.5rem;
+
+    .cdx-search-field {
+      background-color: var(--background);
+      box-shadow: var(--shadow-sm);
+      .cdx-search-field__icon {
+        color: var(--muted-foreground);
+      }
+      .cdx-search-field__input {
+        color: var(--muted-foreground);
+      }
+    }
+    .ce-popover__nothing-found-message {
+      color: var(--primary);
+    }
+    .ce-popover__items {
+      padding-right: 0.5rem;
+      .ce-popover-item {
+        margin: 0.5rem;
+        color: var(--muted-foreground);
+        border: 1px solid var(--sidebar-accent);
+        &:hover {
+          background-color: var(--sidebar-accent);
+        }
+        .ce-popover-item__secondary-title {
+          color: var(--primary);
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}
+.ce-block {
+  .tc-popover {
+    background-color: var(--background);
+    color: var(--sidebar-accent-foreground);
+    .tc-popover__item {
+      border: 1px solid var(--sidebar-accent);
+      margin: 0.5rem;
+      padding: 0.5rem;
+      &:hover {
+        background-color: var(--sidebar-accent);
+      }
+      .tc-popover__item-icon {
+        background-color: var(--sidebar-accent);
+      }
+    }
+  }
+}
