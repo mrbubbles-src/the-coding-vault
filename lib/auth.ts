@@ -1,6 +1,6 @@
 import { JWTPayload, SignJWT, jwtVerify } from 'jose';
 import { getCookie } from './cookies';
-import { IJWT, TRole, UserResult } from '@/types/types';
+import { IJWT, TRole, TUserResult } from '@/types/types';
 import { redirect } from 'next/navigation';
 
 const createJWT = async (payload: IJWT & JWTPayload): Promise<string> => {
@@ -32,7 +32,7 @@ const verifyRole = async (requiredRole: TRole): Promise<boolean> => {
   }
 };
 
-const getCurrentUser = async (): Promise<UserResult> => {
+const getCurrentUser = async (): Promise<TUserResult> => {
   try {
     const token = await getCookie('token');
     if (!token) return { error: 'no-token' };
