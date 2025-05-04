@@ -72,7 +72,7 @@ export default async function RootLayout({
           disableTransitionOnChange>
           <SidebarProvider defaultOpen={defaultOpen}>
             <AdminSidebar />
-            <div className="flex w-full flex-col py-2 pr-2">
+            <div className="flex flex-col py-2 pr-2">
               <Navbar />
               <main className="flex flex-1 flex-col">{children}</main>
               <Footer />
