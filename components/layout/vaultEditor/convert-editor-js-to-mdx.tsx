@@ -7,173 +7,163 @@ const ConvertEditorJsToMDX = (editorData: {
   if (!editorData?.blocks || !Array.isArray(editorData.blocks)) {
     return '';
   }
-  const result = editorData.blocks
-    .map((block, i) => {
-      switch (block.type) {
-        case 'paragraph': {
-          const data = block.data as { text: string };
-          return data.text;
-        }
-
-        case 'header': {
-          const data = block.data as { text: string; level: number };
-          return `${'#'.repeat(data.level)} ${data.text}`;
-        }
-
-        case 'list': {
-          const data = block.data as {
-            style: 'ordered' | 'unordered';
-            items: (
-              | string
-              | { content?: string; text?: string; checked?: boolean }
-            )[];
-          };
-
-          const isChecklist = data.items.every(
-            (item) =>
-              typeof item === 'object' && 'checked' in item && 'text' in item,
-          );
-
-          if (isChecklist) {
-            return data.items
-              .map((item) =>
-                typeof item === 'object'
-                  ? `- [${item.checked ? 'x' : ' '}] ${item.text}`
-                  : `- ${item}`,
-              )
-              .join('\n');
-          }
-
-          if (data.style === 'unordered') {
-            return data.items
+  const resultArray: string[] = [];
+  for (let i = 0; i < editorData.blocks.length; i++) {
+    const block = editorData.blocks[i];
+    switch (block.type) {
+      case 'paragraph': {
+        const data = block.data as { text: string };
+        resultArray.push(data.text);
+        break;
+      }
+      case 'header': {
+        const data = block.data as { text: string; level: number };
+        resultArray.push(`${'#'.repeat(data.level)} ${data.text}`);
+        break;
+      }
+      case 'list': {
+        const data = block.data as {
+          style: 'ordered' | 'unordered';
+          items: (
+            | string
+            | { content?: string; text?: string; checked?: boolean }
+          )[];
+        };
+        if (data.style === 'unordered') {
+          resultArray.push(
+            data.items
               .map((item) =>
                 typeof item === 'string'
                   ? `- ${item}`
                   : `- ${item.content ?? item.text ?? ''}`,
               )
-              .join('\n');
-          } else {
-            return data.items
-              .map((item, i) =>
-                typeof item === 'string'
-                  ? `${i + 1}. ${item}`
-                  : `${i + 1}. ${item.content ?? item.text ?? ''}`,
-              )
-              .join('\n');
-          }
-        }
-
-        case 'image': {
-          const data = block.data as {
-            file?: { url?: string };
-            caption?: string;
-          };
-          return `[${data.caption || ''}](${data.file?.url}${data.caption || ''})`;
-        }
-
-        case 'codeBox': {
-          const data = block.data as { language?: string; code: string };
-          let codeContent = data.code;
-          if (typeof codeContent === 'string') {
-            codeContent = codeContent
-              .replace(/&lt;/g, '<')
-              .replace(/&gt;/g, '>')
-              .replace(/&amp;/g, '&')
-              .replace(/<div[^>]*>/g, '')
-              .replace(/<\/div>/g, '\n')
-              .replace(/<[^>]+>/g, '')
-              .split('\n')
-              .map((line) => line.replace(/^ {2}/, ''))
-              .reduce<string[]>((acc, line, idx, arr) => {
-                if (line.trim() === '') {
-                  if (
-                    acc.length === 0 ||
-                    acc[acc.length - 1].trim() === '' ||
-                    idx === arr.length - 1
-                  ) {
-                    return acc;
-                  }
-                }
-                acc.push(line);
-                return acc;
-              }, [])
-              .join('\n');
-          }
-          return `\`\`\`${data.language || ''}\n${codeContent}\n\`\`\``;
-        }
-
-        case 'quote': {
-          const data = block.data as { text: string; caption?: string };
-          return `> ${data.text}\n\n> — ${data.caption || ''}`;
-        }
-
-        case 'alert':
-        case 'warning': {
-          const data = block.data as { title?: string; message: string };
-          return `<div className="${block.type}">\n${data.title ? `<strong>${data.title}</strong><br />\n` : ''}${data.message}\n</div>`;
-        }
-
-        case 'delimiter': {
-          return `---`;
-        }
-
-        case 'toggle': {
-          const data = block.data as { text?: string; items?: number };
-          const text = data.text?.trim() || 'Details';
-          const itemsCount = data.items ?? 0;
-          const toggleBlocks = editorData.blocks.slice(
-            i + 1,
-            i + 1 + itemsCount,
+              .join('\n'),
           );
-          const inner = toggleBlocks
-            .map((b) => ConvertEditorJsToMDX({ blocks: [b] }))
-            .join('\n\n');
-          i += itemsCount;
-          return [
+        } else {
+          resultArray.push(
+            data.items
+              .map((item, idx) =>
+                typeof item === 'string'
+                  ? `${idx + 1}. ${item}`
+                  : `${idx + 1}. ${item.content ?? item.text ?? ''}`,
+              )
+              .join('\n'),
+          );
+        }
+        break;
+      }
+      case 'image': {
+        const data = block.data as {
+          file?: { url?: string };
+          caption?: string;
+        };
+        resultArray.push(
+          `[${data.caption || ''}](${data.file?.url}${data.caption || ''})`,
+        );
+        break;
+      }
+      case 'codeBox': {
+        const data = block.data as { language?: string; code: string };
+        let codeContent = data.code;
+        if (typeof codeContent === 'string') {
+          codeContent = codeContent
+            .replace(/&lt;/g, '<')
+            .replace(/&gt;/g, '>')
+            .replace(/&amp;/g, '&')
+            .replace(/<div[^>]*>/g, '')
+            .replace(/<\/div>/g, '\n')
+            .replace(/<[^>]+>/g, '')
+            .split('\n')
+            .map((line) => line.replace(/^ {2}/, ''))
+            .reduce<string[]>((acc, line, idx, arr) => {
+              if (line.trim() === '') {
+                if (
+                  acc.length === 0 ||
+                  acc[acc.length - 1].trim() === '' ||
+                  idx === arr.length - 1
+                ) {
+                  return acc;
+                }
+              }
+              acc.push(line);
+              return acc;
+            }, [])
+            .join('\n');
+        }
+        resultArray.push(
+          `\`\`\`${data.language || ''}\n${codeContent}\n\`\`\``,
+        );
+        break;
+      }
+      case 'quote': {
+        const data = block.data as { text: string; caption?: string };
+        resultArray.push(`> ${data.text}\n\n> — ${data.caption || ''}`);
+        break;
+      }
+      case 'alert':
+      case 'warning': {
+        const data = block.data as { title?: string; message: string };
+        resultArray.push(
+          `<div className="${block.type}">\n${data.title ? `<strong>${data.title}</strong><br />\n` : ''}${data.message}\n</div>`,
+        );
+        break;
+      }
+      case 'delimiter': {
+        resultArray.push(`---`);
+        break;
+      }
+      case 'toggle': {
+        const data = block.data as { text?: string; items?: number };
+        const text = data.text?.trim() || 'Details';
+        const itemsCount = data.items ?? 0;
+        const toggleBlocks = editorData.blocks.slice(i + 1, i + 1 + itemsCount);
+        const inner = toggleBlocks
+          .map((b) => ConvertEditorJsToMDX({ blocks: [b] }))
+          .join('\n\n');
+        resultArray.push(
+          [
             '<details>',
             `<summary>${text}</summary>`,
             '',
             inner,
             '',
             '</details>',
-          ].join('\n');
-        }
-
-        case 'table': {
-          const data = block.data as {
-            withHeadings?: boolean;
-            content: string[][];
-          };
-
-          const colWidths: number[] = [];
-
-          data.content.forEach((row) => {
-            row.forEach((cell, colIdx) => {
-              const len = cell.trim().length;
-              colWidths[colIdx] = Math.max(colWidths[colIdx] || 0, len);
-            });
-          });
-
-          const padCell = (cell: string, idx: number) =>
-            cell.trim().padEnd(colWidths[idx], ' ');
-
-          const rows = data.content.map(
-            (row) => `| ${row.map(padCell).join(' | ')} |`,
-          );
-
-          if (data.withHeadings && rows.length > 1) {
-            const header = rows[0];
-            const divider =
-              '| ' + colWidths.map((w) => '-'.repeat(w)).join(' | ') + ' |';
-            const bodyRows = rows.slice(1);
-            return [header, divider, ...bodyRows].join('\n');
-          }
-
-          return rows.join('\n');
-        }
+          ].join('\n'),
+        );
+        i += itemsCount;
+        break;
       }
-    })
-    .join('\n\n');
+      case 'table': {
+        const data = block.data as {
+          withHeadings?: boolean;
+          content: string[][];
+        };
+        const colWidths: number[] = [];
+        data.content.forEach((row) => {
+          row.forEach((cell, colIdx) => {
+            const len = cell.trim().length;
+            colWidths[colIdx] = Math.max(colWidths[colIdx] || 0, len);
+          });
+        });
+        const padCell = (cell: string, idx: number) =>
+          cell.trim().padEnd(colWidths[idx], ' ');
+        const rows = data.content.map(
+          (row) => `| ${row.map(padCell).join(' | ')} |`,
+        );
+        if (data.withHeadings && rows.length > 1) {
+          const header = rows[0];
+          const divider =
+            '| ' + colWidths.map((w) => '-'.repeat(w)).join(' | ') + ' |';
+          const bodyRows = rows.slice(1);
+          resultArray.push([header, divider, ...bodyRows].join('\n'));
+        } else {
+          resultArray.push(rows.join('\n'));
+        }
+        break;
+      }
+    }
+  }
+  const result = resultArray.join('\n\n');
   console.log('🔎 FINAL MARKDOWN OUTPUT:\n\n', result);
   return result;
 };
