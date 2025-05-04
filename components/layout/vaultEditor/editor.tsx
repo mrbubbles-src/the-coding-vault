@@ -9,7 +9,6 @@ import EditorjsList from '@editorjs/list';
 import Embed from '@editorjs/embed';
 import Quote from '@editorjs/quote';
 import Table from '@editorjs/table';
-import Warning from '@editorjs/warning';
 import InlineCode from '@editorjs/inline-code';
 import AttachesTool from '@editorjs/attaches';
 import CodeBox from '@bomdi/codebox';
@@ -113,28 +112,10 @@ const Editor = () => {
           inlineToolbar: true,
           shortcut: 'CMD+SHIFT+A',
           config: {
-            alertTypes: [
-              'primary',
-              'secondary',
-              'info',
-              'success',
-              'warning',
-              'danger',
-              'light',
-              'dark',
-            ],
+            alertTypes: ['info', 'success', 'warning', 'danger'],
             defaultType: 'primary',
             defaultAlign: 'left',
             messagePlaceholder: 'Enter something',
-          },
-        },
-        warning: {
-          class: Warning as unknown as ToolConstructable,
-          inlineToolbar: true,
-          shortcut: 'CMD+SHIFT+W',
-          config: {
-            titlePlaceholder: 'Title',
-            messagePlaceholder: 'Message',
           },
         },
         quote: {
