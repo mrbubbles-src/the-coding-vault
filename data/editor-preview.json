@@ -132,14 +132,6 @@
       }
     },
     {
-      "id": "syiv1U7WEo",
-      "type": "warning",
-      "data": {
-        "title": "Warning!",
-        "message": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua."
-      }
-    },
-    {
       "id": "PX6VZ66fS1",
       "type": "delimiter",
       "data": {
