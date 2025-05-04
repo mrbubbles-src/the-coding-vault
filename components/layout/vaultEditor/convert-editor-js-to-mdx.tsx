@@ -122,14 +122,7 @@ const ConvertEditorJsToMDX = (editorData: {
           .map((b) => ConvertEditorJsToMDX({ blocks: [b] }))
           .join('\n\n');
         resultArray.push(
-          [
-            '<details>',
-            `<summary>${text}</summary>`,
-            '',
-            inner,
-            '',
-            '</details>',
-          ].join('\n'),
+          `<DetailsToggle text="${text}">\n\n${inner}\n\n</DetailsToggle>`,
         );
         i += itemsCount;
         break;
