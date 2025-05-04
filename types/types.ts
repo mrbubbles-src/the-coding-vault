@@ -48,6 +48,54 @@ export interface ICategories {
   entries?: Array<IVaultEntry>;
 }
 
-export type UserResult =
+export type TUserResult =
   | { user: IJWT & JWTPayload }
   | { error: 'no-token' | 'invalid-token' | 'server-error' };
+
+type TParagraphBlock = {
+  id: string;
+  type: 'paragraph';
+  data: { text: string };
+};
+
+type THeaderBlock = {
+  id: string;
+  type: 'header';
+  data: { text: string; level: number };
+};
+
+type TListBlock = {
+  id: string;
+  type: 'list';
+  data: { style: 'ordered' | 'unordered'; items: string[] };
+};
+
+type TImageBlock = {
+  id: string;
+  type: 'image';
+  data: { file: { url: string }; caption?: string };
+};
+
+type TCodeBlock = {
+  id: string;
+  type: 'code' | 'codeBox';
+  data: { code: string; language?: string };
+};
+
+type TUnknownBlock = {
+  id: string;
+  type: string;
+  data: Record<string, unknown>;
+};
+
+export type TEditorBlock =
+  | TParagraphBlock
+  | THeaderBlock
+  | TListBlock
+  | TImageBlock
+  | TCodeBlock
+  | TUnknownBlock;
+
+export interface IEditorRendererProps {
+  blocks: TEditorBlock[];
+}
