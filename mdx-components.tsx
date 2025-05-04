@@ -120,3 +120,4 @@ declare global {
 export function useMDXComponents(): MDXProvidedComponents {
   return components;
 }
+export { components };
