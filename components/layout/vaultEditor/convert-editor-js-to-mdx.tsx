@@ -100,12 +100,13 @@ const ConvertEditorJsToMDX = (editorData: {
         resultArray.push(`> ${data.text}\n\n> — ${data.caption || ''}`);
         break;
       }
-      case 'alert':
-      case 'warning': {
-        const data = block.data as { title?: string; message: string };
-        resultArray.push(
-          `<div className="${block.type}">\n${data.title ? `<strong>${data.title}</strong><br />\n` : ''}${data.message}\n</div>`,
-        );
+      case 'alert': {
+        const data = block.data as {
+          type?: 'info' | 'success' | 'warning' | 'danger';
+          message: string;
+        };
+        const type = data.type || 'info';
+        resultArray.push(`<Alert type="${type}" message="${data.message}" />`);
         break;
       }
       case 'delimiter': {
