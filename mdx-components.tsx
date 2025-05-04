@@ -2,6 +2,8 @@ import React, { ComponentPropsWithoutRef } from 'react';
 import Link from 'next/link';
 import { highlight } from 'sugar-high';
 import { Route } from 'next';
+import Alerts from './components/layout/vault/alerts';
+import { Card } from './components/ui/shadcn/card';
 
 type HeadingProps = ComponentPropsWithoutRef<'h1'>;
 type ParagraphProps = ComponentPropsWithoutRef<'p'>;
@@ -79,37 +81,27 @@ const components = {
       {...props}
     />
   ),
-  // Table: ({ data }: { data: { headers: string[]; rows: string[][] } }) => (
-  //   <table className="w-full border-collapse text-left text-sm">
-  //     <thead className="bg-muted text-muted-foreground">
-  //       <tr>
-  //         {data.headers.map((header, index) => (
-  //           <th key={index} className="border-b px-4 py-2 font-semibold">
-  //             {header}
-  //           </th>
-  //         ))}
-  //       </tr>
-  //     </thead>
-  //     <tbody>
-  //       {data.rows.map((row, index) => (
-  //         <tr
-  //           key={index}
-  //           className={index % 2 === 0 ? 'bg-background' : 'bg-muted/30'}>
-  //           {row.map((cell, cellIndex) => (
-  //             <td key={cellIndex} className="border-b px-4 py-2">
-  //               {cell}
-  //             </td>
-  //           ))}
-  //         </tr>
-  //       ))}
-  //     </tbody>
-  //   </table>
-  // ),
   blockquote: (props: BlockquoteProps) => (
     <blockquote
       className="text-muted-foreground dark:border-primary border-l-4 pl-5 italic"
       {...props}
     />
+  ),
+  Alert: ({
+    type = 'info',
+    message,
+  }: {
+    type?: 'info' | 'success' | 'warning' | 'danger';
+    message: string;
+  }) => <Alerts type={type} message={message} />,
+  details: ({ children, ...props }) => (
+    <Card className="mt-4">
+      <details
+        className="rounded-md p-4 [&_summary]:cursor-pointer [&_summary]:font-semibold"
+        {...props}>
+        {children}
+      </details>
+    </Card>
   ),
 };
 
