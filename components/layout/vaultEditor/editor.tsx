@@ -27,6 +27,58 @@ const Editor = () => {
     const editor = new EditorJS({
       holder: 'editorjs',
       autofocus: true,
+      // data: {
+      //   blocks: [
+      //     { type: 'header', data: { text: 'Heading Example', level: 2 } },
+      //     { type: 'paragraph', data: { text: 'This is a paragraph.' } },
+      //     {
+      //       type: 'list',
+      //       data: { style: 'unordered', items: ['Item 1', 'Item 2'] },
+      //     },
+      //     { type: 'codeBox', data: { code: 'console.log("Hello, world!");' } },
+      //     { type: 'inlineCode', data: { text: 'const x = 1;' } },
+      //     {
+      //       type: 'alert',
+      //       data: { type: 'info', message: 'This is an alert.' },
+      //     },
+      //     {
+      //       type: 'warning',
+      //       data: { title: 'Heads up', message: 'This is a warning.' },
+      //     },
+      //     {
+      //       type: 'quote',
+      //       data: { text: 'To be or not to be.', caption: 'Shakespeare' },
+      //     },
+      //     {
+      //       type: 'table',
+      //       data: {
+      //         content: [
+      //           ['Col1', 'Col2'],
+      //           ['1', '2'],
+      //         ],
+      //       },
+      //     },
+      //     { type: 'delimiter', data: {} },
+      //     {
+      //       type: 'toggle',
+      //       data: { title: 'Toggle title', message: 'Toggle content' },
+      //     },
+      //     { type: 'strikethrough', data: { text: 'Strikethrough this.' } },
+      //     { type: 'annotation', data: { text: 'Important note here.' } },
+      //     { type: 'InlineHotkey', data: { text: 'Ctrl+Shift+1' } },
+      //     {
+      //       type: 'embed',
+      //       data: {
+      //         service: 'youtube',
+      //         source: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+      //         embed: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+      //         width: 580,
+      //         height: 320,
+      //         caption: 'YouTube Video',
+      //       },
+      //     },
+      //   ],
+      // },
       tools: {
         header: {
           class: Header as unknown as ToolConstructable,
@@ -98,6 +150,7 @@ const Editor = () => {
           class: Table as unknown as ToolConstructable,
           inlineToolbar: true,
           config: {
+            withHeadings: true,
             rows: 2,
             cols: 3,
           },
@@ -155,19 +208,18 @@ const Editor = () => {
   }, []);
 
   const handleSave = async () => {
-    const dummyData = {
-      blocks: [],
-      version: '2.30.8',
-      time: Date.now(),
-    };
-    await saveEditorData(dummyData);
+    if (!editorRef.current) return;
+    const output = await editorRef.current.save();
+    await saveEditorData(output);
   };
 
   return (
-    <div>
-      <div id="editorjs" className="border-2" />
-      <Button onClick={handleSave}>Save</Button>
-    </div>
+    <section className="border-border bg-background mb-4 flex w-full flex-col items-center justify-center rounded-md border-2 p-4 text-base shadow-sm">
+      <div id="editorjs" className="w-[60%]" />
+      <Button onClick={handleSave} className="place-self-start">
+        Save
+      </Button>
+    </section>
   );
 };
 
