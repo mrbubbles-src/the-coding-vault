@@ -1,6 +1,6 @@
 import Icon from '@/public/images/icon.svg';
 import Logo from '@/public/images/sidebarlogo.svg';
-import { ChevronDown, ChevronUp, User2 } from 'lucide-react';
+import { ChevronDown, ChevronLeft, User2 } from 'lucide-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { iconMap } from '@/lib/icon-map';
 import {
@@ -91,26 +91,27 @@ const VaultSidebar = async () => {
                     className="ml-[0.4rem] h-5 w-5 shrink-0"
                   />
                   <SidebarGroupLabel asChild>
-                    <CollapsibleTrigger className="flex flex-1 items-center gap-2">
+                    <CollapsibleTrigger className="group-data-[state=open]/collapsible:text-primary flex flex-1 cursor-pointer place-items-center items-center gap-2 text-lg font-semibold transition-colors">
                       <span className="text-lg font-semibold">
                         {category.name}
                       </span>
                       <aside className="flex items-center justify-end">
                         <SidebarMenuBadge className="text-sm">
                           ({categories.entries.length})
-                          <ChevronDown className="mr-2 ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180" />
+                          <ChevronLeft className="mr-2 ml-auto transition-transform duration-500 group-data-[state=open]/collapsible:-rotate-z-90" />
                         </SidebarMenuBadge>
                       </aside>
                     </CollapsibleTrigger>
                   </SidebarGroupLabel>
                 </div>
-                <CollapsibleContent>
+                <CollapsibleContent className="group-data-[state=open]/collapsible:animate-collapsible-down animate-collapsible-up transition-all duration-500 ease-in-out">
                   <SidebarGroupContent>
                     <SidebarMenuSub>
                       <SidebarMenuSubItem key={category.name}>
                         {category.entries &&
                           category.entries.map((entry) => (
                             <SidebarMenuButton
+                              className="opacity-0 transition-all duration-500 ease-in-out group-data-[state=open]/collapsible:opacity-100"
                               key={entry.slug}
                               asChild
                               isActive={pathname.startsWith(
@@ -142,7 +143,7 @@ const VaultSidebar = async () => {
               <DropdownMenuTrigger asChild>
                 <SidebarMenuButton className="group">
                   <User2 /> {loggedInUser ? loggedInUser.username : 'Vaulty'}
-                  <ChevronUp className="ml-auto transition-transform group-data-[state=open]:rotate-180" />
+                  <ChevronDown className="ml-auto transition-transform duration-500 ease-in-out group-data-[state=open]:rotate-180" />
                 </SidebarMenuButton>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">

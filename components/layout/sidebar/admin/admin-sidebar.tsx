@@ -2,7 +2,7 @@ import Icon from '@/public/images/icon.svg';
 import Logo from '@/public/images/sidebarlogo.svg';
 import {
   ChevronDown,
-  ChevronUp,
+  ChevronLeft,
   NotebookPen,
   User2,
   Users,
@@ -82,19 +82,19 @@ const AdminSidebar = async () => {
             <div className="flex items-center gap-2">
               <Vault className="ml-[0.4rem] h-5 w-5 shrink-0" />
               <SidebarGroupLabel asChild>
-                <CollapsibleTrigger className="flex flex-1 items-center gap-2">
+                <CollapsibleTrigger className="group-data-[state=open]/collapsible:text-primary flex flex-1 cursor-pointer place-items-center items-center gap-2 text-lg font-semibold transition-colors">
                   <span className="text-lg font-semibold">Vault Entries</span>
-                  <ChevronDown className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180" />
+                  <ChevronLeft className="mr-2 ml-auto transition-transform duration-500 group-data-[state=open]/collapsible:-rotate-z-90" />
                 </CollapsibleTrigger>
               </SidebarGroupLabel>
             </div>
-            <CollapsibleContent>
+            <CollapsibleContent className="group-data-[state=open]/collapsible:animate-collapsible-down animate-collapsible-up transition-all duration-500 ease-in-out">
               {loggedInUser && canViewEntries(loggedInUser.role) && (
                 <>
                   <SidebarGroupContent>
                     <SidebarMenuSub>
                       <SidebarMenuSubItem>
-                        <SidebarMenuButton>
+                        <SidebarMenuButton className="transition-all duration-200 ease-in-out group-data-[state=open]/collapsible:opacity-100">
                           <Link
                             href={'/admin/dashboard/entries/all' as Route}
                             prefetch={false}>
@@ -171,7 +171,7 @@ const AdminSidebar = async () => {
                 <SidebarGroupLabel asChild>
                   <CollapsibleTrigger className="flex flex-1 items-center gap-2">
                     <span className="text-lg font-semibold">New Entries</span>
-                    <ChevronDown className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180" />
+                    <ChevronLeft className="mr-2 ml-auto transition-transform duration-500 group-data-[state=open]/collapsible:-rotate-z-90" />
                   </CollapsibleTrigger>
                 </SidebarGroupLabel>
               </div>
@@ -205,7 +205,7 @@ const AdminSidebar = async () => {
                     <span className="text-lg font-semibold">
                       User Management
                     </span>
-                    <ChevronDown className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180" />
+                    <ChevronLeft className="mr-2 ml-auto transition-transform duration-500 group-data-[state=open]/collapsible:-rotate-z-90" />
                   </CollapsibleTrigger>
                 </SidebarGroupLabel>
               </div>
@@ -268,7 +268,7 @@ const AdminSidebar = async () => {
               <DropdownMenuTrigger asChild>
                 <SidebarMenuButton className="group">
                   <User2 /> {loggedInUser.username}
-                  <ChevronUp className="ml-auto transition-transform group-data-[state=open]:rotate-180" />
+                  <ChevronDown className="ml-auto transition-transform duration-500 ease-in-out group-data-[state=open]:rotate-180" />
                 </SidebarMenuButton>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
