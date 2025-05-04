@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { highlight } from 'sugar-high';
 import { Route } from 'next';
 import Alerts from './components/layout/vault/alerts';
-import { Card } from './components/ui/shadcn/card';
+import DetailsToggle from './components/layout/vault/details-toggle';
 
 type HeadingProps = ComponentPropsWithoutRef<'h1'>;
 type ParagraphProps = ComponentPropsWithoutRef<'p'>;
@@ -94,15 +94,13 @@ const components = {
     type?: 'info' | 'success' | 'warning' | 'danger';
     message: string;
   }) => <Alerts type={type} message={message} />,
-  details: ({ children, ...props }) => (
-    <Card className="mt-4">
-      <details
-        className="rounded-md p-4 [&_summary]:cursor-pointer [&_summary]:font-semibold"
-        {...props}>
-        {children}
-      </details>
-    </Card>
-  ),
+  DetailsToggle: ({
+    text,
+    children,
+  }: {
+    text: string;
+    children: React.ReactNode;
+  }) => <DetailsToggle text={text}>{children}</DetailsToggle>,
 };
 
 declare global {
