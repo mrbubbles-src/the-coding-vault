@@ -26,10 +26,13 @@ export const iconKey = pgEnum('IconKey', [
 ]);
 export const role = pgEnum('Role', ['SUPERADMIN', 'MODERATOR', 'GUEST']);
 
-export const user = pgTable(
-  'User',
+export const users = pgTable(
+  'users',
   {
-    id: text().primaryKey().notNull(),
+    id: text()
+      .primaryKey()
+      .default(sql`gen_random_uuid()`)
+      .notNull(),
     numericId: serial().notNull(),
     username: text().notNull(),
     password: text().notNull(),
@@ -59,10 +62,13 @@ export const user = pgTable(
   ],
 );
 
-export const category = pgTable(
-  'Category',
+export const categories = pgTable(
+  'categories',
   {
-    id: text().primaryKey().notNull(),
+    id: text()
+      .primaryKey()
+      .default(sql`gen_random_uuid()`)
+      .notNull(),
     name: text().notNull(),
     slug: text().notNull(),
     order: integer().notNull(),
@@ -86,10 +92,13 @@ export const category = pgTable(
   ],
 );
 
-export const vaultEntry = pgTable(
-  'VaultEntry',
+export const vaultEntries = pgTable(
+  'vaultEntries',
   {
-    id: text().primaryKey().notNull(),
+    id: text()
+      .primaryKey()
+      .default(sql`gen_random_uuid()`)
+      .notNull(),
     numericId: serial().notNull(),
     title: text().notNull(),
     slug: text().notNull(),
@@ -115,14 +124,14 @@ export const vaultEntry = pgTable(
     ),
     foreignKey({
       columns: [table.authorId],
-      foreignColumns: [user.id],
+      foreignColumns: [users.id],
       name: 'VaultEntry_authorId_fkey',
     })
       .onUpdate('cascade')
       .onDelete('restrict'),
     foreignKey({
       columns: [table.categoryId],
-      foreignColumns: [category.id],
+      foreignColumns: [categories.id],
       name: 'VaultEntry_categoryId_fkey',
     })
       .onUpdate('cascade')

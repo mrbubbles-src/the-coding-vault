@@ -1,5 +1,20 @@
 {
   "version": "7",
   "dialect": "postgresql",
-  "entries": []
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1747356168351,
+      "tag": "0000_serious_elektra",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1747360000000,
+      "tag": "0001_rename_tables",
+      "breakpoints": true
+    }
+  ]
 }

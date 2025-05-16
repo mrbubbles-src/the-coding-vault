@@ -1,21 +1,21 @@
-import { relations } from "drizzle-orm/relations";
-import { user, vaultEntry, category } from "./schema";
+import { relations } from 'drizzle-orm/relations';
+import { users, vaultEntries, categories } from './schema';
 
-export const vaultEntryRelations = relations(vaultEntry, ({one}) => ({
-	user: one(user, {
-		fields: [vaultEntry.authorId],
-		references: [user.id]
-	}),
-	category: one(category, {
-		fields: [vaultEntry.categoryId],
-		references: [category.id]
-	}),
+export const vaultEntryRelations = relations(vaultEntries, ({ one }) => ({
+  user: one(users, {
+    fields: [vaultEntries.authorId],
+    references: [users.id],
+  }),
+  category: one(categories, {
+    fields: [vaultEntries.categoryId],
+    references: [categories.id],
+  }),
 }));
 
-export const userRelations = relations(user, ({many}) => ({
-	vaultEntries: many(vaultEntry),
+export const userRelations = relations(users, ({ many }) => ({
+  vaultEntries: many(vaultEntries),
 }));
 
-export const categoryRelations = relations(category, ({many}) => ({
-	vaultEntries: many(vaultEntry),
+export const categoryRelations = relations(categories, ({ many }) => ({
+  vaultEntries: many(vaultEntries),
 }));
