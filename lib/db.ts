@@ -5,12 +5,11 @@ import { ICategories } from '@/types/types';
 const getCategories = async (): Promise<Array<ICategories>> => {
   try {
     const baseUrl = process.env.NEXT_PUBLIC_APP_URL;
-    console.log('Fetch baseUrl:', baseUrl);
-    const res = await fetch(`/api/vault/categories`, {
+    const res = await fetch(`${baseUrl}/api/vault/categories`, {
       next: { revalidate: 86400 },
     });
-    const data: Array<ICategories> = await res.json();
-    return data;
+    if (!res.ok) throw new Error(`Fetch failed with status ${res.status}`);
+    return await res.json();
   } catch (error) {
     console.error('Fehler beim Abrufen der Kategorien:', error);
     return [];
