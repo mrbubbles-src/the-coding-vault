@@ -1,14 +1,14 @@
-// import prisma from './prisma';
-// import { Route } from 'next';
 import { ICategories } from '@/types/types';
-
+import { db } from '@/drizzle/db/index';
+import { categories } from '@/drizzle/db/schema';
+import { asc } from 'drizzle-orm';
 const getCategories = async (): Promise<Array<ICategories>> => {
   try {
-    const res = await fetch('/api/vault/categories', {
-      next: { revalidate: 86400 },
-    });
-    if (!res.ok) throw new Error(`Fetch failed with status ${res.status}`);
-    return await res.json();
+    const dbCategories = await db
+      .select()
+      .from(categories)
+      .orderBy(asc(categories.order));
+    return dbCategories;
   } catch (error) {
     console.error('Fehler beim Abrufen der Kategorien:', error);
     return [];
