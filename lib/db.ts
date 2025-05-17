@@ -6,9 +6,9 @@ const getCategories = async (): Promise<Array<ICategories>> => {
   try {
     const baseUrl = process.env.NEXT_PUBLIC_APP_URL;
     console.log('Fetch baseUrl:', baseUrl);
-    const res = await fetch(`/api/vault/categories`, {
-      next: { revalidate: 86400 },
-    });
+    const res = await fetch(`${baseUrl}/api/vault/categories`);
+    const text = await res.text();
+    console.log('Returned response (first 300 chars):', text.slice(0, 300));
     const data: Array<ICategories> = await res.json();
     return data;
   } catch (error) {
