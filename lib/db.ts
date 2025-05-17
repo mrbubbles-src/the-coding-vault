@@ -5,6 +5,7 @@ import { ICategories } from '@/types/types';
 const getCategories = async (): Promise<Array<ICategories>> => {
   try {
     const baseUrl = process.env.NEXT_PUBLIC_APP_URL;
+    console.log('Fetch baseUrl:', baseUrl);
     const res = await fetch(`${baseUrl}/api/vault/categories` as Route, {
       next: { revalidate: 86400 },
     });
