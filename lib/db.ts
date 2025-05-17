@@ -4,8 +4,7 @@ import { ICategories } from '@/types/types';
 
 const getCategories = async (): Promise<Array<ICategories>> => {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_APP_URL;
-    const res = await fetch(`${baseUrl}/api/vault/categories`, {
+    const res = await fetch('/api/vault/categories', {
       next: { revalidate: 86400 },
     });
     if (!res.ok) throw new Error(`Fetch failed with status ${res.status}`);
