@@ -60,7 +60,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const cookieStore = await cookies();
-  const defaultOpen = cookieStore.get('sidebar_state')?.value === 'false';
+  const defaultOpen = cookieStore.get('sidebar_state')?.value === 'true';
   return (
     <html lang="de" suppressHydrationWarning>
       <body
@@ -74,7 +74,7 @@ export default async function RootLayout({
             <VaultSidebar />
             <div className="flex w-full flex-col px-2 py-2 md:px-0 md:pr-2">
               <Navbar />
-              <main className="flex flex-1 flex-col px-1 pt-2 md:px-0">
+              <main className="flex flex-1 flex-col place-self-center px-1 pt-2 md:px-0">
                 {children}
               </main>
               <Footer />
