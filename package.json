@@ -41,6 +41,7 @@
     "@types/mdx": "^2.0.13",
     "bcryptjs": "^3.0.2",
     "class-variance-authority": "^0.7.1",
+    "cloudinary": "^2.6.1",
     "clsx": "^2.1.1",
     "drizzle-orm": "^0.43.1",
     "editorjs-alert": "^1.1.4",
