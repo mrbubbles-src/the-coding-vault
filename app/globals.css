@@ -23,7 +23,7 @@ pre {
 }
 /* Inline-Code Styling */
 code:not(pre code):not(.sh__line):not([class*='sh__token']) {
-  background-color: var(--sidebar);
+  background-color: var(--code-bg);
   padding: 0.2rem 0.4rem;
   border-radius: var(--radius);
   box-shadow: var(--shadow-sm);
@@ -32,13 +32,14 @@ code:not(pre code):not(.sh__line):not([class*='sh__token']) {
 /* Codeblöcke */
 pre code {
   counter-reset: sh-line-number;
-  background-color: var(--sidebar);
+  background-color: var(--code-bg);
   padding: 1rem;
   border-radius: var(--radius);
   display: block;
   font-size: 1.2rem;
   box-shadow: var(--shadow-sm);
   /* width: fit-content; */
+  margin-block: 1rem;
 }
 /* Zeilennummern */
 pre code .sh__line::before {
@@ -112,6 +113,7 @@ pre code .sh__line::before {
   --sh-null: oklch(0.73 0.0949 63.82);
   --sh-break: oklch(0.69 0.1635 318.21);
   --sh-comment: oklch(0.5 0.0225 262.91);
+  --code-bg: oklch(0.282 0.036 274.748);
 }
 
 .dark {
