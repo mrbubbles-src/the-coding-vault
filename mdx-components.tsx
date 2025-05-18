@@ -11,24 +11,25 @@ type ListProps = ComponentPropsWithoutRef<'ul'>;
 type ListItemProps = ComponentPropsWithoutRef<'li'>;
 type AnchorProps = ComponentPropsWithoutRef<'a'>;
 type BlockquoteProps = ComponentPropsWithoutRef<'blockquote'>;
+type DividerProps = ComponentPropsWithoutRef<'hr'>;
 
 // TODO: Desktop styling
 
 const components = {
   h1: (props: HeadingProps) => (
-    <h1 className="mt-2 mb-4 text-4xl leading-tight text-pretty" {...props} />
+    <h1 className="text-4xl leading-tight text-pretty" {...props} />
   ),
   h2: (props: HeadingProps) => (
-    <h2 className="mt-4 mb-2 text-2xl leading-tight text-pretty" {...props} />
+    <h2 className="text-2xl leading-tight text-pretty" {...props} />
   ),
   h3: (props: HeadingProps) => (
-    <h3 className="mt-4 mb-2 text-lg leading-tight text-pretty" {...props} />
+    <h3 className="text-xl leading-tight text-pretty" {...props} />
   ),
   p: (props: ParagraphProps) => (
     <p className="text-lg leading-relaxed" {...props} />
   ),
   ol: (props: ListProps) => (
-    <ol className="list-decimal space-y-2 pl-5" {...props} />
+    <ol className="list-decimal space-y-1 pl-5" {...props} />
   ),
   ul: (props: ListProps) => (
     <ul className="list-disc space-y-1 pl-5" {...props} />
@@ -41,6 +42,9 @@ const components = {
   ),
   strong: (props: ComponentPropsWithoutRef<'strong'>) => (
     <strong className="font-bold" {...props} />
+  ),
+  hr: (props: DividerProps) => (
+    <hr className="border-muted m-4 border-2" {...props} />
   ),
   a: ({ href, children, ...props }: AnchorProps) => {
     // TODO: Link Styling
@@ -83,7 +87,7 @@ const components = {
   ),
   blockquote: (props: BlockquoteProps) => (
     <blockquote
-      className="text-muted-foreground dark:border-primary border-l-4 pl-5 italic"
+      className="text-muted-foreground dark:border-primary my-4 border-l-4 pl-5 italic"
       {...props}
     />
   ),
