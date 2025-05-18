@@ -97,7 +97,7 @@ const ConvertEditorJsToMDX = (editorData: {
       }
       case 'quote': {
         const data = block.data as { text: string; caption?: string };
-        resultArray.push(`> ${data.text}\n\n> — ${data.caption || ''}`);
+        resultArray.push(`> ${data.text}\n>\n> — ${data.caption || ''}`);
         break;
       }
       case 'alert': {
