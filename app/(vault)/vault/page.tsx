@@ -16,8 +16,10 @@ export default async function Page() {
   };
 
   return (
-    <Suspense fallback={'loading'}>
-      <MDXRemote source={mdx} options={options} components={components} />
-    </Suspense>
+    <section className="container flex flex-col gap-3 p-2">
+      <Suspense fallback={'loading'}>
+        <MDXRemote source={mdx} options={options} components={components} />
+      </Suspense>
+    </section>
   );
 }
