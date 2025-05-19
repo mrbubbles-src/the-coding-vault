@@ -39,8 +39,14 @@ export async function POST(req: NextRequest) {
     },
   );
   console.log('uploadResult', uploadResult);
-  const { secure_url, display_name, original_filename, width, height } =
-    uploadResult;
+  const {
+    secure_url,
+    display_name,
+    public_id,
+    original_filename,
+    width,
+    height,
+  } = uploadResult;
 
   return NextResponse.json({
     success: 1,
@@ -48,6 +54,7 @@ export async function POST(req: NextRequest) {
       url: secure_url,
       original_filename: original_filename,
       display_name: display_name,
+      public_id: public_id,
       width: width,
       height: height,
     },
@@ -57,6 +64,7 @@ export async function POST(req: NextRequest) {
       url: string;
       original_filename: string;
       display_name: string;
+      public_id: string;
       width: number;
       height: number;
     };
