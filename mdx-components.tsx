@@ -4,6 +4,8 @@ import { highlight } from 'sugar-high';
 import { Route } from 'next';
 import Alerts from './components/layout/vault/alerts';
 import DetailsToggle from './components/layout/vault/details-toggle';
+import Embed from './components/layout/vault/embed';
+import VaultImage from './components/layout/vault/vault-image';
 
 type HeadingProps = ComponentPropsWithoutRef<'h1'>;
 type ParagraphProps = ComponentPropsWithoutRef<'p'>;
@@ -105,6 +107,15 @@ const components = {
     text: string;
     children: React.ReactNode;
   }) => <DetailsToggle text={text}>{children}</DetailsToggle>,
+  Embed: (props: { embed: string; caption?: string }) => <Embed {...props} />,
+  VaultImage: (props: {
+    url: string;
+    caption: string;
+    original_filename: string;
+    public_id: string;
+    width: number;
+    height: number;
+  }) => <VaultImage {...props} />,
 };
 
 declare global {
