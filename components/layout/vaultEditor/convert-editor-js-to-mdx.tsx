@@ -52,16 +52,6 @@ const ConvertEditorJsToMDX = (editorData: {
         }
         break;
       }
-      case 'image': {
-        const data = block.data as {
-          file?: { url?: string };
-          caption?: string;
-        };
-        resultArray.push(
-          `[${data.caption || ''}](${data.file?.url}${data.caption || ''})`,
-        );
-        break;
-      }
       case 'codeBox': {
         const data = block.data as { language?: string; code: string };
         let codeContent = data.code;
@@ -153,6 +143,39 @@ const ConvertEditorJsToMDX = (editorData: {
         } else {
           resultArray.push(rows.join('\n'));
         }
+        break;
+      }
+      case 'embed': {
+        const data = block.data as {
+          embed?: string;
+          caption?: string;
+        };
+        resultArray.push(
+          `<Embed embed="${data.embed}" caption="${data.caption}"  />`,
+        );
+        break;
+      }
+      case 'image': {
+        const data = block.data as {
+          file?: {
+            url?: string;
+            original_filename?: string;
+            public_id?: string;
+            width?: number;
+            height?: number;
+          };
+          caption?: string;
+        };
+        resultArray.push(
+          `<VaultImage
+            url="${data.file?.url}"
+            caption="${data.caption || ''}"
+            original_filename="${data.file?.original_filename || ''}"
+            public_id="${data.file?.public_id}"
+            width="${data.file?.width || 0}"
+            height="${data.file?.height || 0}"
+          />`,
+        );
         break;
       }
     }
