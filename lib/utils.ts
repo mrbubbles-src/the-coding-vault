@@ -2,6 +2,7 @@ import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { logoutUser } from './auth';
 import { redirect } from 'next/navigation';
+import { TEditorJsListItem } from './types';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -17,4 +18,43 @@ export async function handleLogout() {
   } catch (error) {
     console.error(error);
   }
+}
+
+function escapeHtmlAttr(value: string): string {
+  return value.replace(/&/g, '&amp;').replace(/"/g, '&quot;');
+}
+
+export function replaceLinksWithVaultLinks(text: string): string {
+  return text.replace(
+    /<a\s+href=["']([^"']+)["']>(.*?)<\/a>/g,
+    (_, href, content) =>
+      `<VaultLink href="${escapeHtmlAttr(href)}">${content}</VaultLink>`,
+  );
+}
+
+export function renderListItems(
+  items: TEditorJsListItem[],
+  style: 'ordered' | 'unordered',
+  depth = 0,
+): string {
+  return items
+    .map((item, idx) => {
+      const bullet = style === 'ordered' ? `${idx + 1}.` : '-';
+      const content =
+        typeof item === 'string'
+          ? item
+          : replaceLinksWithVaultLinks(item.content || item.text || '');
+
+      const indentPerLevel = 4;
+      const prefix = ' '.repeat(indentPerLevel * depth);
+      const line = `${prefix}${bullet} ${content}`;
+
+      const children =
+        item.items && item.items.length
+          ? `\n${renderListItems(item.items, style, depth + 1)}`
+          : '';
+
+      return `${line}${children}`;
+    })
+    .join('\n');
 }
