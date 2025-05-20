@@ -1,11 +1,10 @@
 import React, { ComponentPropsWithoutRef } from 'react';
-import Link from 'next/link';
 import { highlight } from 'sugar-high';
-import { Route } from 'next';
 import Alerts from './components/layout/vault/alerts';
 import DetailsToggle from './components/layout/vault/details-toggle';
 import Embed from './components/layout/vault/embed';
 import VaultImage from './components/layout/vault/vault-image';
+import VaultLink from './components/layout/vault/vault-link';
 
 type HeadingProps = ComponentPropsWithoutRef<'h1'>;
 type ParagraphProps = ComponentPropsWithoutRef<'p'>;
@@ -14,8 +13,6 @@ type ListItemProps = ComponentPropsWithoutRef<'li'>;
 type AnchorProps = ComponentPropsWithoutRef<'a'>;
 type BlockquoteProps = ComponentPropsWithoutRef<'blockquote'>;
 type DividerProps = ComponentPropsWithoutRef<'hr'>;
-
-// TODO: Desktop styling
 
 const components = {
   h1: (props: HeadingProps) => (
@@ -31,10 +28,16 @@ const components = {
     <p className="text-lg leading-relaxed" {...props} />
   ),
   ol: (props: ListProps) => (
-    <ol className="list-decimal space-y-1 pl-5" {...props} />
+    <ol
+      className="list-decimal space-y-1 pl-5 [&_ol]:list-[lower-alpha] [&_ol_ol]:list-[lower-roman] [&_ol_ol_ol]:list-[lower-greek] [&_ul]:list-[circle] [&_ul_ul]:list-[disc] [&_ul_ul_ul]:list-[square]"
+      {...props}
+    />
   ),
   ul: (props: ListProps) => (
-    <ul className="list-disc space-y-1 pl-5" {...props} />
+    <ul
+      className="list-[disc] space-y-1 pl-5 [&_ol]:list-[lower-alpha] [&_ol_ol]:list-[lower-roman] [&_ol_ol_ol]:list-[lower-greek] [&_ul]:list-[circle] [&_ul_ul]:list-[disc] [&_ul_ul_ul]:list-[square]"
+      {...props}
+    />
   ),
   li: (props: ListItemProps) => (
     <li className="pl-1 text-lg leading-snug" {...props} />
@@ -49,32 +52,10 @@ const components = {
     <hr className="border-muted m-4 border-2" {...props} />
   ),
   a: ({ href, children, ...props }: AnchorProps) => {
-    // TODO: Link Styling
-    const className =
-      'text-blue-500 hover:text-blue-700 dark:text-gray-400 hover:dark:text-gray-300 dark:underline dark:underline-offset-2 dark:decoration-gray-800';
-    if (href?.startsWith('/')) {
-      return (
-        <Link href={href as Route} className={className} {...props}>
-          {children}
-        </Link>
-      );
-    }
-    if (href?.startsWith('#')) {
-      return (
-        <a href={href as Route} className={className} {...props}>
-          {children}
-        </a>
-      );
-    }
     return (
-      <a
-        href={href as Route}
-        target="_blank"
-        rel="noopener noreferrer"
-        className={className}
-        {...props}>
+      <VaultLink href={href as string} {...props}>
         {children}
-      </a>
+      </VaultLink>
     );
   },
   code: ({ children, ...props }: ComponentPropsWithoutRef<'code'>) => {
@@ -95,11 +76,11 @@ const components = {
   ),
   Alert: ({
     type = 'info',
-    message,
+    children,
   }: {
     type?: 'info' | 'success' | 'warning' | 'danger';
-    message: string;
-  }) => <Alerts type={type} message={message} />,
+    children: React.ReactNode;
+  }) => <Alerts type={type}>{children}</Alerts>,
   DetailsToggle: ({
     text,
     children,
@@ -116,6 +97,7 @@ const components = {
     width: number;
     height: number;
   }) => <VaultImage {...props} />,
+  VaultLink: VaultLink,
 };
 
 declare global {
