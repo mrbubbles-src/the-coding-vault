@@ -56,7 +56,7 @@ function Button({
           size,
           className,
         }),
-        'cursor-pointer transition-all active:scale-95',
+        'cursor-pointer shadow-md transition-all duration-300 ease-in-out active:scale-95 active:shadow-none',
       )}
       {...props}
     />
