@@ -13,14 +13,14 @@
       "id": "rwiX2PhGV3",
       "type": "paragraph",
       "data": {
-        "text": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."
+        "text": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet <a href=\"https://example.com\">diesen Link</a> clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."
       }
     },
     {
       "id": "w2qcoLUm4h",
       "type": "header",
       "data": {
-        "text": "This is a subheading",
+        "text": "This is a subheading <a href=\"https://example.com\">diesen Link</a>",
         "level": 2
       }
     },
@@ -28,14 +28,14 @@
       "id": "mji5DF8G9m",
       "type": "paragraph",
       "data": {
-        "text": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."
+        "text": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore <a href=\"https://example.com\">diesen Link</a> et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."
       }
     },
     {
       "id": "4Nd0TPpSNn",
       "type": "header",
       "data": {
-        "text": "This is a sub-subheading",
+        "text": "This is a <a href=\"https://example.com\">diesen Link</a> sub-subheading",
         "level": 3
       }
     },
@@ -47,14 +47,22 @@
         "meta": {},
         "items": [
           {
-            "content": "item 1",
+            "content": "item 1 <a href=\"https://example.com\">diesen Link</a>",
             "meta": {},
             "items": []
           },
           {
-            "content": "item 2",
-            "meta": {},
-            "items": []
+            "content": "Main point",
+            "items": [
+              {
+                "content": "Subpoint",
+                "items": [
+                  {
+                    "content": "Subsubpoint <a href=\"https://example.com\">diesen Link</a>"
+                  }
+                ]
+              }
+            ]
           },
           {
             "content": "item 3",
@@ -75,8 +83,8 @@
         "file": {
           "url": "https://res.cloudinary.com/dkewmqjoz/image/upload/v1747608927/vault-uploads/ulfbk8s3cp9jreqxsxqb.png",
           "original_filename": "HTML-Email-Test",
-          "public_id": "vault-uploads/ulfbk8s3cp9jreqxsxqb",
           "display_name": "ulfbk8s3cp9jreqxsxqb",
+          "public_id": "vault-uploads/ulfbk8s3cp9jreqxsxqb",
           "width": 1892,
           "height": 938
         }
@@ -105,6 +113,24 @@
         "items": [
           {
             "content": "item ",
+            "meta": {},
+            "items": []
+          },
+          {
+            "content": "Main point",
+            "items": [
+              {
+                "content": "Subpoint",
+                "items": [
+                  {
+                    "content": "Subsubpoint <a href=\"https://example.com\">diesen Link</a>"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "content": "item",
             "meta": {},
             "items": []
           },
@@ -139,7 +165,7 @@
         "content": [
           ["table item 1", "table item 2", "table item 3"],
           ["blub", "`blah`", "blob"],
-          ["test", "test 2", "test 3"]
+          ["test", "<a href=\"https://example.com\">diesen Link</a>", "test 3"]
         ]
       }
     },
@@ -147,7 +173,7 @@
       "id": "Ps-wdVqXgX",
       "type": "quote",
       "data": {
-        "text": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",
+        "text": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore <a href=\"https://example.com\">diesen Link</a> aliquyam erat, sed diam voluptua.",
         "caption": "Unknown",
         "alignment": "left"
       }
@@ -158,7 +184,7 @@
       "data": {
         "type": "danger",
         "align": "left",
-        "message": "Danger! This is a danger alert."
+        "message": "Danger! This is a danger alert. <a href=\"https://example.com\">diesen Link</a>"
       }
     },
     {
@@ -167,7 +193,7 @@
       "data": {
         "type": "info",
         "align": "left",
-        "message": "Information! This is an info alert."
+        "message": "Information! This is an info alert. <a href=\"https://example.com\">diesen Link</a>"
       }
     },
     {
@@ -176,7 +202,7 @@
       "data": {
         "type": "success",
         "align": "left",
-        "message": "Success! This is a success alert."
+        "message": "Success! This is a success alert. <a href=\"https://example.com\">diesen Link</a>"
       }
     },
     {
@@ -185,7 +211,7 @@
       "data": {
         "type": "warning",
         "align": "left",
-        "message": "Warning! This is a warning alert."
+        "message": "Warning! This is a warning alert. <a href=\"https://example.com\">diesen Link</a>"
       }
     },
     {
@@ -201,7 +227,7 @@
       "id": "8V1MQ8pSX0",
       "type": "toggle",
       "data": {
-        "text": "Blurtz!",
+        "text": "!",
         "status": "open",
         "fk": "fk-fcfd1831-3f3f-44c6-bea8-19a4a6114668",
         "items": 3
@@ -215,7 +241,7 @@
         "meta": {},
         "items": [
           {
-            "content": "blartz",
+            "content": "blartz <a href=\"https://example.com\">diesen Link</a>",
             "meta": {
               "checked": false
             },
