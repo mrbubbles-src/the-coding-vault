@@ -45,3 +45,10 @@ export interface ICategories {
   order: number;
   entries?: Array<IVaultEntry>;
 }
+
+export type TEditorJsListItem = {
+  content: string;
+  text?: string;
+  meta?: { checked?: boolean };
+  items?: TEditorJsListItem[];
+};
