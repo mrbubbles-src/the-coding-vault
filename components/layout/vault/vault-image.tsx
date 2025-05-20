@@ -29,7 +29,7 @@ const VaultImage = async ({
     <figure className="text-center">
       <a href={url} target="_blank" rel="noopener noreferrer">
         <CldImage
-          src={'vault-uploads/ulfbk8s3cp9jreqxsxqb'}
+          src={url}
           alt={caption || original_filename}
           width={width}
           height={height}
