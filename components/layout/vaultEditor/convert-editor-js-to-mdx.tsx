@@ -1,4 +1,6 @@
 // components/editorjs/Renderer.tsx
+import { TEditorJsListItem } from '@/lib/types';
+import { renderListItems, replaceLinksWithVaultLinks } from '@/lib/utils';
 import { TEditorBlock } from '@/types/types';
 
 const ConvertEditorJsToMDX = (editorData: {
@@ -13,43 +15,22 @@ const ConvertEditorJsToMDX = (editorData: {
     switch (block.type) {
       case 'paragraph': {
         const data = block.data as { text: string };
-        resultArray.push(data.text);
+        resultArray.push(replaceLinksWithVaultLinks(data.text));
         break;
       }
       case 'header': {
         const data = block.data as { text: string; level: number };
-        resultArray.push(`${'#'.repeat(data.level)} ${data.text}`);
+        resultArray.push(
+          `${'#'.repeat(data.level)} ${replaceLinksWithVaultLinks(data.text)}`,
+        );
         break;
       }
       case 'list': {
         const data = block.data as {
           style: 'ordered' | 'unordered';
-          items: (
-            | string
-            | { content?: string; text?: string; checked?: boolean }
-          )[];
+          items: TEditorJsListItem[];
         };
-        if (data.style === 'unordered') {
-          resultArray.push(
-            data.items
-              .map((item) =>
-                typeof item === 'string'
-                  ? `- ${item}`
-                  : `- ${item.content ?? item.text ?? ''}`,
-              )
-              .join('\n'),
-          );
-        } else {
-          resultArray.push(
-            data.items
-              .map((item, idx) =>
-                typeof item === 'string'
-                  ? `${idx + 1}. ${item}`
-                  : `${idx + 1}. ${item.content ?? item.text ?? ''}`,
-              )
-              .join('\n'),
-          );
-        }
+        resultArray.push(renderListItems(data.items, data.style));
         break;
       }
       case 'codeBox': {
@@ -87,7 +68,9 @@ const ConvertEditorJsToMDX = (editorData: {
       }
       case 'quote': {
         const data = block.data as { text: string; caption?: string };
-        resultArray.push(`> ${data.text}\n>\n> — ${data.caption || ''}`);
+        resultArray.push(
+          `> ${replaceLinksWithVaultLinks(data.text)}\n>\n> — ${replaceLinksWithVaultLinks(data.caption || '')}`,
+        );
         break;
       }
       case 'alert': {
@@ -96,7 +79,10 @@ const ConvertEditorJsToMDX = (editorData: {
           message: string;
         };
         const type = data.type || 'info';
-        resultArray.push(`<Alert type="${type}" message="${data.message}" />`);
+
+        resultArray.push(
+          `<Alert type="${type}">${replaceLinksWithVaultLinks(data.message)}</Alert>`,
+        );
         break;
       }
       case 'delimiter': {
@@ -112,7 +98,7 @@ const ConvertEditorJsToMDX = (editorData: {
           .map((b) => ConvertEditorJsToMDX({ blocks: [b] }))
           .join('\n\n');
         resultArray.push(
-          `<DetailsToggle text="${text}">\n\n${inner}\n\n</DetailsToggle>`,
+          `<DetailsToggle text="${text}">\n\n${replaceLinksWithVaultLinks(inner)}\n\n</DetailsToggle>`,
         );
         i += itemsCount;
         break;
@@ -139,9 +125,15 @@ const ConvertEditorJsToMDX = (editorData: {
           const divider =
             '| ' + colWidths.map((w) => '-'.repeat(w)).join(' | ') + ' |';
           const bodyRows = rows.slice(1);
-          resultArray.push([header, divider, ...bodyRows].join('\n'));
+          resultArray.push(
+            [
+              replaceLinksWithVaultLinks(header),
+              divider,
+              ...bodyRows.map(replaceLinksWithVaultLinks),
+            ].join('\n'),
+          );
         } else {
-          resultArray.push(rows.join('\n'));
+          resultArray.push(replaceLinksWithVaultLinks(rows.join('\n')));
         }
         break;
       }
