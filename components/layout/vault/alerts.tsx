@@ -11,11 +11,11 @@ import Vaulty from '@/public/images/icon.svg';
 import Image from 'next/image';
 const Alerts = ({
   type = 'info',
-  message,
+  children,
 }: {
   type?: 'info' | 'success' | 'warning' | 'danger';
 
-  message?: string;
+  children: React.ReactNode;
 }) => {
   const alertStyles = {
     info: 'bg-blue-100 shadow-md border-blue-300 border-2 text-blue-600',
@@ -58,7 +58,7 @@ const Alerts = ({
         </CardTitle>
       </CardHeader>
       <CardContent className="ml-[0.15rem] text-lg font-semibold">
-        {message}
+        {children}
       </CardContent>
       <CardFooter className="justify-end pr-4">
         <span className="flex place-items-center gap-1 text-sm font-semibold italic">
