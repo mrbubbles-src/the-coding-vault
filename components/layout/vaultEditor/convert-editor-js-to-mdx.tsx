@@ -27,7 +27,7 @@ const ConvertEditorJsToMDX = (editorData: {
       }
       case 'list': {
         const data = block.data as {
-          style: 'ordered' | 'unordered';
+          style: 'ordered' | 'unordered' | 'checklist';
           items: TEditorJsListItem[];
         };
         resultArray.push(renderListItems(data.items, data.style));

@@ -36,6 +36,7 @@ const Editor = () => {
       tools: {
         header: {
           class: Header as unknown as ToolConstructable,
+          inlineToolbar: true,
           config: {
             placeholder: 'Enter a heading',
             levels: [1, 2, 3],
@@ -52,6 +53,7 @@ const Editor = () => {
         },
         codeBox: {
           class: CodeBox as unknown as ToolConstructable,
+          inlineToolbar: true,
           config: {
             themeURL:
               'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/styles/atom-one-dark.min.css',
@@ -68,7 +70,7 @@ const Editor = () => {
           shortcut: 'CMD+SHIFT+A',
           config: {
             alertTypes: ['info', 'success', 'warning', 'danger'],
-            defaultType: 'primary',
+            defaultType: 'info',
             defaultAlign: 'left',
             messagePlaceholder: 'Enter something',
           },
@@ -116,9 +118,9 @@ const Editor = () => {
           config: {
             styleOptions: ['line'],
             defaultStyle: 'line',
-            lineWidthOptions: [8, 15, 25, 35, 50, 60, 100],
+            lineWidthOptions: [100],
             defaultLineWidth: 100,
-            lineThicknessOptions: [1, 2, 3, 4, 5, 6],
+            lineThicknessOptions: [2],
             defaultLineThickness: 2,
           },
         },

@@ -34,12 +34,21 @@ export function replaceLinksWithVaultLinks(text: string): string {
 
 export function renderListItems(
   items: TEditorJsListItem[],
-  style: 'ordered' | 'unordered',
+  style: 'ordered' | 'unordered' | 'checklist',
   depth = 0,
 ): string {
   return items
     .map((item, idx) => {
-      const bullet = style === 'ordered' ? `${idx + 1}.` : '-';
+      let bullet: string;
+      if (style === 'ordered') {
+        bullet = `${idx + 1}.`;
+      } else if (style === 'unordered') {
+        const unorderedBullets = ['-', '*', '+'];
+        bullet = unorderedBullets[depth % unorderedBullets.length];
+      } else {
+        const checked = item.meta?.checked ?? false;
+        bullet = checked ? '- [x]' : '- [ ]';
+      }
       const content =
         typeof item === 'string'
           ? item
