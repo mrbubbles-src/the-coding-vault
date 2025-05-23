@@ -30,7 +30,14 @@ const ConvertEditorJsToMDX = (editorData: {
           style: 'ordered' | 'unordered' | 'checklist';
           items: TEditorJsListItem[];
         };
-        resultArray.push(renderListItems(data.items, data.style));
+
+        if (data.style === 'checklist') {
+          resultArray.push(
+            `<VaultChecklist items={${JSON.stringify(data.items)}} />`,
+          );
+        } else {
+          resultArray.push(renderListItems(data.items, data.style));
+        }
         break;
       }
       case 'codeBox': {
