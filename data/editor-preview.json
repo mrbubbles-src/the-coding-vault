@@ -38,13 +38,13 @@
             },
             "items": [
               {
-                "content": "item",
+                "content": "item ",
                 "meta": {
                   "checked": true
                 },
                 "items": [
                   {
-                    "content": "item",
+                    "content": "item <a href=\"https://example.com\">diesen Link</a>",
                     "meta": {
                       "checked": false
                     },
