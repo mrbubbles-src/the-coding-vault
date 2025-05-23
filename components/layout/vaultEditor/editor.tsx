@@ -10,7 +10,6 @@ import Embed from '@editorjs/embed';
 import Quote from '@editorjs/quote';
 import Table from '@editorjs/table';
 import InlineCode from '@editorjs/inline-code';
-import AttachesTool from '@editorjs/attaches';
 import CodeBox from '@bomdi/codebox';
 import Delimiter from '@coolbytes/editorjs-delimiter';
 import ToggleBlock from 'editorjs-toggle-block';
@@ -105,12 +104,6 @@ const Editor = () => {
               background: false,
               border: false,
             },
-          },
-        },
-        attaches: {
-          class: AttachesTool as unknown as ToolConstructable,
-          config: {
-            endpoint: '',
           },
         },
         delimiter: {
