@@ -3,6 +3,8 @@ import { twMerge } from 'tailwind-merge';
 import { logoutUser } from './auth';
 import { redirect } from 'next/navigation';
 import { TEditorJsListItem } from './types';
+import React, { ReactNode } from 'react';
+import VaultLink from '@/components/layout/vault/vault-link';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -43,16 +45,12 @@ export function renderListItems(
       if (style === 'ordered') {
         bullet = `${idx + 1}.`;
       } else if (style === 'unordered') {
-        const unorderedBullets = ['-', '*', '+'];
-        bullet = unorderedBullets[depth % unorderedBullets.length];
+        bullet = '-';
       } else {
         const checked = item.meta?.checked ?? false;
         bullet = checked ? '- [x]' : '- [ ]';
       }
-      const content =
-        typeof item === 'string'
-          ? item
-          : replaceLinksWithVaultLinks(item.content || item.text || '');
+      const content = replaceLinksWithVaultLinks(item.content);
 
       const indentPerLevel = 4;
       const prefix = ' '.repeat(indentPerLevel * depth);
@@ -66,4 +64,30 @@ export function renderListItems(
       return `${line}${children}`;
     })
     .join('\n');
+}
+
+export function replaceChecklistLinksWithVaultLinks(text: string): ReactNode[] {
+  const parts: ReactNode[] = [];
+  const linkRegex = /<a\s+href=["']([^"']+)["']>(.*?)<\/a>/g;
+
+  let lastIndex = 0;
+  let match: RegExpExecArray | null;
+
+  while ((match = linkRegex.exec(text)) !== null) {
+    const [fullMatch, href, content] = match;
+    const index = match.index;
+
+    if (lastIndex < index) {
+      parts.push(text.slice(lastIndex, index));
+    }
+
+    parts.push(React.createElement(VaultLink, { key: index, href }, content));
+    lastIndex = index + fullMatch.length;
+  }
+
+  if (lastIndex < text.length) {
+    parts.push(text.slice(lastIndex));
+  }
+
+  return parts;
 }

@@ -52,3 +52,8 @@ export type TEditorJsListItem = {
   meta?: { checked?: boolean };
   items?: TEditorJsListItem[];
 };
+export type TChecklistItem = {
+  content: string;
+  meta?: { checked?: boolean };
+  items?: TChecklistItem[];
+};
