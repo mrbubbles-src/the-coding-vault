@@ -5,6 +5,7 @@ import DetailsToggle from './components/layout/vault/details-toggle';
 import Embed from './components/layout/vault/embed';
 import VaultImage from './components/layout/vault/vault-image';
 import VaultLink from './components/layout/vault/vault-link';
+import { VaultChecklist } from './components/layout/vault/vault-checklist';
 
 type HeadingProps = ComponentPropsWithoutRef<'h1'>;
 type ParagraphProps = ComponentPropsWithoutRef<'p'>;
@@ -98,6 +99,7 @@ const components = {
     height: number;
   }) => <VaultImage {...props} />,
   VaultLink: VaultLink,
+  VaultChecklist: VaultChecklist,
 };
 
 declare global {
