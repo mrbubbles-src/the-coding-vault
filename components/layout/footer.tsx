@@ -2,7 +2,7 @@
 
 const Footer = () => {
   return (
-    <footer className="border-sidebar-border bg-sidebar text-brand-text-secondary mt-16 w-full rounded-md border-t-2 px-2 py-4">
+    <footer className="bg-sidebar text-brand-text-secondary mt-16 w-full rounded-md px-2 py-4 shadow-md">
       {/* <div className="mx-auto flex max-w-5xl flex-col gap-6 px-4 sm:flex-row sm:justify-between">
         <div className="space-y-2">
           <div className="relative block h-20 w-40">
