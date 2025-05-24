@@ -16,7 +16,7 @@ export default async function VaultCodeBlock({
 
   return (
     <div
-      className="overflow-x-auto p-4 text-lg"
+      className="overflow-x-auto p-4 text-lg [&_pre]:whitespace-pre"
       dangerouslySetInnerHTML={{ __html: html }}
     />
   );
