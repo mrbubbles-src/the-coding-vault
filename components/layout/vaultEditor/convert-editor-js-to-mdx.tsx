@@ -40,36 +40,18 @@ const ConvertEditorJsToMDX = (editorData: {
         }
         break;
       }
-      case 'codeBox': {
-        const data = block.data as { language?: string; code: string };
-        let codeContent = data.code;
-        if (typeof codeContent === 'string') {
-          codeContent = codeContent
-            .replace(/&lt;/g, '<')
-            .replace(/&gt;/g, '>')
-            .replace(/&amp;/g, '&')
-            .replace(/<div[^>]*>/g, '')
-            .replace(/<\/div>/g, '\n')
-            .replace(/<[^>]+>/g, '')
-            .split('\n')
-            .map((line) => line.replace(/^ {2}/, ''))
-            .reduce<string[]>((acc, line, idx, arr) => {
-              if (line.trim() === '') {
-                if (
-                  acc.length === 0 ||
-                  acc[acc.length - 1].trim() === '' ||
-                  idx === arr.length - 1
-                ) {
-                  return acc;
-                }
-              }
-              acc.push(line);
-              return acc;
-            }, [])
-            .join('\n');
-        }
+      case 'code': {
+        const data = block.data as {
+          code: string;
+          language?: string;
+        };
+
+        const codeContent = data.code.trim();
         resultArray.push(
-          `\`\`\`${data.language || ''}\n${codeContent}\n\`\`\``,
+          `<VaultCodeBlock
+            code={\`${codeContent}\`}
+            language="${data.language || 'plaintext'}"
+          />`,
         );
         break;
       }

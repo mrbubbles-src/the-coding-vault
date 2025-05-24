@@ -10,7 +10,6 @@ import Embed from '@editorjs/embed';
 import Quote from '@editorjs/quote';
 import Table from '@editorjs/table';
 import InlineCode from '@editorjs/inline-code';
-import CodeBox from '@bomdi/codebox';
 import Delimiter from '@coolbytes/editorjs-delimiter';
 import ToggleBlock from 'editorjs-toggle-block';
 import Alert from 'editorjs-alert';
@@ -18,6 +17,7 @@ import Strikethrough from '@sotaproject/strikethrough';
 import Annotation from 'editorjs-annotation';
 import EditorJSInlineHotkey from 'editorjs-inline-hotkey';
 import ImageTool from '@editorjs/image';
+import editorjsCodecup from '@calumk/editorjs-codecup';
 
 const Editor = () => {
   const editorRef = useRef<EditorJS | null>(null);
@@ -50,13 +50,34 @@ const Editor = () => {
             defaultStyle: 'unordered',
           },
         },
-        codeBox: {
-          class: CodeBox as unknown as ToolConstructable,
+        code: {
+          class: editorjsCodecup,
           inlineToolbar: true,
           config: {
-            themeURL:
-              'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/styles/atom-one-dark.min.css',
-            themeName: 'atom-one-dark',
+            forceShowLanguageInput: true,
+            languages: {
+              bash: 'Bash',
+              shell: 'Shell',
+              powershell: 'PowerShell',
+              git: 'Git',
+              markup: 'Markdown',
+              html: 'HTML',
+              css: 'CSS',
+              sass: 'SASS',
+              scss: 'SCSS',
+              javascript: 'JavaScript',
+              typescript: 'TypeScript',
+              jsx: 'JSX',
+              tsx: 'TSX',
+              json: 'JSON',
+              mongodb: 'MongoDB',
+              sql: 'SQL',
+              docker: 'Docker',
+              python: 'Python',
+              regex: 'RegEx',
+              lua: 'Lua',
+              none: 'Plain Text',
+            },
           },
         },
         inlineCode: {
