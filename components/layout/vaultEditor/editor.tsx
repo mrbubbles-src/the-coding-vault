@@ -52,7 +52,6 @@ const Editor = () => {
         },
         code: {
           class: editorjsCodecup,
-          inlineToolbar: true,
           config: {
             forceShowLanguageInput: true,
             languages: {
@@ -175,8 +174,14 @@ const Editor = () => {
 
   const handleSave = async () => {
     if (!editorRef.current) return;
-    const output = await editorRef.current.save();
-    await saveEditorData(output);
+
+    try {
+      const output = await editorRef.current.save();
+      console.log('Editor output:', output);
+      await saveEditorData(output);
+    } catch (err) {
+      console.error('Editor save failed:', err);
+    }
   };
 
   return (

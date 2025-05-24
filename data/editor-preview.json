@@ -228,7 +228,7 @@
       "id": "WnOtXkjrB6",
       "type": "code",
       "data": {
-        "code": "function test () {\n  const hi = \"Hi\";\n  console.logh(hi)  \n}",
+        "code": "function test () {\n    const hi = \"Hi\";\n    console.log(hi);\n}",
         "language": "javascript",
         "showlinenumbers": true,
         "showCopyButton": true

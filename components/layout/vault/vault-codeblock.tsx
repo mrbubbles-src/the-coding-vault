@@ -12,14 +12,12 @@ export default async function VaultCodeBlock({
   const html = await codeToHtml(code, {
     lang: language,
     theme: 'one-dark-pro',
-    decorations: [
-      {
-        start: { line: 1, character: 0 },
-        end: { line: 1, character: 11 },
-        properties: { class: 'highlighted-word' },
-      },
-    ],
   });
 
-  return <div dangerouslySetInnerHTML={{ __html: html }} />;
+  return (
+    <div
+      className="overflow-x-auto p-4 text-lg"
+      dangerouslySetInnerHTML={{ __html: html }}
+    />
+  );
 }

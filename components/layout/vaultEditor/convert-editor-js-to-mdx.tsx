@@ -46,10 +46,9 @@ const ConvertEditorJsToMDX = (editorData: {
           language?: string;
         };
 
-        const codeContent = data.code.trim();
         resultArray.push(
           `<VaultCodeBlock
-            code={\`${codeContent}\`}
+            code={\`${data.code}\`}
             language="${data.language || 'plaintext'}"
           />`,
         );
