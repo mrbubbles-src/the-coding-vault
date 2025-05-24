@@ -15,12 +15,6 @@ declare module '@editorjs/attaches' {
   export default AttachesTool;
 }
 
-declare module '@bomdi/codebox' {
-  import { BlockTool } from '@editorjs/editorjs';
-  const CodeBox: BlockTool;
-  export default CodeBox;
-}
-
 declare module '@coolbytes/editorjs-delimiter' {
   import { BlockTool } from '@editorjs/editorjs';
   const Delimiter: BlockTool;
@@ -56,3 +50,5 @@ declare module 'editorjs-inline-hotkey' {
   const EditorJSInlineHotkey: InlineTool;
   export default EditorJSInlineHotkey;
 }
+
+declare module '@calumk/editorjs-codecup';
