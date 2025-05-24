@@ -1,11 +1,12 @@
 import React, { ComponentPropsWithoutRef } from 'react';
-import { highlight } from 'sugar-high';
+// import { highlight } from 'sugar-high';
 import Alerts from './components/layout/vault/alerts';
 import DetailsToggle from './components/layout/vault/details-toggle';
 import Embed from './components/layout/vault/embed';
 import VaultImage from './components/layout/vault/vault-image';
 import VaultLink from './components/layout/vault/vault-link';
 import { VaultChecklist } from './components/layout/vault/vault-checklist';
+import VaultCodeBlock from './components/layout/vault/vault-codeblock';
 
 type HeadingProps = ComponentPropsWithoutRef<'h1'>;
 type ParagraphProps = ComponentPropsWithoutRef<'p'>;
@@ -59,10 +60,34 @@ const components = {
       </VaultLink>
     );
   },
-  code: ({ children, ...props }: ComponentPropsWithoutRef<'code'>) => {
-    const codeHTML = highlight(children as string);
-    return <code dangerouslySetInnerHTML={{ __html: codeHTML }} {...props} />;
-  },
+  VaultCodeBlock: VaultCodeBlock,
+  // code: ({ children, ...props }: ComponentPropsWithoutRef<'code'>) => {
+  //   const isMultiline = (children as string).includes('\n');
+  //   const codeHTML = highlight(children as string);
+
+  //   // Mehrzeiliger Code wird später über `pre` gerendert
+  //   if (isMultiline) {
+  //     return <code {...props}>{children}</code>;
+  //   }
+
+  //   // Inline-Code (z. B. `const x = 1;`)
+  //   return (
+  //     <code
+  //       dangerouslySetInnerHTML={{ __html: codeHTML }}
+  //       className="bg-muted rounded px-1.5 py-0.5 font-mono text-sm"
+  //       {...props}
+  //     />
+  //   );
+  // },
+  // pre: ({ children, ...props }: ComponentPropsWithoutRef<'pre'>) => {
+  //   return (
+  //     <pre
+  //       className="bg-muted overflow-x-auto rounded-lg p-4 text-sm"
+  //       {...props}>
+  //       {children}
+  //     </pre>
+  //   );
+  // },
   table: (props: ComponentPropsWithoutRef<'table'>) => (
     <table
       className="[&_th]:bg-sidebar [&_tr:nth-child(even)]:bg-sidebar/50 w-full place-self-center text-sm lg:w-[58.95rem] lg:text-lg [&_td]:border-b [&_td]:px-4 [&_td]:py-2 [&_th]:border-b [&_th]:px-4 [&_th]:py-2 [&_tr]:text-center"
