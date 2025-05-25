@@ -61,36 +61,10 @@ const components = {
     );
   },
   VaultCodeBlock: VaultCodeBlock,
-  // code: ({ children, ...props }: ComponentPropsWithoutRef<'code'>) => {
-  //   const isMultiline = (children as string).includes('\n');
-  //   const codeHTML = highlight(children as string);
 
-  //   // Mehrzeiliger Code wird später über `pre` gerendert
-  //   if (isMultiline) {
-  //     return <code {...props}>{children}</code>;
-  //   }
-
-  //   // Inline-Code (z. B. `const x = 1;`)
-  //   return (
-  //     <code
-  //       dangerouslySetInnerHTML={{ __html: codeHTML }}
-  //       className="bg-muted rounded px-1.5 py-0.5 font-mono text-sm"
-  //       {...props}
-  //     />
-  //   );
-  // },
-  // pre: ({ children, ...props }: ComponentPropsWithoutRef<'pre'>) => {
-  //   return (
-  //     <pre
-  //       className="bg-muted overflow-x-auto rounded-lg p-4 text-sm"
-  //       {...props}>
-  //       {children}
-  //     </pre>
-  //   );
-  // },
   table: (props: ComponentPropsWithoutRef<'table'>) => (
     <table
-      className="[&_th]:bg-sidebar [&_tr:nth-child(even)]:bg-sidebar/50 w-full place-self-center text-sm lg:w-[58.95rem] lg:text-lg [&_td]:border-b [&_td]:px-4 [&_td]:py-2 [&_th]:border-b [&_th]:px-4 [&_th]:py-2 [&_tr]:text-center"
+      className="[&_th]:bg-sidebar [&_tr:nth-child(even)]:bg-sidebar/80 w-full place-self-center text-sm lg:w-[58.95rem] lg:text-lg [&_td]:border-b [&_td]:px-4 [&_td]:py-2 [&_th]:border-b [&_th]:px-4 [&_th]:py-2 [&_tr]:text-center"
       {...props}
     />
   ),
