@@ -1,11 +1,11 @@
 {
-  "id": "0a98937b-5b3d-4d29-8651-91519f6021ed",
-  "prevId": "d7614ba6-d91d-47cf-83b9-3aee861f2ed2",
+  "id": "0ae9d480-ea6f-405e-808e-e10d2ed322ce",
+  "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
-    "public.Category": {
-      "name": "Category",
+    "public.categories": {
+      "name": "categories",
       "schema": "",
       "columns": {
         "id": {
@@ -97,8 +97,8 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.User": {
-      "name": "User",
+    "public.users": {
+      "name": "users",
       "schema": "",
       "columns": {
         "id": {
@@ -140,9 +140,9 @@
           "notNull": true,
           "default": "'GUEST'"
         },
-        "authorName": {
-          "name": "authorName",
-          "type": "text",
+        "authorInfo": {
+          "name": "authorInfo",
+          "type": "jsonb",
           "primaryKey": false,
           "notNull": false
         },
@@ -218,8 +218,8 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.VaultEntry": {
-      "name": "VaultEntry",
+    "public.vaultEntries": {
+      "name": "vaultEntries",
       "schema": "",
       "columns": {
         "id": {
@@ -247,6 +247,12 @@
           "primaryKey": false,
           "notNull": true
         },
+        "content": {
+          "name": "content",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true
+        },
         "authorId": {
           "name": "authorId",
           "type": "text",
@@ -255,6 +261,26 @@
         },
         "published": {
           "name": "published",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "categoryId": {
+          "name": "categoryId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "order": {
+          "name": "order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "isFeatured": {
+          "name": "isFeatured",
           "type": "boolean",
           "primaryKey": false,
           "notNull": true,
@@ -273,18 +299,6 @@
           "primaryKey": false,
           "notNull": true,
           "default": "CURRENT_TIMESTAMP"
-        },
-        "categoryId": {
-          "name": "categoryId",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "content": {
-          "name": "content",
-          "type": "jsonb",
-          "primaryKey": false,
-          "notNull": true
         }
       },
       "indexes": {
@@ -324,8 +338,8 @@
       "foreignKeys": {
         "VaultEntry_authorId_fkey": {
           "name": "VaultEntry_authorId_fkey",
-          "tableFrom": "VaultEntry",
-          "tableTo": "User",
+          "tableFrom": "vaultEntries",
+          "tableTo": "users",
           "columnsFrom": [
             "authorId"
           ],
@@ -337,8 +351,8 @@
         },
         "VaultEntry_categoryId_fkey": {
           "name": "VaultEntry_categoryId_fkey",
-          "tableFrom": "VaultEntry",
-          "tableTo": "Category",
+          "tableFrom": "vaultEntries",
+          "tableTo": "categories",
           "columnsFrom": [
             "categoryId"
           ],

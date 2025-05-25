@@ -2,6 +2,7 @@ import { ICategories } from '@/types/types';
 import { db } from '@/drizzle/db/index';
 import { categories } from '@/drizzle/db/schema';
 import { asc } from 'drizzle-orm';
+
 const getCategories = async (): Promise<Array<ICategories>> => {
   try {
     const dbCategories = await db

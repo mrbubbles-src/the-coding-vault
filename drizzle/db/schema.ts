@@ -1,3 +1,4 @@
+import { sql } from 'drizzle-orm';
 import {
   pgTable,
   uniqueIndex,
@@ -10,7 +11,6 @@ import {
   jsonb,
   pgEnum,
 } from 'drizzle-orm/pg-core';
-import { sql } from 'drizzle-orm';
 
 export const iconKey = pgEnum('IconKey', [
   'github',
@@ -38,7 +38,16 @@ export const users = pgTable(
     password: text().notNull(),
     email: text().notNull(),
     role: role().default('GUEST').notNull(),
-    authorName: text(),
+    authorInfo: jsonb().$type<{
+      name?: string;
+      email?: string;
+      avatar?: string;
+      authorSocials?: {
+        website?: string;
+        twitter?: string;
+        github?: string;
+      };
+    }>(),
     createdAt: timestamp({ precision: 3, mode: 'string' })
       .default(sql`CURRENT_TIMESTAMP`)
       .notNull(),
@@ -102,16 +111,18 @@ export const vaultEntries = pgTable(
     numericId: serial().notNull(),
     title: text().notNull(),
     slug: text().notNull(),
+    content: jsonb().notNull(),
     authorId: text().notNull(),
     published: boolean().default(false).notNull(),
+    categoryId: text().notNull(),
+    order: integer().default(0).notNull(),
+    isFeatured: boolean().default(false).notNull(),
     createdAt: timestamp({ precision: 3, mode: 'string' })
       .default(sql`CURRENT_TIMESTAMP`)
       .notNull(),
     updatedAt: timestamp({ precision: 3, mode: 'string' })
       .default(sql`CURRENT_TIMESTAMP`)
       .notNull(),
-    categoryId: text().notNull(),
-    content: jsonb().notNull(),
   },
   (table) => [
     uniqueIndex('VaultEntry_numericId_key').using(
