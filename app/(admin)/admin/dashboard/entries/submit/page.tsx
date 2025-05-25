@@ -5,7 +5,7 @@ const SubmitEntryPage = async () => {
   await multiRoleGuard(['SUPERADMIN', 'MODERATOR', 'GUEST']);
 
   const result = await getCurrentUser();
-  const authorId = 'error' in result ? null : result.user.id;
+  const authorId = 'error' in result ? 'unknown' : result.user.id;
 
   return <SubmitEntryClient authorId={authorId} />;
 };
