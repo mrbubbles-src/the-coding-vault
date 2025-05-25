@@ -7,6 +7,7 @@ import AdminSidebar from '@/components/layout/sidebar/admin/admin-sidebar';
 import Navbar from '@/components/layout/navbar';
 import '../globals.css';
 import Footer from '@/components/layout/footer';
+import { Toaster } from '@/components/ui/shadcn/sonner';
 
 const firaCode = Fira_Code({
   variable: '--font-fira-code',
@@ -80,6 +81,7 @@ export default async function RootLayout({
               <Footer />
             </div>
           </SidebarProvider>
+          <Toaster richColors position="top-right" />
         </ThemeProvider>
       </body>
     </html>

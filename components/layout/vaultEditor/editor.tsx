@@ -1,8 +1,6 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { Button } from '@/components/ui/shadcn/button';
-import { saveEditorData } from '@/lib/test';
 import EditorJS, { ToolConstructable } from '@editorjs/editorjs';
 import Header from '@editorjs/header';
 import EditorjsList from '@editorjs/list';
@@ -18,8 +16,9 @@ import Annotation from 'editorjs-annotation';
 import EditorJSInlineHotkey from 'editorjs-inline-hotkey';
 import ImageTool from '@editorjs/image';
 import editorjsCodecup from '@calumk/editorjs-codecup';
+import EditorForm from './editor-form';
 
-const Editor = () => {
+const Editor = ({ authorId }: { authorId: string }) => {
   const editorRef = useRef<EditorJS | null>(null);
   const [isMounted, setIsMounted] = useState(false);
 
@@ -31,7 +30,6 @@ const Editor = () => {
 
     const editor = new EditorJS({
       holder: 'editorjs',
-      autofocus: true,
       tools: {
         header: {
           class: Header as unknown as ToolConstructable,
@@ -172,13 +170,11 @@ const Editor = () => {
     };
   }, [isMounted]);
 
-  const handleSave = async () => {
+  const editorOutput = async () => {
     if (!editorRef.current) return;
-
     try {
       const output = await editorRef.current.save();
-      console.log('Editor output:', output);
-      await saveEditorData(output);
+      return output;
     } catch (err) {
       console.error('Editor save failed:', err);
     }
@@ -186,10 +182,12 @@ const Editor = () => {
 
   return (
     <section className="border-border bg-background mb-4 flex w-full flex-col items-center justify-center rounded-md border-2 p-4 text-base shadow-sm">
-      {isMounted && <div id="editorjs" className="w-[60%]" />}
-      <Button onClick={handleSave} className="place-self-start">
-        Save
-      </Button>
+      {isMounted && (
+        <>
+          <div id="editorjs" className="w-[60%]" />
+          <EditorForm editorOutput={editorOutput} authorId={authorId} />
+        </>
+      )}
     </section>
   );
 };

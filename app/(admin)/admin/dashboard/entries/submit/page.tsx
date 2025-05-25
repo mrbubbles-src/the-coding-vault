@@ -1,10 +1,13 @@
 import SubmitEntryClient from '@/components/layout/vaultEditor/submit-entry-client';
-import { multiRoleGuard } from '@/lib/auth';
+import { getCurrentUser, multiRoleGuard } from '@/lib/auth';
 
 const SubmitEntryPage = async () => {
   await multiRoleGuard(['SUPERADMIN', 'MODERATOR', 'GUEST']);
 
-  return <SubmitEntryClient />;
+  const result = await getCurrentUser();
+  const authorId = 'error' in result ? null : result.user.id;
+
+  return <SubmitEntryClient authorId={authorId} />;
 };
 
 export default SubmitEntryPage;
