@@ -1,4 +1,4 @@
-import { TChecklistItem } from '@/lib/types';
+import { TChecklistItem } from '@/types/types';
 import { replaceChecklistLinksWithVaultLinks } from '@/lib/utils';
 
 export function VaultChecklist({

@@ -99,3 +99,14 @@ export type TEditorBlock =
 export interface IEditorRendererProps {
   blocks: TEditorBlock[];
 }
+export type TEditorJsListItem = {
+  content: string;
+  text?: string;
+  meta?: { checked?: boolean };
+  items?: TEditorJsListItem[];
+};
+export type TChecklistItem = {
+  content: string;
+  meta?: { checked?: boolean };
+  items?: TChecklistItem[];
+};

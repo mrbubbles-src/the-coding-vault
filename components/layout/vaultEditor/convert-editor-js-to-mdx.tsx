@@ -1,5 +1,5 @@
 // components/editorjs/Renderer.tsx
-import { TEditorJsListItem } from '@/lib/types';
+import { TEditorJsListItem } from '@/types/types';
 import { renderListItems, replaceLinksWithVaultLinks } from '@/lib/utils';
 import { TEditorBlock } from '@/types/types';
 
