@@ -1,13 +1,25 @@
 import { MDXRemote } from 'next-mdx-remote-client/rsc';
 import type { MDXRemoteOptions } from 'next-mdx-remote-client/rsc';
-import preview from '@/data/editor-preview.json';
 import ConvertEditorJsToMDX from '@/components/layout/vaultEditor/convert-editor-js-to-mdx';
 import { Suspense } from 'react';
 import { components } from '@/mdx-components';
 import remarkGfm from 'remark-gfm';
+import { notFound } from 'next/navigation';
+import { getVaultEntryBySlug } from '@/lib/db';
 
-export default async function Page() {
-  const mdx = ConvertEditorJsToMDX({ blocks: preview.blocks });
+export default async function VaultEntryPage({
+  params,
+}: {
+  params: { slug: string };
+}) {
+  // unecessary await here, but it removes an annoying (and unnecessary)
+  // next.js warning about params needing to be awaited.
+  const { slug } = await params;
+  const entry = await getVaultEntryBySlug(slug);
+  if (!entry) {
+    return notFound();
+  }
+  const mdx = ConvertEditorJsToMDX({ blocks: entry.content.blocks });
   const options: MDXRemoteOptions = {
     mdxOptions: {
       remarkPlugins: [remarkGfm],
