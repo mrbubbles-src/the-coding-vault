@@ -27,6 +27,11 @@ export interface IVaultEntry {
   createdAt: Date;
   updatedAt: Date;
 }
+export interface IVaultEntrySidebar {
+  id: string;
+  title: string;
+  slug: string;
+}
 export type TIconKey =
   | 'git'
   | 'github'
@@ -45,7 +50,7 @@ export interface ICategories {
   slug: string;
   iconKey: TIconKey;
   order: number;
-  entries?: Array<IVaultEntry>;
+  vaultEntries?: IVaultEntrySidebar[];
 }
 
 export type TUserResult =
