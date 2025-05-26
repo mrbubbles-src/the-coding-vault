@@ -20,7 +20,6 @@ import {
   SelectItem,
 } from '@/components/ui/shadcn/select';
 import { ICategories } from '@/types/types';
-import { useState, useEffect } from 'react';
 import { OutputData } from '@editorjs/editorjs';
 import { toast } from 'sonner';
 
@@ -30,16 +29,21 @@ interface IEditorFormValues {
   categoryId: string;
   content: string;
   authorId: string;
+  order: number;
+  categories: ICategories[];
 }
 
 const EditorForm = ({
   editorOutput,
   authorId,
+  maxOrder,
+  categories = [] as ICategories[],
 }: {
   editorOutput: () => Promise<OutputData | undefined>;
   authorId: string;
+  maxOrder: number;
+  categories: ICategories[];
 }) => {
-  const [categories, setCategories] = useState<ICategories[]>([]);
   const form = useForm<IEditorFormValues>({
     defaultValues: {
       title: '',
@@ -47,28 +51,9 @@ const EditorForm = ({
       categoryId: '',
       content: '',
       authorId: authorId || 'unknown',
+      order: maxOrder + 1 || 0,
     },
   });
-  useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const res = await fetch('/api/vault/categories');
-        if (!res.ok) {
-          toast.error(
-            'Failed to fetch categories. Please check console for details.',
-          );
-        }
-        const data = await res.json();
-        setCategories(data);
-      } catch (error) {
-        console.error('Error fetching categories:', error);
-        toast.error(
-          'Error fetching categories. Please check console for details.',
-        );
-      }
-    };
-    fetchCategories();
-  }, []);
 
   const {
     handleSubmit,
@@ -87,14 +72,33 @@ const EditorForm = ({
       formData.append('slug', values.slug);
       formData.append('categoryId', values.categoryId);
       formData.append('authorId', values.authorId);
+      formData.append('order', values.order.toString());
+
       formData.forEach((value, key) => {
         console.log(`${key}:`, value);
       });
+      const response = await fetch('/api/vault/save-entry', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(Object.fromEntries(formData)),
+      });
+      if (!response.ok) {
+        const errorText = await response.json();
+        console.error(
+          'Error saving entry:',
+          errorText.message || 'Unknown error',
+        );
+        toast.error(`${errorText.message || 'Failed to save entry.'}`);
+        return;
+      }
+      const data = await response.json();
+      console.log('Entry saved successfully:', data);
+      toast.success(`${data.message || 'Entry saved successfully!'}`);
     } catch (error) {
       console.error('Error saving editor content:', error);
-      toast.error(
-        'Error saving editor content, please check console for details.',
-      );
+      toast.error('An error occurred while saving the entry.');
     }
   };
 
@@ -132,6 +136,32 @@ const EditorForm = ({
                 </FormControl>
                 <FormDescription className="min-h-[3rem]">
                   The slug is a URL-friendly version of the title.
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="order"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Sorting Order</FormLabel>
+                <FormControl>
+                  <Input placeholder="Enter Sorting Order" {...field} />
+                </FormControl>
+                <FormDescription className="min-h-[3rem]">
+                  Currently,{' '}
+                  <span className="font-bold text-amber-400">{maxOrder}</span>{' '}
+                  is the highest{' '}
+                  <span className="font-bold text-amber-400">order value</span>{' '}
+                  for sorting vault entries. If you leave it as is, it will be
+                  set to{' '}
+                  <span className="font-bold text-amber-400">
+                    {maxOrder + 1}
+                  </span>{' '}
+                  by default.
                 </FormDescription>
                 <FormMessage />
               </FormItem>

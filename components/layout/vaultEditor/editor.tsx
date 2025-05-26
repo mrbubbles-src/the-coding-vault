@@ -17,8 +17,17 @@ import EditorJSInlineHotkey from 'editorjs-inline-hotkey';
 import ImageTool from '@editorjs/image';
 import editorjsCodecup from '@calumk/editorjs-codecup';
 import EditorForm from './editor-form';
+import { ICategories } from '@/types/types';
 
-const Editor = ({ authorId }: { authorId: string }) => {
+const Editor = ({
+  authorId,
+  maxOrder,
+  categories,
+}: {
+  authorId: string;
+  maxOrder: number;
+  categories: ICategories[];
+}) => {
   const editorRef = useRef<EditorJS | null>(null);
   const [isMounted, setIsMounted] = useState(false);
 
@@ -185,7 +194,12 @@ const Editor = ({ authorId }: { authorId: string }) => {
       {isMounted && (
         <>
           <div id="editorjs" className="w-[60%]" />
-          <EditorForm editorOutput={editorOutput} authorId={authorId} />
+          <EditorForm
+            editorOutput={editorOutput}
+            authorId={authorId}
+            maxOrder={maxOrder}
+            categories={categories}
+          />
         </>
       )}
     </section>
