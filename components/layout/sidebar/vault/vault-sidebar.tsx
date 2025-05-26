@@ -80,57 +80,60 @@ const VaultSidebar = async () => {
       <SidebarContent>
         {/* ? Group Start */}
         {categories &&
-          categories.entries &&
-          categories.entries.length === 0 &&
-          categories.map((category) => (
-            <Collapsible key={category.name} className="group/collapsible">
-              <SidebarGroup>
-                <div className="flex items-center gap-2">
-                  <FontAwesomeIcon
-                    icon={iconMap[category.iconKey]}
-                    className="ml-[0.4rem] h-5 w-5 shrink-0"
-                  />
-                  <SidebarGroupLabel asChild>
-                    <CollapsibleTrigger className="group-data-[state=open]/collapsible:text-primary flex flex-1 cursor-pointer place-items-center items-center gap-2 text-lg font-semibold transition-colors">
-                      <span className="text-lg font-semibold">
-                        {category.name}
-                      </span>
-                      <aside className="flex items-center justify-end">
-                        <SidebarMenuBadge className="text-sm">
-                          ({categories.entries.length})
-                          <ChevronLeft className="mr-2 ml-auto transition-transform duration-500 group-data-[state=open]/collapsible:-rotate-z-90" />
-                        </SidebarMenuBadge>
-                      </aside>
-                    </CollapsibleTrigger>
-                  </SidebarGroupLabel>
-                </div>
-                <CollapsibleContent className="group-data-[state=open]/collapsible:animate-collapsible-down animate-collapsible-up transition-all duration-500 ease-in-out">
-                  <SidebarGroupContent>
-                    <SidebarMenuSub>
-                      <SidebarMenuSubItem key={category.name}>
-                        {category.entries &&
-                          category.entries.map((entry) => (
-                            <SidebarMenuButton
-                              className="opacity-0 transition-all duration-500 ease-in-out group-data-[state=open]/collapsible:opacity-100"
-                              key={entry.slug}
-                              asChild
-                              isActive={pathname.startsWith(
-                                `/vault/${entry.slug}`,
-                              )}>
-                              <Link
-                                href={`/vault/${entry.slug}` as Route}
-                                prefetch={false}>
-                                <span>{entry.title}</span>
-                              </Link>
-                            </SidebarMenuButton>
-                          ))}
-                      </SidebarMenuSubItem>
-                    </SidebarMenuSub>
-                  </SidebarGroupContent>
-                </CollapsibleContent>
-              </SidebarGroup>
-            </Collapsible>
-          ))}
+          categories
+            .filter(
+              (category) =>
+                category.vaultEntries && category.vaultEntries.length > 0,
+            )
+            .map((category) => (
+              <Collapsible key={category.name} className="group/collapsible">
+                <SidebarGroup>
+                  <div className="flex items-center gap-2">
+                    <FontAwesomeIcon
+                      icon={iconMap[category.iconKey]}
+                      className="ml-[0.4rem] h-5 w-5 shrink-0"
+                    />
+                    <SidebarGroupLabel asChild>
+                      <CollapsibleTrigger className="group-data-[state=open]/collapsible:text-primary flex flex-1 cursor-pointer place-items-center items-center gap-2 text-lg font-semibold transition-colors">
+                        <span className="text-lg font-semibold">
+                          {category.name}
+                        </span>
+                        <aside className="flex items-center justify-end">
+                          <SidebarMenuBadge className="text-sm">
+                            ({category?.vaultEntries?.length || 0})
+                            <ChevronLeft className="mr-2 ml-auto transition-transform duration-500 group-data-[state=open]/collapsible:-rotate-z-90" />
+                          </SidebarMenuBadge>
+                        </aside>
+                      </CollapsibleTrigger>
+                    </SidebarGroupLabel>
+                  </div>
+                  <CollapsibleContent className="group-data-[state=open]/collapsible:animate-collapsible-down animate-collapsible-up transition-all duration-500 ease-in-out">
+                    <SidebarGroupContent>
+                      <SidebarMenuSub>
+                        <SidebarMenuSubItem key={category.name}>
+                          {category.vaultEntries &&
+                            category.vaultEntries.map((entry) => (
+                              <SidebarMenuButton
+                                className="opacity-0 transition-all duration-500 ease-in-out group-data-[state=open]/collapsible:opacity-100"
+                                key={entry.slug}
+                                asChild
+                                isActive={pathname.startsWith(
+                                  `/vault/${entry.slug}`,
+                                )}>
+                                <Link
+                                  href={`/vault/${entry.slug}` as Route}
+                                  prefetch={false}>
+                                  <span>{entry.title}</span>
+                                </Link>
+                              </SidebarMenuButton>
+                            ))}
+                        </SidebarMenuSubItem>
+                      </SidebarMenuSub>
+                    </SidebarGroupContent>
+                  </CollapsibleContent>
+                </SidebarGroup>
+              </Collapsible>
+            ))}
         {/* ? Group End */}
       </SidebarContent>
       {/* ? Content End */}
