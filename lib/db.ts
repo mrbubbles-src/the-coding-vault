@@ -1,15 +1,23 @@
 import { ICategories } from '@/types/types';
 import { db } from '@/drizzle/db/index';
-import { categories, vaultEntries } from '@/drizzle/db/schema';
-import { asc, desc } from 'drizzle-orm';
+import { vaultEntries } from '@/drizzle/db/schema';
+import { desc } from 'drizzle-orm';
 import { toast } from 'sonner';
 
 const getCategories = async (): Promise<Array<ICategories>> => {
   try {
-    const dbCategories = await db
-      .select()
-      .from(categories)
-      .orderBy(asc(categories.order));
+    const dbCategories = await db.query.categories.findMany({
+      with: {
+        vaultEntries: {
+          columns: {
+            id: true,
+            title: true,
+            slug: true,
+          },
+        },
+      },
+      orderBy: (c, { asc }) => [asc(c.order)],
+    });
     return dbCategories;
   } catch (error) {
     console.error('Fehler beim Abrufen der Kategorien:', error);
