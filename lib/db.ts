@@ -1,7 +1,8 @@
 import { ICategories } from '@/types/types';
 import { db } from '@/drizzle/db/index';
-import { categories } from '@/drizzle/db/schema';
-import { asc } from 'drizzle-orm';
+import { categories, vaultEntries } from '@/drizzle/db/schema';
+import { asc, desc } from 'drizzle-orm';
+import { toast } from 'sonner';
 
 const getCategories = async (): Promise<Array<ICategories>> => {
   try {
@@ -12,9 +13,31 @@ const getCategories = async (): Promise<Array<ICategories>> => {
     return dbCategories;
   } catch (error) {
     console.error('Fehler beim Abrufen der Kategorien:', error);
+    toast.error(
+      'Fehler beim Abrufen der Kategorien. Bitte überprüfen Sie die Konsole für Details.',
+    );
     return [];
   }
 };
+
+export const getMaxOrder = async (): Promise<number> => {
+  try {
+    const maxOrder = await db
+      .select({ order: vaultEntries.order })
+      .from(vaultEntries)
+      .orderBy(desc(vaultEntries.order))
+      .limit(1)
+      .then((rows) => rows[0]?.order ?? 0);
+    return maxOrder;
+  } catch (error) {
+    console.error('Fehler beim Abrufen der maximalen Reihenfolge:', error);
+    toast.error(
+      'Fehler beim Abrufen der maximalen Reihenfolge. Bitte überprüfen Sie die Konsole für Details.',
+    );
+    return 0;
+  }
+};
+
 // const getCategories = async (): Promise<Array<ICategories>> => {
 //   try {
 //     return await prisma.category.findMany({
