@@ -12,20 +12,34 @@ export interface IInputs {
   username: string;
   password: string;
 }
-
+export interface IAuthorInfo {
+  name?: string;
+  email?: string;
+  avatar?: string;
+  authorSocials?: {
+    website?: string;
+    twitter?: string;
+    github?: string;
+  };
+}
+export type TContent = {
+  time: number;
+  blocks: TEditorBlock[];
+  version: string;
+};
 export interface IVaultEntry {
-  id: string;
-  numericId: number;
+  id?: string;
+  numericId?: number;
   title: string;
-  slug: string;
-  content: string;
-  categoryId: string;
-  category: string;
-  authorId: string;
-  author: string;
-  published: boolean;
-  createdAt: Date;
-  updatedAt: Date;
+  slug?: string;
+  content: TContent;
+  categoryId?: string;
+  category?: string;
+  authorId?: string;
+  author: IAuthorInfo | string;
+  published?: boolean;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 export interface IVaultEntrySidebar {
   id: string;
