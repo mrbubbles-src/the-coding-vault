@@ -1,4 +1,4 @@
-import { ICategories } from '@/types/types';
+import { ICategories, IVaultEntry, TContent } from '@/types/types';
 import { db } from '@/drizzle/db/index';
 import { vaultEntries } from '@/drizzle/db/schema';
 import { desc } from 'drizzle-orm';
@@ -28,7 +28,7 @@ const getCategories = async (): Promise<Array<ICategories>> => {
   }
 };
 
-export const getMaxOrder = async (): Promise<number> => {
+const getMaxOrder = async (): Promise<number> => {
   try {
     const maxOrder = await db
       .select({ order: vaultEntries.order })
@@ -46,20 +46,29 @@ export const getMaxOrder = async (): Promise<number> => {
   }
 };
 
-// const getCategories = async (): Promise<Array<ICategories>> => {
-//   try {
-//     return await prisma.category.findMany({
-//       orderBy: { order: 'asc' },
-//     });
-//   } catch (error) {
-//     console.error('Fehler beim Abrufen der Kategorien:', error);
-//     return [];
-//   }
-// };
-// const getEntryBySlug = async () => {};
-// const fetchEntryBySlug = async () => {};
-// // const getEntryBySlug = async () => {};
-// // const getEntryBySlug = async () => {};
-// // const getEntryBySlug = async () => {};
+const getVaultEntryBySlug = async (
+  slug: string,
+): Promise<IVaultEntry | null> => {
+  const entry = await db.query.vaultEntries.findFirst({
+    where: (entries, { eq }) => eq(entries.slug, slug),
+    columns: {
+      title: true,
+      content: true,
+    },
+    with: {
+      user: true,
+    },
+  });
 
-export { getCategories };
+  if (!entry) {
+    return null;
+  }
+  const { user, ...rest } = entry;
+  return {
+    ...rest,
+    content: rest.content as TContent,
+    author: user.authorInfo ? { ...user.authorInfo } : user.username,
+  };
+};
+
+export { getCategories, getMaxOrder, getVaultEntryBySlug };
