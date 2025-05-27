@@ -2,7 +2,7 @@ import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { logoutUser } from './auth';
 import { redirect } from 'next/navigation';
-import { TEditorJsListItem } from './types';
+import { TEditorJsListItem } from '@/types/types';
 import React, { ReactNode } from 'react';
 import VaultLink from '@/components/layout/vault/vault-link';
 
