@@ -3,42 +3,10 @@
 
 @custom-variant dark (&:is(.dark *));
 
-body {
-  font-family: var(--font-montserrat), sans-serif;
-  color: var(--foreground);
-}
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: var(--font-poppins), sans-serif;
-  font-weight: 600;
-}
-
-pre {
-  padding: 1rem;
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-md);
-}
-code {
-  font-family: var(--font-fira-code, var(--font-fira-code-mono)), monospace;
-  counter-reset: step;
-  counter-increment: step 0;
-}
-code .line::before {
-  content: counter(step);
-  counter-increment: step;
-  width: 1rem;
-  margin-right: 1.5rem;
-  margin-left: 0.5rem;
-  display: inline-block;
-  text-align: right;
-  color: oklch(0.5 0.0225 262.91);
-}
-
 :root {
+  --font-fira: 'Fira Code', 'Fira Code Mono', monospace;
+  --font-poppins: 'Poppins', sans-serif;
+  --font-montserrat: 'Montserrat', sans-serif;
   --radius: 0.5rem;
   --background: oklch(0.929 0.008 278.631);
   --foreground: oklch(0.36 0.053 273.422);
@@ -141,6 +109,9 @@ code .line::before {
 }
 
 @theme inline {
+  --font-code: var(--font-fira);
+  --font-headings: var(--font-poppins);
+  --font-body: var(--font-montserrat);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -199,7 +170,28 @@ code .line::before {
   --shadow-xl: var(--shadow-xl);
   --shadow-2xl: var(--shadow-2xl);
 }
-
+body {
+  font-family: var(--font-body);
+  color: var(--foreground);
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-headings);
+  font-weight: 600;
+}
+code:not(pre code) {
+  font-family: var(--font-code);
+  font-weight: bold;
+  font-style: italic;
+  background-color: var(--code-bg);
+  padding: 0.2rem 0.4rem;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
 .dark .ce-popover,
 .dark .ce-popover-item,
 .dark .ce-popover-item__icon,

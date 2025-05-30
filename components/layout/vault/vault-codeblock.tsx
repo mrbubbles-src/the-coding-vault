@@ -14,10 +14,21 @@ export default async function VaultCodeBlock({
     theme: 'one-dark-pro',
   });
 
+  // Extract the actual code from the <code> block
+  const match = html.match(/<code[^>]*>([\s\S]*?)<\/code>/);
+  const rawCode = match?.[1] || '';
+  const lines = rawCode.split('\n');
+
   return (
-    <div
-      className="overflow-x-auto p-4 text-lg [&_pre]:whitespace-pre"
-      dangerouslySetInnerHTML={{ __html: html }}
-    />
+    <pre className="bg-code-bg overflow-x-auto rounded-md p-4 text-lg leading-relaxed">
+      <code className="language-js font-code">
+        {lines.map((line, i) => (
+          <span key={i} className="line flex">
+            <span className="pr-4 text-gray-500 select-none">{i + 1}</span>
+            <span dangerouslySetInnerHTML={{ __html: line || '&nbsp;' }} />
+          </span>
+        ))}
+      </code>
+    </pre>
   );
 }
