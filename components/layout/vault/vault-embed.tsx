@@ -1,4 +1,10 @@
-const Embed = ({ embed, caption }: { embed: string; caption?: string }) => {
+const VaultEmbed = ({
+  embed,
+  caption,
+}: {
+  embed: string;
+  caption?: string;
+}) => {
   return (
     <div className="mx-auto mb-4 aspect-video w-full max-w-3xl">
       <iframe
@@ -15,4 +21,4 @@ const Embed = ({ embed, caption }: { embed: string; caption?: string }) => {
   );
 };
 
-export default Embed;
+export default VaultEmbed;

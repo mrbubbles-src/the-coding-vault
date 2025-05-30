@@ -1,4 +1,4 @@
-import CldImage from './cdimage';
+import VaultCldImage from './vault-cdimage';
 import { getCldImageUrl } from 'next-cloudinary';
 
 const VaultImage = async ({
@@ -28,7 +28,7 @@ const VaultImage = async ({
   return (
     <figure className="text-center">
       <a href={url} target="_blank" rel="noopener noreferrer">
-        <CldImage
+        <VaultCldImage
           src={url}
           alt={caption || original_filename}
           width={width}

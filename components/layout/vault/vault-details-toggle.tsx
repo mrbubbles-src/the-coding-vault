@@ -6,7 +6,7 @@ import {
 } from '@/components/ui/shadcn/collapsible';
 import { ChevronRight } from 'lucide-react';
 
-const DetailsToggle = ({
+const VaultDetailsToggle = ({
   text,
   children,
 }: {
@@ -28,4 +28,4 @@ const DetailsToggle = ({
   );
 };
 
-export default DetailsToggle;
+export default VaultDetailsToggle;

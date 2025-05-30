@@ -9,7 +9,7 @@ import { CircleAlert, Skull, Smile, TriangleAlert } from 'lucide-react';
 import Vaulty from '@/public/images/icon.svg';
 
 import Image from 'next/image';
-const Alerts = ({
+const VaultAlerts = ({
   type = 'info',
   children,
 }: {
@@ -76,4 +76,4 @@ const Alerts = ({
   );
 };
 
-export default Alerts;
+export default VaultAlerts;

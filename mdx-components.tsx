@@ -1,8 +1,8 @@
 import React, { ComponentPropsWithoutRef } from 'react';
 // import { highlight } from 'sugar-high';
-import Alerts from './components/layout/vault/alerts';
-import DetailsToggle from './components/layout/vault/details-toggle';
-import Embed from './components/layout/vault/embed';
+import VaultAlerts from './components/layout/vault/vault-alerts';
+import VaultDetailsToggle from './components/layout/vault/vault-details-toggle';
+import VaultEmbed from './components/layout/vault/vault-embed';
 import VaultImage from './components/layout/vault/vault-image';
 import VaultLink from './components/layout/vault/vault-link';
 import { VaultChecklist } from './components/layout/vault/vault-checklist';
@@ -74,21 +74,23 @@ const components = {
       {...props}
     />
   ),
-  Alert: ({
+  VaultAlerts: ({
     type = 'info',
     children,
   }: {
     type?: 'info' | 'success' | 'warning' | 'danger';
     children: React.ReactNode;
-  }) => <Alerts type={type}>{children}</Alerts>,
-  DetailsToggle: ({
+  }) => <VaultAlerts type={type}>{children}</VaultAlerts>,
+  VaultDetailsToggle: ({
     text,
     children,
   }: {
     text: string;
     children: React.ReactNode;
-  }) => <DetailsToggle text={text}>{children}</DetailsToggle>,
-  Embed: (props: { embed: string; caption?: string }) => <Embed {...props} />,
+  }) => <VaultDetailsToggle text={text}>{children}</VaultDetailsToggle>,
+  VaultEmbed: (props: { embed: string; caption?: string }) => (
+    <VaultEmbed {...props} />
+  ),
   VaultImage: (props: {
     url: string;
     caption: string;

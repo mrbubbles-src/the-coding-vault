@@ -69,7 +69,7 @@ const ConvertEditorJsToMDX = (editorData: {
         const type = data.type || 'info';
 
         resultArray.push(
-          `<Alert type="${type}">${replaceLinksWithVaultLinks(data.message)}</Alert>`,
+          `<VaultAlerts type="${type}">${replaceLinksWithVaultLinks(data.message)}</VaultAlerts>`,
         );
         break;
       }
@@ -86,7 +86,7 @@ const ConvertEditorJsToMDX = (editorData: {
           .map((b) => ConvertEditorJsToMDX({ blocks: [b] }))
           .join('\n\n');
         resultArray.push(
-          `<DetailsToggle text="${text}">\n\n${replaceLinksWithVaultLinks(inner)}\n\n</DetailsToggle>`,
+          `<VaultDetailsToggle text="${text}">\n\n${replaceLinksWithVaultLinks(inner)}\n\n</VaultDetailsToggle>`,
         );
         i += itemsCount;
         break;
@@ -131,7 +131,7 @@ const ConvertEditorJsToMDX = (editorData: {
           caption?: string;
         };
         resultArray.push(
-          `<Embed embed="${data.embed}" caption="${data.caption}"  />`,
+          `<VaultEmbed embed="${data.embed}" caption="${data.caption}"  />`,
         );
         break;
       }
