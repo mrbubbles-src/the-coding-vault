@@ -14,6 +14,9 @@ const getCategories = cache(async (): Promise<Array<ICategories>> => {
             id: true,
             title: true,
             slug: true,
+            published: true,
+            isFeatured: true,
+            order: true,
           },
         },
       },
@@ -54,6 +57,7 @@ const getVaultEntryBySlug = cache(
       columns: {
         title: true,
         content: true,
+        description: true,
       },
       with: {
         user: true,
