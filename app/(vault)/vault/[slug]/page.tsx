@@ -6,6 +6,39 @@ import { components } from '@/mdx-components';
 import remarkGfm from 'remark-gfm';
 import { notFound } from 'next/navigation';
 import { getVaultEntryBySlug } from '@/lib/db';
+import type { Metadata } from 'next';
+
+export const dynamic = 'force-static';
+export const revalidate = 3600;
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}): Promise<Metadata> {
+  // unecessary await here, but it removes an annoying (and unnecessary)
+  // next.js warning about params needing to be awaited.
+  const { slug } = await params;
+  const entry = await getVaultEntryBySlug(slug);
+
+  if (!entry) {
+    return {
+      title: 'Nicht gefunden | Vault',
+      description: 'Dieser Eintrag existiert nicht.',
+    };
+  }
+
+  return {
+    title: `${entry.title} | Vault`,
+    description:
+      // entry.content?.blocks?.[0]?.data?.text?.slice(0, 160) ||
+      'Ein Beitrag im Coding Vault.',
+    openGraph: {
+      title: `${entry.title} | Vault`,
+      // description: entry.content?.blocks?.[0]?.data?.text?.slice(0, 160),
+    },
+  };
+}
 
 export default async function VaultEntryPage({
   params,
