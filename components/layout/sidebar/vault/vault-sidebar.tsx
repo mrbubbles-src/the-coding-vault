@@ -98,7 +98,11 @@ const VaultSidebar = async () => {
                         </span>
                         <aside className="flex items-center justify-end">
                           <SidebarMenuBadge className="text-sm">
-                            ({category?.vaultEntries?.length || 0})
+                            (
+                            {category?.vaultEntries?.filter(
+                              (entry) => entry.published,
+                            ).length || 0}
+                            )
                             <ChevronLeft className="mr-2 ml-auto transition-transform duration-500 group-data-[state=open]/collapsible:-rotate-z-90" />
                           </SidebarMenuBadge>
                         </aside>
@@ -112,13 +116,16 @@ const VaultSidebar = async () => {
                           className="flex flex-col gap-1.5"
                           key={category.name}>
                           {category.vaultEntries &&
-                            category.vaultEntries.map((entry) => (
-                              <VaultSidebarEntryLink
-                                key={entry.slug}
-                                slug={entry.slug}
-                                title={entry.title}
-                              />
-                            ))}
+                            category.vaultEntries.map(
+                              (entry) =>
+                                entry.published && (
+                                  <VaultSidebarEntryLink
+                                    key={entry.slug}
+                                    slug={entry.slug}
+                                    title={entry.title}
+                                  />
+                                ),
+                            )}
                         </SidebarMenuSubItem>
                       </SidebarMenuSub>
                     </SidebarGroupContent>
