@@ -34,24 +34,29 @@ export const metadata: Metadata = {
     process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000',
   ),
   title: 'The Coding Vault',
-  description: 'Work in progress. Stay tuned.',
+  description: 'Ein Ort für alle deine Coding-Fragen!',
   openGraph: {
     title: 'The Coding Vault',
-    description: 'Work in progress. Stay tuned.',
+    description: 'Ein Ort für alle deine Coding-Fragen!',
     images: [
       {
-        url: '/images/homelogo.svg',
-        width: 600,
-        height: 600,
-        alt: 'The Coding Vault Hero',
+        url: 'https://thecodingvault.mrbubbles-src.dev/api/og',
+        width: 1200,
+        height: 630,
+        alt: 'The Coding Vault Logo',
       },
     ],
     type: 'website',
     locale: 'de_DE',
   },
-  other: {
-    'apple-mobile-web-app-title': 'The Coding Vault',
+  twitter: {
+    card: 'summary_large_image',
+    title: 'The Coding Vault',
+    description: 'Ein Ort für alle deine Coding-Fragen!',
+    images: ['https://thecodingvault.mrbubbles-src.dev/api/og'],
+    creator: '@_MstrBubbles',
   },
+  other: { 'apple-mobile-web-app-title': 'thecodingvault.mrbubbles-src.dev' },
 };
 
 export default async function RootLayout({
