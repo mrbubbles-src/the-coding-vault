@@ -60,10 +60,10 @@ export async function generateMetadata({
       process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000',
     ),
     title: `${entry.title} | The Coding Vault`,
-    description: entry.description || 'Ein Beitrag in "The Coding Vault".',
+    description: entry.description || 'Ein Beitrag in The Coding Vault.',
     openGraph: {
       title: `${entry.title} | The Coding Vault`,
-      description: entry.description || 'Ein Beitrag in "The Coding Vault".',
+      description: entry.description || 'Ein Beitrag in The Coding Vault.',
       images: [
         {
           url: 'https://thecodingvault.mrbubbles-src.dev/api/og',
