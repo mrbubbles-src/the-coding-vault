@@ -112,6 +112,7 @@ export const vaultEntries = pgTable(
     title: text().notNull(),
     slug: text().notNull(),
     content: jsonb().notNull(),
+    description: text().notNull().default(''),
     authorId: text().notNull(),
     published: boolean().default(false).notNull(),
     categoryId: text().notNull(),
