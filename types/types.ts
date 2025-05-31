@@ -33,11 +33,14 @@ export interface IVaultEntry {
   title: string;
   slug?: string;
   content: TContent;
+  description?: string;
+  order?: number;
   categoryId?: string;
   category?: string;
   authorId?: string;
   author: IAuthorInfo | string;
   published?: boolean;
+  isFeatured?: boolean;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -45,6 +48,9 @@ export interface IVaultEntrySidebar {
   id: string;
   title: string;
   slug: string;
+  published?: boolean;
+  isFeatured?: boolean;
+  order?: number;
 }
 export type TIconKey =
   | 'git'
