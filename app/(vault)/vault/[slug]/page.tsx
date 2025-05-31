@@ -21,22 +21,68 @@ export async function generateMetadata({
   const { slug } = await params;
   const entry = await getVaultEntryBySlug(slug);
 
-  if (!entry) {
+  if (!entry || !entry.published) {
     return {
-      title: 'Nicht gefunden | Vault',
-      description: 'Dieser Eintrag existiert nicht.',
+      metadataBase: new URL(
+        process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000',
+      ),
+      title: 'Eintrag Nicht gefunden | The Coding Vault',
+      description: 'Dieser Eintrag existiert nicht in The Coding Vault.',
+      openGraph: {
+        title: `Eintrag Nicht gefunden | The Coding Vault`,
+        description: 'Dieser Eintrag existiert nicht in The Coding Vault.',
+        images: [
+          {
+            url: 'https://thecodingvault.mrbubbles-src.dev/api/og',
+            width: 1200,
+            height: 630,
+            alt: 'The Coding Vault Logo',
+          },
+        ],
+        type: 'website',
+        locale: 'de_DE',
+      },
+      twitter: {
+        card: 'summary_large_image',
+        title: 'Eintrag Nicht gefunden | The Coding Vault',
+        description: 'Dieser Eintrag existiert nicht in The Coding Vault.',
+        images: ['https://thecodingvault.mrbubbles-src.dev/api/og'],
+        creator: '@_MstrBubbles',
+      },
+      other: {
+        'apple-mobile-web-app-title': 'thecodingvault.mrbubbles-src.dev',
+      },
     };
   }
 
   return {
-    title: `${entry.title} | Vault`,
-    description:
-      // entry.content?.blocks?.[0]?.data?.text?.slice(0, 160) ||
-      'Ein Beitrag im Coding Vault.',
+    metadataBase: new URL(
+      process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000',
+    ),
+    title: `${entry.title} | The Coding Vault`,
+    description: entry.description || 'Ein Beitrag in "The Coding Vault".',
     openGraph: {
-      title: `${entry.title} | Vault`,
-      // description: entry.content?.blocks?.[0]?.data?.text?.slice(0, 160),
+      title: `${entry.title} | The Coding Vault`,
+      description: entry.description || 'Ein Beitrag in "The Coding Vault".',
+      images: [
+        {
+          url: 'https://thecodingvault.mrbubbles-src.dev/api/og',
+          width: 1200,
+          height: 630,
+          alt: 'The Coding Vault Logo',
+        },
+      ],
+      type: 'website',
+      locale: 'de_DE',
     },
+    twitter: {
+      card: 'summary_large_image',
+      title: entry.title,
+      description: entry.description || 'Ein Beitrag in "The Coding Vault".',
+      images: ['https://thecodingvault.mrbubbles-src.dev/api/og'],
+      creator: '@_MstrBubbles',
+    },
+    other: { 'apple-mobile-web-app-title': 'thecodingvault.mrbubbles-src.dev' },
   };
 }
 
@@ -49,7 +95,7 @@ export default async function VaultEntryPage({
   // next.js warning about params needing to be awaited.
   const { slug } = await params;
   const entry = await getVaultEntryBySlug(slug);
-  if (!entry) {
+  if (!entry || !entry.published) {
     return notFound();
   }
   const mdx = ConvertEditorJsToMDX({ blocks: entry.content.blocks });
