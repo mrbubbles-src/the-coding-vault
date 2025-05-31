@@ -34,17 +34,15 @@ import {
 } from '@/components/ui/shadcn/collapsible';
 import { getCategories } from '@/lib/db';
 import { ICategories } from '@/types/types';
-import { headers } from 'next/headers';
 import { getCurrentUser } from '@/lib/auth';
 import { LogoutButton } from '@/components/ui/user-logout';
-import { Route } from 'next';
+import VaultSidebarEntryLink from './vault-sidebar-entry-link';
+
+export const dynamic = 'force-static';
+export const revalidate = 3600;
 
 const VaultSidebar = async () => {
   const categories: Array<ICategories> = await getCategories();
-  const headersList = await headers();
-  const pathname = headersList.get('x-pathname') || '';
-  // const referer = headersList.get('referer') || '';
-  // const pathname = referer ? new URL(referer).pathname : '';
 
   let loggedInUser = null;
   const result = await getCurrentUser();
@@ -107,25 +105,19 @@ const VaultSidebar = async () => {
                       </CollapsibleTrigger>
                     </SidebarGroupLabel>
                   </div>
-                  <CollapsibleContent className="group-data-[state=open]/collapsible:animate-collapsible-down animate-collapsible-up transition-all duration-500 ease-in-out">
+                  <CollapsibleContent className="group-data-[state=open]/collapsible:animate-collapsible-down animate-collapsible-up transition-all duration-300 ease-in-out">
                     <SidebarGroupContent>
                       <SidebarMenuSub>
-                        <SidebarMenuSubItem key={category.name}>
+                        <SidebarMenuSubItem
+                          className="flex flex-col gap-1.5"
+                          key={category.name}>
                           {category.vaultEntries &&
                             category.vaultEntries.map((entry) => (
-                              <SidebarMenuButton
-                                className="opacity-0 transition-all duration-500 ease-in-out group-data-[state=open]/collapsible:opacity-100"
+                              <VaultSidebarEntryLink
                                 key={entry.slug}
-                                asChild
-                                isActive={pathname.startsWith(
-                                  `/vault/${entry.slug}`,
-                                )}>
-                                <Link
-                                  href={`/vault/${entry.slug}` as Route}
-                                  prefetch={false}>
-                                  <span>{entry.title}</span>
-                                </Link>
-                              </SidebarMenuButton>
+                                slug={entry.slug}
+                                title={entry.title}
+                              />
                             ))}
                         </SidebarMenuSubItem>
                       </SidebarMenuSub>
