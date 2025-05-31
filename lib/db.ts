@@ -58,6 +58,8 @@ const getVaultEntryBySlug = cache(
         title: true,
         content: true,
         description: true,
+        published: true,
+        isFeatured: true,
       },
       with: {
         user: true,
