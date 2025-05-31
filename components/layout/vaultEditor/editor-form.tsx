@@ -22,6 +22,7 @@ import {
 import { ICategories } from '@/types/types';
 import { OutputData } from '@editorjs/editorjs';
 import { toast } from 'sonner';
+import { Textarea } from '@/components/ui/shadcn/textarea';
 
 interface IEditorFormValues {
   title: string;
@@ -30,6 +31,7 @@ interface IEditorFormValues {
   content: string;
   authorId: string;
   order: number;
+  description: string;
   categories: ICategories[];
 }
 
@@ -52,6 +54,7 @@ const EditorForm = ({
       content: '',
       authorId: authorId || 'unknown',
       order: maxOrder + 1 || 0,
+      description: '',
     },
   });
 
@@ -73,6 +76,7 @@ const EditorForm = ({
       formData.append('categoryId', values.categoryId);
       formData.append('authorId', values.authorId);
       formData.append('order', values.order.toString());
+      formData.append('description', values.description);
 
       formData.forEach((value, key) => {
         console.log(`${key}:`, value);
@@ -105,20 +109,24 @@ const EditorForm = ({
   return (
     <>
       <Form {...form}>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
           <FormField
             control={form.control}
             name="title"
-            rules={{ required: 'Title is required' }}
+            rules={{ required: 'Titel ist erforderlich' }}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Titel</FormLabel>
+                <FormLabel className="text-lg font-bold">Titel</FormLabel>
                 <FormControl>
-                  <Input placeholder="Enter Entry Title" {...field} />
+                  <Input
+                    className="text-lg"
+                    placeholder="Titel eingeben"
+                    {...field}
+                  />
                 </FormControl>
-                <FormDescription className="min-h-[3rem]">
-                  This is the title of your entry. It should be descriptive and
-                  concise.
+                <FormDescription className="min-h-[3rem] text-base font-semibold">
+                  Dies ist der Titel deines Eintrags. Er sollte beschreibend und
+                  prägnant sein.
                 </FormDescription>
                 <FormMessage />
               </FormItem>
@@ -127,15 +135,31 @@ const EditorForm = ({
           <FormField
             control={form.control}
             name="slug"
-            rules={{ required: 'Slug is required' }}
+            rules={{ required: 'Slug ist erforderlich' }}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Slug</FormLabel>
+                <FormLabel className="text-lg font-bold">Slug</FormLabel>
                 <FormControl>
-                  <Input placeholder="Enter Entry Slug" {...field} />
+                  <Input
+                    className="text-lg"
+                    placeholder="Eintrags-Slug eingeben"
+                    {...field}
+                    onBlur={(e) => {
+                      const value = e.target.value;
+                      const slug = value
+                        .toLowerCase()
+                        .trim()
+                        .replace(/\s+/g, '-') // Leerzeichen in Bindestriche
+                        .replace(/-{2,}/g, '-') // doppelte Bindestriche vermeiden
+                        .replace(/[^a-z0-9\-]/g, '') // nicht erlaubte Zeichen entfernen
+                        .replace(/(^-+)|(-+$)/g, ''); // führende/abschließende Bindestriche entfernen
+                      form.setValue('slug', slug);
+                    }}
+                  />
                 </FormControl>
-                <FormDescription className="min-h-[3rem]">
-                  The slug is a URL-friendly version of the title.
+                <FormDescription className="min-h-[3rem] text-base font-semibold">
+                  Der Slug ist eine URL-freundliche Version des Titels. Zum
+                  Beispiel &quot;mein-erster-eintrag&quot;.
                 </FormDescription>
                 <FormMessage />
               </FormItem>
@@ -147,21 +171,26 @@ const EditorForm = ({
             name="order"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Sorting Order</FormLabel>
+                <FormLabel className="text-lg font-bold">
+                  Sortierreihenfolge
+                </FormLabel>
                 <FormControl>
-                  <Input placeholder="Enter Sorting Order" {...field} />
+                  <Input
+                    className="text-lg"
+                    placeholder="Sortierreihenfolge eingeben"
+                    type="number"
+                    {...field}
+                  />
                 </FormControl>
-                <FormDescription className="min-h-[3rem]">
-                  Currently,{' '}
-                  <span className="font-bold text-amber-400">{maxOrder}</span>{' '}
-                  is the highest{' '}
-                  <span className="font-bold text-amber-400">order value</span>{' '}
-                  for sorting vault entries. If you leave it as is, it will be
-                  set to{' '}
-                  <span className="font-bold text-amber-400">
-                    {maxOrder + 1}
-                  </span>{' '}
-                  by default.
+                <FormDescription className="min-h-[3rem] text-base font-semibold">
+                  Aktuell ist{' '}
+                  <span className="text-primary font-bold">{maxOrder}</span> der
+                  höchste{' '}
+                  <span className="text-primary font-bold">Ordnungswert</span>{' '}
+                  für die Sortierung von Vault-Einträgen. Wenn du es unverändert
+                  lässt, wird es standardmäßig auf{' '}
+                  <span className="text-primary font-bold">{maxOrder + 1}</span>{' '}
+                  gesetzt.
                 </FormDescription>
                 <FormMessage />
               </FormItem>
@@ -171,37 +200,72 @@ const EditorForm = ({
           <FormField
             control={form.control}
             name="categoryId"
-            rules={{ required: 'Category is required' }}
+            rules={{ required: 'Kategorie ist erforderlich' }}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Category</FormLabel>
+                <FormLabel className="text-lg font-bold">Kategorie</FormLabel>
                 <Select
                   onValueChange={field.onChange}
                   defaultValue={field.value}>
                   <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select a category" />
+                    <SelectTrigger className="cursor-pointer text-lg">
+                      <SelectValue
+                        className=""
+                        placeholder="Wähle eine Kategorie"
+                      />
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
                     {categories.map((category) => (
-                      <SelectItem key={category.id} value={category.id}>
+                      <SelectItem
+                        className="cursor-pointer text-lg"
+                        key={category.id}
+                        value={category.id}>
                         {category.name}
                       </SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
-                <FormDescription>
-                  Select a category for your entry. This helps in organizing
-                  your content.
+                <FormDescription className="min-h-[3rem] text-base font-semibold">
+                  Wähle eine Kategorie für deinen Eintrag. Dies hilft bei der
+                  Organisation deiner Inhalte.
                 </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
           />
-
-          <Button type="submit" disabled={isSubmitting}>
-            {isSubmitting ? 'Saving...' : 'Save Entry'}
+          <FormField
+            control={form.control}
+            name="description"
+            rules={{ required: 'Beschreibung ist erforderlich' }}
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-lg font-bold">
+                  Beschreibung
+                </FormLabel>
+                <FormControl>
+                  <Textarea
+                    className="text-lg"
+                    placeholder="Beschreibung eingeben"
+                    {...field}
+                  />
+                </FormControl>
+                <FormDescription className="min-h-[3rem] text-base font-semibold">
+                  Dies ist die Beschreibung deines Eintrags. Sie sollte mehr
+                  Kontext und Details liefern, jedoch auch prägnant sein. Sie
+                  wird in den Open Graph Metadaten für Social Media Sharing
+                  verwendet.
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <Button
+            type="submit"
+            disabled={isSubmitting}
+            size={'lg'}
+            className="place-self-start text-lg font-bold">
+            {isSubmitting ? 'Speichern...' : 'Eintrag speichern'}
           </Button>
         </form>
       </Form>
