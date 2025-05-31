@@ -3,8 +3,9 @@ import { db } from '@/drizzle/db/index';
 import { vaultEntries } from '@/drizzle/db/schema';
 import { desc } from 'drizzle-orm';
 import { toast } from 'sonner';
+import { cache } from 'react';
 
-const getCategories = async (): Promise<Array<ICategories>> => {
+const getCategories = cache(async (): Promise<Array<ICategories>> => {
   try {
     const dbCategories = await db.query.categories.findMany({
       with: {
@@ -26,7 +27,7 @@ const getCategories = async (): Promise<Array<ICategories>> => {
     );
     return [];
   }
-};
+});
 
 const getMaxOrder = async (): Promise<number> => {
   try {
@@ -46,29 +47,29 @@ const getMaxOrder = async (): Promise<number> => {
   }
 };
 
-const getVaultEntryBySlug = async (
-  slug: string,
-): Promise<IVaultEntry | null> => {
-  const entry = await db.query.vaultEntries.findFirst({
-    where: (entries, { eq }) => eq(entries.slug, slug),
-    columns: {
-      title: true,
-      content: true,
-    },
-    with: {
-      user: true,
-    },
-  });
+const getVaultEntryBySlug = cache(
+  async (slug: string): Promise<IVaultEntry | null> => {
+    const entry = await db.query.vaultEntries.findFirst({
+      where: (entries, { eq }) => eq(entries.slug, slug),
+      columns: {
+        title: true,
+        content: true,
+      },
+      with: {
+        user: true,
+      },
+    });
 
-  if (!entry) {
-    return null;
-  }
-  const { user, ...rest } = entry;
-  return {
-    ...rest,
-    content: rest.content as TContent,
-    author: user.authorInfo ? { ...user.authorInfo } : user.username,
-  };
-};
+    if (!entry) {
+      return null;
+    }
+    const { user, ...rest } = entry;
+    return {
+      ...rest,
+      content: rest.content as TContent,
+      author: user.authorInfo ? { ...user.authorInfo } : user.username,
+    };
+  },
+);
 
 export { getCategories, getMaxOrder, getVaultEntryBySlug };
