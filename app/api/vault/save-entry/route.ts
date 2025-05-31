@@ -5,7 +5,7 @@ import { NextResponse } from 'next/server';
 export async function POST(req: Request) {
   const body = await req.json();
 
-  const { title, content, slug, categoryId, authorId } = body;
+  const { title, content, slug, categoryId, authorId, description } = body;
   const order = Number(body.order);
   const parsedContent = JSON.parse(content);
 
@@ -15,7 +15,14 @@ export async function POST(req: Request) {
       { status: 400 },
     );
   }
-  if (!title?.trim() || !slug?.trim() || !categoryId || !authorId || !order) {
+  if (
+    !title?.trim() ||
+    !slug?.trim() ||
+    !categoryId?.trim() ||
+    !authorId?.trim() ||
+    !order ||
+    !description?.trim()
+  ) {
     return NextResponse.json(
       { message: 'Invalid or missing fields in payload.' },
       { status: 400 },
@@ -30,6 +37,7 @@ export async function POST(req: Request) {
       categoryId,
       authorId,
       order,
+      description,
     });
 
     return NextResponse.json(
