@@ -18,8 +18,17 @@ export interface IAuthorInfo {
   avatar?: string;
   authorSocials?: {
     website?: string;
-    twitter?: string;
     github?: string;
+    linkedin?: string;
+    codepen?: string;
+    stackoverflow?: string;
+    youtube?: string;
+    twitter?: string;
+    twitch?: string;
+    discord?: string;
+    instagram?: string;
+    tiktok?: string;
+    facebook?: string;
   };
 }
 export type TContent = {
