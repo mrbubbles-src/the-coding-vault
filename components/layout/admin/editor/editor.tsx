@@ -16,7 +16,7 @@ import Annotation from 'editorjs-annotation';
 import EditorJSInlineHotkey from 'editorjs-inline-hotkey';
 import ImageTool from '@editorjs/image';
 import editorjsCodecup from '@calumk/editorjs-codecup';
-import EditorForm from './editor-form';
+import EditorForm from '@/components/layout/admin/editor/editor-form';
 import { ICategories } from '@/types/types';
 
 const Editor = ({

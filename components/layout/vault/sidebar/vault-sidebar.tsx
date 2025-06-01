@@ -36,7 +36,7 @@ import { getCategories } from '@/lib/db';
 import { ICategories } from '@/types/types';
 import { getCurrentUser } from '@/lib/auth';
 import { LogoutButton } from '@/components/ui/user-logout';
-import VaultSidebarEntryLink from './vault-sidebar-entry-link';
+import VaultSidebarEntryLink from '@/components/layout/vault/sidebar/vault-sidebar-entry-link';
 
 export const dynamic = 'force-static';
 export const revalidate = 3600;

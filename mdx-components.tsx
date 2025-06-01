@@ -1,12 +1,11 @@
 import React, { ComponentPropsWithoutRef } from 'react';
-// import { highlight } from 'sugar-high';
-import VaultAlerts from './components/layout/vault/vault-alerts';
-import VaultDetailsToggle from './components/layout/vault/vault-details-toggle';
-import VaultEmbed from './components/layout/vault/vault-embed';
-import VaultImage from './components/layout/vault/vault-image/vault-image';
-import VaultLink from './components/layout/vault/vault-link';
-import { VaultChecklist } from './components/layout/vault/vault-checklist';
-import VaultCodeBlock from './components/layout/vault/vault-codeblock';
+import VaultAlerts from './components/layout/vault/vault-components/vault-alerts';
+import VaultDetailsToggle from './components/layout/vault/vault-components/vault-details-toggle';
+import VaultEmbed from './components/layout/vault/vault-components/vault-embed';
+import VaultImage from './components/layout/vault/vault-components/vault-image/vault-image';
+import VaultLink from './components/layout/vault/vault-components/vault-link';
+import { VaultChecklist } from './components/layout/vault/vault-components/vault-checklist';
+import VaultCodeBlock from './components/layout/vault/vault-components/vault-codeblock';
 
 type HeadingProps = ComponentPropsWithoutRef<'h1'>;
 type ParagraphProps = ComponentPropsWithoutRef<'p'>;

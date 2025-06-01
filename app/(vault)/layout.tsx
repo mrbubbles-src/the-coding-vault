@@ -3,10 +3,10 @@ import { cookies } from 'next/headers';
 import { Fira_Code, Fira_Mono, Montserrat, Poppins } from 'next/font/google';
 import { SidebarProvider } from '@/components/ui/shadcn/sidebar';
 import { ThemeProvider } from '@/context/theme-provider';
-import VaultSidebar from '@/components/layout/sidebar/vault/vault-sidebar';
-import Navbar from '@/components/layout/navbar';
-import Footer from '@/components/layout/footer';
-import '../globals.css';
+import VaultSidebar from '@/components/layout/vault/sidebar/vault-sidebar';
+import Navbar from '@/components/layout/general/navbar';
+import Footer from '@/components/layout/general/footer';
+import '@/app/globals.css';
 
 const firaCode = Fira_Code({
   variable: '--font-fira-code',

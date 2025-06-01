@@ -1,6 +1,6 @@
 import { MDXRemote } from 'next-mdx-remote-client/rsc';
 import type { MDXRemoteOptions } from 'next-mdx-remote-client/rsc';
-import ConvertEditorJsToMDX from '@/components/layout/vault-editor/convert-editor-js-to-mdx';
+import ConvertEditorJsToMDX from '@/components/layout/admin/editor/convert-editor-js-to-mdx';
 import { Suspense } from 'react';
 import { components } from '@/mdx-components';
 import remarkGfm from 'remark-gfm';

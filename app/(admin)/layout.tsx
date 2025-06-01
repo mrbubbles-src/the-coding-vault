@@ -3,11 +3,11 @@ import { cookies } from 'next/headers';
 import { Fira_Code, Fira_Mono, Montserrat, Poppins } from 'next/font/google';
 import { SidebarProvider } from '@/components/ui/shadcn/sidebar';
 import { ThemeProvider } from '@/context/theme-provider';
-import AdminSidebar from '@/components/layout/sidebar/admin/admin-sidebar';
-import Navbar from '@/components/layout/navbar';
-import '../globals.css';
-import Footer from '@/components/layout/footer';
+import AdminSidebar from '@/components/layout/admin/sidebar/admin-sidebar';
+import Navbar from '@/components/layout/general/navbar';
+import Footer from '@/components/layout/general/footer';
 import { Toaster } from '@/components/ui/shadcn/sonner';
+import '@/app/globals.css';
 
 const firaCode = Fira_Code({
   variable: '--font-fira-code',

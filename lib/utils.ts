@@ -4,7 +4,7 @@ import { logoutUser } from './auth';
 import { redirect } from 'next/navigation';
 import { TEditorJsListItem } from '@/types/types';
 import React, { ReactNode } from 'react';
-import VaultLink from '@/components/layout/vault/vault-link';
+import VaultLink from '@/components/layout/vault/vault-components/vault-link';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));

@@ -23,6 +23,7 @@ import { ICategories } from '@/types/types';
 import { OutputData } from '@editorjs/editorjs';
 import { toast } from 'sonner';
 import { Textarea } from '@/components/ui/shadcn/textarea';
+import Spinner from '@/components/ui/loading/spinner';
 
 interface IEditorFormValues {
   title: string;
@@ -265,7 +266,9 @@ const EditorForm = ({
             disabled={isSubmitting}
             size={'lg'}
             className="place-self-start text-lg font-bold">
-            {isSubmitting ? 'Speichern...' : 'Eintrag speichern'}
+            {isSubmitting
+              ? `${(<Spinner />)} Speichern...`
+              : 'Eintrag speichern'}
           </Button>
         </form>
       </Form>
