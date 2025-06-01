@@ -7,6 +7,7 @@ import remarkGfm from 'remark-gfm';
 import { notFound } from 'next/navigation';
 import { getVaultEntryBySlug } from '@/lib/db';
 import type { Metadata } from 'next';
+import VaultAuthor from '@/components/layout/vault/vault-author';
 
 export const dynamic = 'force-static';
 export const revalidate = 3600;
@@ -98,6 +99,7 @@ export default async function VaultEntryPage({
   if (!entry || !entry.published) {
     return notFound();
   }
+  console.log('Vault Entry:', entry);
   const mdx = ConvertEditorJsToMDX({ blocks: entry.content.blocks });
   const options: MDXRemoteOptions = {
     mdxOptions: {
@@ -109,6 +111,7 @@ export default async function VaultEntryPage({
   return (
     <section className="container flex flex-col gap-4 p-2 text-pretty">
       <Suspense fallback={'loading'}>
+        <VaultAuthor author={entry.author} />
         <MDXRemote source={mdx} options={options} components={components} />
       </Suspense>
     </section>
