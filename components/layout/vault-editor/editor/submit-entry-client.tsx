@@ -7,7 +7,7 @@ const Editor = dynamic<{
   authorId: string;
   maxOrder: number;
   categories: ICategories[];
-}>(() => import('@/components/layout/vaultEditor/editor'), {
+}>(() => import('@/components/layout/vault-editor/editor/editor'), {
   ssr: false,
   loading: () => <p>Lade Editor...</p>,
 });

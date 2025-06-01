@@ -1,13 +1,13 @@
 import { MDXRemote } from 'next-mdx-remote-client/rsc';
 import type { MDXRemoteOptions } from 'next-mdx-remote-client/rsc';
-import ConvertEditorJsToMDX from '@/components/layout/vaultEditor/convert-editor-js-to-mdx';
+import ConvertEditorJsToMDX from '@/components/layout/vault-editor/convert-editor-js-to-mdx';
 import { Suspense } from 'react';
 import { components } from '@/mdx-components';
 import remarkGfm from 'remark-gfm';
 import { notFound } from 'next/navigation';
 import { getVaultEntryBySlug } from '@/lib/db';
 import type { Metadata } from 'next';
-import VaultAuthor from '@/components/layout/vault/vault-author';
+import VaultAuthor from '@/components/layout/vault/vault-author/vault-author';
 
 export const dynamic = 'force-static';
 export const revalidate = 3600;

@@ -3,7 +3,7 @@ import React, { ComponentPropsWithoutRef } from 'react';
 import VaultAlerts from './components/layout/vault/vault-alerts';
 import VaultDetailsToggle from './components/layout/vault/vault-details-toggle';
 import VaultEmbed from './components/layout/vault/vault-embed';
-import VaultImage from './components/layout/vault/vault-image';
+import VaultImage from './components/layout/vault/vault-image/vault-image';
 import VaultLink from './components/layout/vault/vault-link';
 import { VaultChecklist } from './components/layout/vault/vault-checklist';
 import VaultCodeBlock from './components/layout/vault/vault-codeblock';
