@@ -60,6 +60,8 @@ const getVaultEntryBySlug = cache(
         description: true,
         published: true,
         isFeatured: true,
+        createdAt: true,
+        updatedAt: true,
       },
       with: {
         user: true,
@@ -74,6 +76,8 @@ const getVaultEntryBySlug = cache(
       ...rest,
       content: rest.content as TContent,
       author: user.authorInfo ? { ...user.authorInfo } : user.username,
+      createdAt: rest.createdAt ? new Date(rest.createdAt) : undefined,
+      updatedAt: rest.updatedAt ? new Date(rest.updatedAt) : undefined,
     };
   },
 );
