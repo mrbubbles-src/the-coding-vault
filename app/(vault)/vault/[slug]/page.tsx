@@ -89,7 +89,7 @@ export async function generateMetadata({
 export default async function VaultEntryPage({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: { slug: string };
 }) {
   // unecessary await here, but it removes an annoying (and unnecessary)
   // next.js warning about params needing to be awaited.
