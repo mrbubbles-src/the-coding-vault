@@ -6,7 +6,6 @@ import { components } from '@/mdx-components';
 import remarkGfm from 'remark-gfm';
 import { notFound } from 'next/navigation';
 import { getVaultEntryBySlug } from '@/lib/db';
-import type { Metadata } from 'next';
 import VaultAuthor from '@/components/layout/vault/vault-author/vault-author';
 
 export const dynamic = 'force-static';
@@ -16,10 +15,10 @@ export async function generateMetadata({
   params,
 }: {
   params: { slug: string };
-}): Promise<Metadata> {
+}) {
   // unecessary await here, but it removes an annoying (and unnecessary)
   // next.js warning about params needing to be awaited.
-  const { slug } = params;
+  const { slug } = await params;
   const entry = await getVaultEntryBySlug(slug);
 
   if (!entry || !entry.published) {
@@ -94,7 +93,7 @@ export default async function VaultEntryPage({
 }) {
   // unecessary await here, but it removes an annoying (and unnecessary)
   // next.js warning about params needing to be awaited.
-  const { slug } = params;
+  const { slug } = await params;
   const entry = await getVaultEntryBySlug(slug);
   if (!entry || !entry.published) {
     return notFound();
