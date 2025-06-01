@@ -144,3 +144,16 @@ export type TChecklistItem = {
   meta?: { checked?: boolean };
   items?: TChecklistItem[];
 };
+export type TSocialIcons =
+  | 'website'
+  | 'github'
+  | 'linkedin'
+  | 'codepen'
+  | 'stackoverflow'
+  | 'youtube'
+  | 'twitter'
+  | 'twitch'
+  | 'discord'
+  | 'instagram'
+  | 'tiktok'
+  | 'facebook';
