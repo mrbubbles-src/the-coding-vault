@@ -50,14 +50,14 @@ const VaultAuthorSocials = ({ authorSocials }: VaultAuthorSocialsProps) => {
           if (!value || !icon) return null;
 
           return (
-            <Tooltip key={key}>
+            <Tooltip key={key} delayDuration={400}>
               <TooltipTrigger>
                 <a
                   href={value}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-primary/80 cursor-pointer text-xl transition-all duration-300 ease-in-out"
-                  title={key}>
+                  aria-label={key}>
                   <FontAwesomeIcon icon={icon} className="p-2" />
                 </a>
               </TooltipTrigger>

@@ -37,7 +37,7 @@ const VaultAuthorCard = ({ author }: VaultAuthorCardProps) => {
       <section className="flex flex-col gap-2">
         <section>
           <h2 className="text-2xl">{author.name}</h2>
-          <Tooltip>
+          <Tooltip delayDuration={400}>
             <TooltipTrigger>
               <a
                 href={`mailto:${author.email}`}
