@@ -24,6 +24,8 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/shadcn/tooltip';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 
 const SIDEBAR_COOKIE_NAME = 'sidebar_state';
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7;
@@ -250,6 +252,7 @@ function Sidebar({
 function SidebarTrigger({
   className,
   onClick,
+  children,
   ...props
 }: React.ComponentProps<typeof Button>) {
   const { toggleSidebar } = useSidebar();
@@ -266,9 +269,51 @@ function SidebarTrigger({
         toggleSidebar();
       }}
       {...props}>
-      <PanelLeftIcon />
+      {children ? children : <PanelLeftIcon />}
       <span className="sr-only">Toggle Sidebar</span>
     </Button>
+  );
+}
+function SidebarIconTrigger({
+  className,
+  onClick,
+  categoryName,
+  iconToUse,
+  ...props
+}: React.ComponentProps<typeof Button> & {
+  categoryName: string;
+  iconToUse: IconProp;
+}) {
+  const { toggleSidebar, state } = useSidebar();
+
+  return (
+    <Tooltip delayDuration={300}>
+      <TooltipTrigger asChild>
+        <Button
+          data-sidebar="trigger"
+          data-slot="sidebar-trigger"
+          variant="ghost"
+          size="icon"
+          className={cn(
+            'size-7 cursor-pointer',
+            `${state === 'expanded' ? 'ml-4 size-8' : ''}`,
+            className,
+          )}
+          onClick={(event) => {
+            onClick?.(event);
+            toggleSidebar();
+          }}
+          {...props}>
+          <FontAwesomeIcon icon={iconToUse} size="2xl" />
+          <span className="sr-only">Toggle Sidebar</span>
+        </Button>
+      </TooltipTrigger>
+      <TooltipContent
+        side={state === 'collapsed' ? 'right' : 'top'}
+        className="TooltipContent z-[1001] max-w-[20rem] font-bold text-pretty md:max-w-full">
+        {categoryName}
+      </TooltipContent>
+    </Tooltip>
   );
 }
 
@@ -716,5 +761,6 @@ export {
   SidebarRail,
   SidebarSeparator,
   SidebarTrigger,
+  SidebarIconTrigger,
   useSidebar,
 };
