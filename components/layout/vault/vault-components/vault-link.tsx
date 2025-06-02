@@ -1,3 +1,8 @@
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/components/ui/shadcn/tooltip';
 import { Route } from 'next';
 import Link from 'next/link';
 import { ComponentPropsWithoutRef } from 'react';
@@ -9,27 +14,46 @@ const VaultLink = ({ href, children, ...props }: AnchorProps) => {
     'text-primary hover:text-primary/80 inline-block cursor-pointer font-bold underline underline-offset-4 transition-all duration-300 ease-in-out active:scale-95';
   if (href?.startsWith('/')) {
     return (
-      <Link href={href as Route} className={className} {...props}>
-        {children}
-      </Link>
+      <Tooltip delayDuration={300}>
+        <TooltipTrigger>
+          <Link href={href as Route} className={className} {...props}>
+            {children}
+          </Link>
+        </TooltipTrigger>
+        <TooltipContent className="TooltipContent z-[1001] max-w-[20rem] font-bold text-pretty md:max-w-full">
+          {href === '/' ? 'Zur Startseite' : `Navigiere zu ${href}`}
+        </TooltipContent>
+      </Tooltip>
     );
   }
   if (href?.startsWith('#')) {
     return (
-      <a href={href} className={className} {...props}>
-        {children}
-      </a>
+      <Tooltip delayDuration={300}>
+        <TooltipTrigger>
+          <a href={href} className={className} {...props}>
+            {children}
+          </a>
+        </TooltipTrigger>
+        <TooltipContent className="TooltipContent z-[1001] max-w-[20rem] font-bold text-pretty md:max-w-full">
+          {`Scroll zur ${href} Sektion`}
+        </TooltipContent>
+      </Tooltip>
     );
   }
   return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className={className}
-      {...props}>
-      {children}
-    </a>
+    <Tooltip delayDuration={300}>
+      <TooltipTrigger>
+        <a
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={className}
+          {...props}>
+          {children}
+        </a>
+      </TooltipTrigger>
+      <TooltipContent className="TooltipContent z-[1001] max-w-[20rem] font-bold text-pretty md:max-w-full">{`Öffne '${href}' in einem neuen Tab`}</TooltipContent>
+    </Tooltip>
   );
 };
 
