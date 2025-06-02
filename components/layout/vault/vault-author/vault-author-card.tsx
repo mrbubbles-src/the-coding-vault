@@ -1,5 +1,10 @@
 import VaultAuthorAvatar from '@/components/layout/vault/vault-author/vault-author-avatar';
 import VaultAuthorSocials from '@/components/layout/vault/vault-author/vault-author-socials';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/components/ui/shadcn/tooltip';
 
 interface VaultAuthorCardProps {
   author: {
@@ -32,11 +37,18 @@ const VaultAuthorCard = ({ author }: VaultAuthorCardProps) => {
       <section className="flex flex-col gap-2">
         <section>
           <h2 className="text-2xl">{author.name}</h2>
-          <a
-            href={`mailto:${author.email}`}
-            className="hover:text-primary/80 cursor-pointer py-2 text-sm font-semibold underline underline-offset-4 transition-all duration-300 ease-in-out">
-            {author.email}
-          </a>
+          <Tooltip>
+            <TooltipTrigger>
+              <a
+                href={`mailto:${author.email}`}
+                className="hover:text-primary/80 cursor-pointer py-2 text-sm font-semibold underline underline-offset-4 transition-all duration-300 ease-in-out">
+                {author.email}
+              </a>
+            </TooltipTrigger>
+            <TooltipContent className="TooltipContent z-[1001] font-bold">
+              Hast du Fragen? Schick mir doch einfach eine E-Mail!
+            </TooltipContent>
+          </Tooltip>
         </section>
         <section className="flex max-w-[20rem] flex-wrap gap-x-1.5 gap-y-1">
           {author.authorSocials && (

@@ -1,3 +1,8 @@
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/components/ui/shadcn/tooltip';
 import { socialIcons } from '@/lib/icon-map';
 import { TSocialIcons } from '@/types/types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -45,15 +50,21 @@ const VaultAuthorSocials = ({ authorSocials }: VaultAuthorSocialsProps) => {
           if (!value || !icon) return null;
 
           return (
-            <a
-              key={key}
-              href={value}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-primary/80 cursor-pointer text-xl transition-all duration-300 ease-in-out"
-              title={key}>
-              <FontAwesomeIcon icon={icon} className="p-2" />
-            </a>
+            <Tooltip key={key}>
+              <TooltipTrigger>
+                <a
+                  href={value}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-primary/80 cursor-pointer text-xl transition-all duration-300 ease-in-out"
+                  title={key}>
+                  <FontAwesomeIcon icon={icon} className="p-2" />
+                </a>
+              </TooltipTrigger>
+              <TooltipContent className="TooltipContent z-[1001] font-bold">
+                {value}
+              </TooltipContent>
+            </Tooltip>
           );
         })}
     </>
