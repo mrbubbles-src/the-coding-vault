@@ -6,6 +6,7 @@ import { toast } from 'sonner';
 import { cache } from 'react';
 
 const getCategories = cache(async (): Promise<Array<ICategories>> => {
+  // console.log('Fetching categories from the database');
   try {
     const dbCategories = await db.query.categories.findMany({
       with: {
@@ -52,6 +53,7 @@ const getMaxOrder = async (): Promise<number> => {
 
 const getVaultEntryBySlug = cache(
   async (slug: string): Promise<IVaultEntry | null> => {
+    // console.log('Fetching vault entry by slug');
     const entry = await db.query.vaultEntries.findFirst({
       where: (entries, { eq }) => eq(entries.slug, slug),
       columns: {
