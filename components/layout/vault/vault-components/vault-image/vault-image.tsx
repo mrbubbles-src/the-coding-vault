@@ -1,3 +1,8 @@
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/components/ui/shadcn/tooltip';
 import VaultCldImage from './vault-cdimage';
 import { getCldImageUrl } from 'next-cloudinary';
 
@@ -27,18 +32,29 @@ const VaultImage = async ({
 
   return (
     <figure className="text-center">
-      <a href={url} target="_blank" rel="noopener noreferrer">
-        <VaultCldImage
-          src={url}
-          alt={caption || original_filename}
-          width={width}
-          height={height}
-          sizes="100vw"
-          placeholder="blur"
-          blurDataURL={dataUrl}
-          className="rounded-md shadow-md"
-        />
-      </a>
+      <Tooltip delayDuration={300}>
+        <TooltipTrigger>
+          <a
+            href={url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="transition-all duration-300 ease-in-out hover:opacity-80">
+            <VaultCldImage
+              src={url}
+              alt={caption || original_filename}
+              width={width}
+              height={height}
+              sizes="100vw"
+              placeholder="blur"
+              blurDataURL={dataUrl}
+              className="z-[1001] rounded-md shadow-md transition-all duration-300 ease-in-out hover:scale-105 active:shadow-none"
+            />
+          </a>
+        </TooltipTrigger>
+        <TooltipContent className="TooltipContent z-[1001] max-w-[20rem] font-bold text-pretty md:max-w-full">
+          {`'${caption || original_filename}' - Klicken um das Bild in voller Größe zu sehen`}
+        </TooltipContent>
+      </Tooltip>
       {caption && (
         <figcaption className="mt-1 text-sm text-gray-600">
           {caption}
