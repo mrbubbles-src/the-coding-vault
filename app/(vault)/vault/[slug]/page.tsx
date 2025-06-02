@@ -94,7 +94,6 @@ export default async function VaultEntryPage({
   if (!entry || !entry.published) {
     return notFound();
   }
-  console.log('Vault Entry:', entry);
   const mdx = ConvertEditorJsToMDX({ blocks: entry.content.blocks });
   const options: MDXRemoteOptions = {
     mdxOptions: {
@@ -106,7 +105,10 @@ export default async function VaultEntryPage({
   return (
     <section className="container flex flex-col gap-4 p-2 text-pretty">
       <Suspense fallback={'loading'}>
-        <VaultAuthor author={entry.author} />
+        <VaultAuthor
+          author={entry.author}
+          dates={{ createdAt: entry.createdAt, updatedAt: entry.updatedAt }}
+        />
         <MDXRemote source={mdx} options={options} components={components} />
       </Suspense>
     </section>
