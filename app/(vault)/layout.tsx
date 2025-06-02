@@ -7,6 +7,11 @@ import VaultSidebar from '@/components/layout/vault/sidebar/vault-sidebar';
 import Navbar from '@/components/layout/general/navbar';
 import Footer from '@/components/layout/general/footer';
 import '@/app/globals.css';
+import { ICategories } from '@/types/types';
+import { getCachedCategories } from '@/lib/cache';
+
+export const dynamic = 'force-static';
+export const revalidate = 3600;
 
 const firaCode = Fira_Code({
   variable: '--font-fira-code',
@@ -66,6 +71,7 @@ export default async function RootLayout({
 }>) {
   const cookieStore = await cookies();
   const defaultOpen = cookieStore.get('sidebar_state')?.value === 'true';
+  const categories: Array<ICategories> = await getCachedCategories();
   return (
     <html lang="de" suppressHydrationWarning>
       <body
@@ -76,7 +82,7 @@ export default async function RootLayout({
           enableSystem
           disableTransitionOnChange>
           <SidebarProvider defaultOpen={defaultOpen}>
-            <VaultSidebar />
+            <VaultSidebar categories={categories} />
             <div className="flex w-full flex-col px-2 py-2 md:px-0 md:pr-2">
               <Navbar />
               <main className="flex flex-1 flex-col place-self-center px-1 pt-2 md:px-0">
