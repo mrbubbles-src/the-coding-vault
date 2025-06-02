@@ -1,7 +1,6 @@
 import Icon from '@/public/images/icon.svg';
 import Logo from '@/public/images/sidebarlogo.svg';
 import { ChevronDown, ChevronLeft, User2 } from 'lucide-react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { iconMap } from '@/lib/icon-map';
 import {
   Sidebar,
@@ -11,6 +10,7 @@ import {
   SidebarGroupContent,
   SidebarGroupLabel,
   SidebarHeader,
+  SidebarIconTrigger,
   SidebarMenu,
   SidebarMenuBadge,
   SidebarMenuButton,
@@ -32,18 +32,21 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from '@/components/ui/shadcn/collapsible';
-import { getCategories } from '@/lib/db';
 import { ICategories } from '@/types/types';
 import { getCurrentUser } from '@/lib/auth';
 import { LogoutButton } from '@/components/ui/user-logout';
 import VaultSidebarEntryLink from '@/components/layout/vault/sidebar/vault-sidebar-entry-link';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/components/ui/shadcn/tooltip';
 
-export const dynamic = 'force-static';
-export const revalidate = 3600;
-
-const VaultSidebar = async () => {
-  const categories: Array<ICategories> = await getCategories();
-
+const VaultSidebar = async ({
+  categories,
+}: {
+  categories: Array<ICategories>;
+}) => {
   let loggedInUser = null;
   const result = await getCurrentUser();
   if ('error' in result) {
@@ -55,23 +58,40 @@ const VaultSidebar = async () => {
   return (
     <Sidebar collapsible="icon" variant="floating">
       {/* ? Header Start */}
-      <SidebarHeader className="py-4">
-        <SidebarMenu>
-          <SidebarMenuItem>
-            <SidebarMenuButton asChild size={'lg'}>
-              <Link href={'/'} prefetch={false}>
-                <Image src={Icon} alt="vaulty-icon" width={45} height={45} />
-                <Image
-                  src={Logo}
-                  alt="the-coding-vault-logo"
-                  width={210}
-                  height={45}
-                />
-              </Link>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-        </SidebarMenu>
-      </SidebarHeader>
+      <Tooltip delayDuration={300}>
+        <TooltipTrigger>
+          <SidebarHeader className="py-4">
+            <SidebarMenu>
+              <SidebarMenuItem>
+                <SidebarMenuButton asChild size={'lg'}>
+                  <Link href={'/'} prefetch={false} className="cursor-pointer">
+                    <Image
+                      src={Icon}
+                      alt="vaulty-icon"
+                      className="cursor-pointer"
+                      width={45}
+                      height={45}
+                    />
+
+                    <Image
+                      src={Logo}
+                      alt="the-coding-vault-logo"
+                      className="cursor-pointer"
+                      width={210}
+                      height={45}
+                    />
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            </SidebarMenu>
+          </SidebarHeader>
+        </TooltipTrigger>
+        <TooltipContent
+          side="right"
+          className="TooltipContent z-[1001] max-w-[20rem] font-bold text-pretty md:max-w-full">
+          Zurück zur Startseite
+        </TooltipContent>
+      </Tooltip>
       {/* ? Header End */}
       <SidebarSeparator />
       {/* ? Content Start */}
@@ -87,9 +107,9 @@ const VaultSidebar = async () => {
               <Collapsible key={category.name} className="group/collapsible">
                 <SidebarGroup>
                   <div className="flex items-center gap-2">
-                    <FontAwesomeIcon
-                      icon={iconMap[category.iconKey]}
-                      className="ml-[0.4rem] h-5 w-5 shrink-0"
+                    <SidebarIconTrigger
+                      categoryName={category.name}
+                      iconToUse={iconMap[category.iconKey]}
                     />
                     <SidebarGroupLabel asChild>
                       <CollapsibleTrigger className="group-data-[state=open]/collapsible:text-primary flex flex-1 cursor-pointer place-items-center items-center gap-2 text-lg font-semibold transition-colors">
