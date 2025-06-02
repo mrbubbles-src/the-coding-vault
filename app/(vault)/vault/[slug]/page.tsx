@@ -8,9 +8,6 @@ import { notFound } from 'next/navigation';
 import { getVaultEntryBySlug } from '@/lib/db';
 import VaultAuthor from '@/components/layout/vault/vault-author/vault-author';
 
-export const dynamic = 'force-static';
-export const revalidate = 3600;
-
 export async function generateMetadata({
   params,
 }: {
