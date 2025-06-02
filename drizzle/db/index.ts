@@ -1,4 +1,4 @@
-import { drizzle } from 'drizzle-orm/postgres-js';
+import { drizzle, PostgresJsDatabase } from 'drizzle-orm/postgres-js';
 import postgres from 'postgres';
 import * as schema from './schema';
 import * as relations from './relations';
@@ -13,14 +13,24 @@ const queryClient = postgres(process.env.DATABASE_URL!, {
   max: 5,
 });
 
-export const db = drizzle(queryClient, {
+const drizzleDb = drizzle(queryClient, {
   schema: {
     ...schema,
     ...relations,
   },
 });
 
-if (process.env.NODE_ENV !== 'production') (globalThis as GlobalThis).db = db;
+const globalDb = (globalThis as GlobalThis).db ?? drizzleDb;
+export const db = {
+  ...globalDb,
+  $client: queryClient,
+} as PostgresJsDatabase<typeof schema & typeof relations> & {
+  $client: typeof queryClient;
+};
+
+if (process.env.NODE_ENV !== 'production') {
+  (globalThis as GlobalThis).db = db;
+}
 
 // DO NOT DELETE THIS FOR THE TIME BEING!
 // import { drizzle } from 'drizzle-orm/postgres-js';
