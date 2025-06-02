@@ -45,7 +45,7 @@ const VaultAuthorCard = ({ author }: VaultAuthorCardProps) => {
                 {author.email}
               </a>
             </TooltipTrigger>
-            <TooltipContent className="TooltipContent z-[1001] font-bold">
+            <TooltipContent className="TooltipContent z-[1001] max-w-[20rem] font-bold text-pretty md:max-w-full">
               Hast du Fragen? Schick mir doch einfach eine E-Mail!
             </TooltipContent>
           </Tooltip>

@@ -61,7 +61,7 @@ const VaultAuthorSocials = ({ authorSocials }: VaultAuthorSocialsProps) => {
                   <FontAwesomeIcon icon={icon} className="p-2" />
                 </a>
               </TooltipTrigger>
-              <TooltipContent className="TooltipContent z-[1001] font-bold">
+              <TooltipContent className="TooltipContent z-[1001] max-w-[20rem] font-bold text-pretty md:max-w-full">
                 {value}
               </TooltipContent>
             </Tooltip>
