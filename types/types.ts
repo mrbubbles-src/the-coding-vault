@@ -50,8 +50,8 @@ export interface IVaultEntry {
   author: IAuthorInfo | string;
   published?: boolean;
   isFeatured?: boolean;
-  createdAt?: Date;
-  updatedAt?: Date;
+  createdAt: Date;
+  updatedAt: Date;
 }
 export interface IVaultEntrySidebar {
   id: string;
