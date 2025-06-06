@@ -73,7 +73,7 @@ const VaultSidebar = async ({
         <TooltipContent
           side="right"
           className="TooltipContent z-[1001] max-w-[20rem] font-bold text-pretty md:max-w-full">
-          Zurück zur Startseite
+          Zurück zum Vault-Eingang
         </TooltipContent>
       </Tooltip>
       {/* ? Header End */}

@@ -21,7 +21,7 @@ const VaultLink = ({ href, children, ...props }: AnchorProps) => {
           </Link>
         </TooltipTrigger>
         <TooltipContent className="TooltipContent z-[1001] max-w-[20rem] font-bold text-pretty md:max-w-full">
-          {href === '/' ? 'Zur Startseite' : `Navigiere zu ${href}`}
+          {href === '/' ? 'Zum Vault-Eingang' : `Navigiere zu ${href}`}
         </TooltipContent>
       </Tooltip>
     );
