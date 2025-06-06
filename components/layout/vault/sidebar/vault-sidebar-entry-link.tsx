@@ -28,7 +28,7 @@ const VaultSidebarEntryLink = ({ slug, title }: VaultSidebarEntryLinkProps) => {
           asChild
           isActive={isActive}>
           <Link href={`/vault/${slug}` as Route} prefetch={false}>
-            <span>{title}</span>
+            <span className={` ${isActive ? 'font-bold' : ''}`}>{title}</span>
           </Link>
         </SidebarMenuButton>
       </TooltipTrigger>
