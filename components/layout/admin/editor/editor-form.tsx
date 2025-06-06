@@ -79,9 +79,6 @@ const EditorForm = ({
       formData.append('order', values.order.toString());
       formData.append('description', values.description);
 
-      formData.forEach((value, key) => {
-        console.log(`${key}:`, value);
-      });
       const response = await fetch('/api/vault/save-entry', {
         method: 'POST',
         headers: {
@@ -99,7 +96,6 @@ const EditorForm = ({
         return;
       }
       const data = await response.json();
-      console.log('Entry saved successfully:', data);
       toast.success(`${data.message || 'Entry saved successfully!'}`);
     } catch (error) {
       console.error('Error saving editor content:', error);

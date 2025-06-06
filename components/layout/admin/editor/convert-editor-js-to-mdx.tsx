@@ -160,7 +160,6 @@ const ConvertEditorJsToMDX = (editorData: {
     }
   }
   const result = resultArray.join('\n\n');
-  // console.log('🔎 FINAL MARKDOWN OUTPUT:\n\n', result);
   return result;
 };
 export default ConvertEditorJsToMDX;

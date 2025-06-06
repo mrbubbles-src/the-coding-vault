@@ -27,13 +27,11 @@ const VaultSidebarFooter = () => {
       const res = await fetch('/api/auth/user', { cache: 'no-store' });
       if (res.ok) {
         const data = await res.json();
-        console.log('Fetched user data:', data);
         setLoggedInUser(data);
       }
     };
     fetchUser();
   }, []);
-  console.log('Logged in user:', loggedInUser);
 
   if (!loggedInUser) return null;
 

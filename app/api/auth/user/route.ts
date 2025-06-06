@@ -11,7 +11,6 @@ export async function GET() {
   if (!user) {
     return NextResponse.json(null);
   }
-  console.log('User from auth/user route:', user);
   return NextResponse.json({
     username: user.username,
     id: user.id,

@@ -48,10 +48,6 @@ const LoginForm = () => {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSubmitSuccessful]);
-  //   const onSubmit: SubmitHandler<IInputs> = async (data) => {
-  //     await new Promise((resolve) => setTimeout(resolve, 5000));
-  //     console.log(data);
-  //   };
 
   return (
     <Form {...form}>
@@ -88,7 +84,7 @@ const LoginForm = () => {
           type="submit"
           disabled={isSubmitting}
           className="flex h-[3rem] w-[9rem] items-center justify-center place-self-start font-bold">
-          {isSubmitting ? <Spinner /> : 'Login'}
+          {isSubmitting ? `${(<Spinner />)} Logging in...` : 'Login'}
         </Button>
       </form>
     </Form>

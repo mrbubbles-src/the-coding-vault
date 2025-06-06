@@ -10,7 +10,6 @@ cloudinary.config({
 
 export async function POST(req: NextRequest) {
   const formData = await req.formData();
-  console.log('formData', formData);
   const file = formData.get('image') as File;
 
   if (!file) {
@@ -38,7 +37,6 @@ export async function POST(req: NextRequest) {
         .end(buffer);
     },
   );
-  console.log('uploadResult', uploadResult);
   const {
     secure_url,
     display_name,
