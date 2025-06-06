@@ -12,5 +12,9 @@ export async function GET() {
     return NextResponse.json(null);
   }
   console.log('User from auth/user route:', user);
-  return NextResponse.json({ user });
+  return NextResponse.json({
+    username: user.username,
+    id: user.id,
+    role: user.role,
+  });
 }

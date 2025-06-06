@@ -21,14 +21,14 @@ const VaultSidebarFooter = () => {
     id: string;
     username: string;
     role: string;
-    exp: number;
   } | null>(null);
   useEffect(() => {
     const fetchUser = async () => {
-      const res = await fetch('/api/auth/user');
+      const res = await fetch('/api/auth/user', { cache: 'no-store' });
       if (res.ok) {
         const data = await res.json();
-        setLoggedInUser(data.user ?? null);
+        console.log('Fetched user data:', data);
+        setLoggedInUser(data);
       }
     };
     fetchUser();
