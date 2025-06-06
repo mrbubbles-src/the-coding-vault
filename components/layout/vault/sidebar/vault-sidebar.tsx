@@ -1,11 +1,10 @@
 import Icon from '@/public/images/icon.svg';
 import Logo from '@/public/images/sidebarlogo.svg';
-import { ChevronDown, ChevronLeft, User2 } from 'lucide-react';
+import { ChevronLeft } from 'lucide-react';
 import { iconMap } from '@/lib/icon-map';
 import {
   Sidebar,
   SidebarContent,
-  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
@@ -22,44 +21,29 @@ import {
 import Link from 'next/link';
 import Image from 'next/image';
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/shadcn/dropdown-menu';
-import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from '@/components/ui/shadcn/collapsible';
 import { ICategories } from '@/types/types';
-import { getCurrentUser } from '@/lib/auth';
-import { LogoutButton } from '@/components/ui/user-logout';
 import VaultSidebarEntryLink from '@/components/layout/vault/sidebar/vault-sidebar-entry-link';
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
 } from '@/components/ui/shadcn/tooltip';
+import VaultSidebarFooter from './vault-sidebar-footer';
 
 const VaultSidebar = async ({
   categories,
 }: {
   categories: Array<ICategories>;
 }) => {
-  let loggedInUser = null;
-  const result = await getCurrentUser();
-  if ('error' in result) {
-    loggedInUser = null;
-  } else {
-    loggedInUser = result.user;
-  }
-
   return (
     <Sidebar collapsible="icon" variant="floating">
       {/* ? Header Start */}
       <Tooltip delayDuration={300}>
-        <TooltipTrigger>
+        <TooltipTrigger asChild>
           <SidebarHeader className="py-4">
             <SidebarMenu>
               <SidebarMenuItem>
@@ -158,38 +142,7 @@ const VaultSidebar = async ({
       {/* ? Content End */}
       <SidebarSeparator />
       {/* ? Footer Start */}
-      <SidebarFooter>
-        <SidebarMenu>
-          <SidebarMenuItem>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <SidebarMenuButton className="group">
-                  <User2 /> {loggedInUser ? loggedInUser.username : 'Vaulty'}
-                  <ChevronDown className="ml-auto transition-transform duration-500 ease-in-out group-data-[state=open]:rotate-180" />
-                </SidebarMenuButton>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuItem>
-                  {loggedInUser ? (
-                    <Link href={'/admin/dashboard'} prefetch={false}>
-                      Admin Panel
-                    </Link>
-                  ) : (
-                    <Link href={'/admin/login'} prefetch={false}>
-                      Login
-                    </Link>
-                  )}
-                </DropdownMenuItem>
-                {loggedInUser ? (
-                  <DropdownMenuItem variant="destructive">
-                    <LogoutButton />
-                  </DropdownMenuItem>
-                ) : null}
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </SidebarMenuItem>
-        </SidebarMenu>
-      </SidebarFooter>
+      <VaultSidebarFooter />
       {/* ? Footer End */}
     </Sidebar>
   );

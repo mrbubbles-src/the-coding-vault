@@ -15,7 +15,7 @@ const VaultLink = ({ href, children, ...props }: AnchorProps) => {
   if (href?.startsWith('/')) {
     return (
       <Tooltip delayDuration={300}>
-        <TooltipTrigger>
+        <TooltipTrigger asChild>
           <Link href={href as Route} className={className} {...props}>
             {children}
           </Link>
@@ -29,7 +29,7 @@ const VaultLink = ({ href, children, ...props }: AnchorProps) => {
   if (href?.startsWith('#')) {
     return (
       <Tooltip delayDuration={300}>
-        <TooltipTrigger>
+        <TooltipTrigger asChild>
           <a href={href} className={className} {...props}>
             {children}
           </a>
@@ -42,7 +42,7 @@ const VaultLink = ({ href, children, ...props }: AnchorProps) => {
   }
   return (
     <Tooltip delayDuration={300}>
-      <TooltipTrigger>
+      <TooltipTrigger asChild>
         <a
           href={href}
           target="_blank"

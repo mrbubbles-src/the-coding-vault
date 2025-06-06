@@ -33,7 +33,7 @@ const VaultImage = async ({
   return (
     <figure className="text-center">
       <Tooltip delayDuration={300}>
-        <TooltipTrigger>
+        <TooltipTrigger asChild>
           <a
             href={url}
             target="_blank"

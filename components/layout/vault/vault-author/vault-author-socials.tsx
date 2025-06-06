@@ -51,7 +51,7 @@ const VaultAuthorSocials = ({ authorSocials }: VaultAuthorSocialsProps) => {
 
           return (
             <Tooltip key={key} delayDuration={400}>
-              <TooltipTrigger>
+              <TooltipTrigger asChild>
                 <a
                   href={value}
                   target="_blank"

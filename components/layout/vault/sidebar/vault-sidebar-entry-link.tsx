@@ -21,7 +21,7 @@ const VaultSidebarEntryLink = ({ slug, title }: VaultSidebarEntryLinkProps) => {
 
   return (
     <Tooltip delayDuration={300}>
-      <TooltipTrigger>
+      <TooltipTrigger asChild>
         <SidebarMenuButton
           variant={'outline'}
           className={`opacity-0 transition-all duration-300 ease-in-out group-data-[state=open]/collapsible:opacity-100 ${isActive ? 'scale-105' : ''}`}

@@ -38,7 +38,7 @@ const VaultAuthorCard = ({ author }: VaultAuthorCardProps) => {
         <section>
           <h2 className="text-2xl">{author.name}</h2>
           <Tooltip delayDuration={400}>
-            <TooltipTrigger>
+            <TooltipTrigger asChild>
               <a
                 href={`mailto:${author.email}`}
                 className="hover:text-primary/80 cursor-pointer py-2 text-sm font-semibold underline underline-offset-4 transition-all duration-300 ease-in-out">
