@@ -5,7 +5,7 @@ import VaultEmbed from './components/layout/vault/vault-components/vault-embed';
 import VaultImage from './components/layout/vault/vault-components/vault-image/vault-image';
 import VaultLink from './components/layout/vault/vault-components/vault-link';
 import { VaultChecklist } from './components/layout/vault/vault-components/vault-checklist';
-import VaultCodeBlock from './components/layout/vault/vault-components/vault-codeblock';
+import VaultCodeBlock from './components/layout/vault/vault-components/vault-code/vault-codeblock';
 
 type HeadingProps = ComponentPropsWithoutRef<'h1'>;
 type ParagraphProps = ComponentPropsWithoutRef<'p'>;
