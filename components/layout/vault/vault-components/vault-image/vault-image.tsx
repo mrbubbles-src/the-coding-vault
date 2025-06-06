@@ -38,7 +38,7 @@ const VaultImage = async ({
             href={url}
             target="_blank"
             rel="noopener noreferrer"
-            className="transition-all duration-300 ease-in-out hover:opacity-80">
+            className="transition-all duration-300 ease-in-out">
             <VaultCldImage
               src={url}
               alt={caption || original_filename}
@@ -47,7 +47,7 @@ const VaultImage = async ({
               sizes="100vw"
               placeholder="blur"
               blurDataURL={dataUrl}
-              className="z-[1001] rounded-md shadow-md transition-all duration-300 ease-in-out hover:scale-105 active:shadow-none"
+              className="z-[1002] rounded-md shadow-md transition-all duration-300 ease-in-out hover:scale-105 hover:brightness-75 active:shadow-none"
             />
           </a>
         </TooltipTrigger>
