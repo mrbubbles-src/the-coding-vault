@@ -1,3 +1,4 @@
+import CopyCode from '@/components/layout/vault/vault-components/vault-code/copy-code';
 import { codeToHtml } from 'shiki';
 
 type Props = {
@@ -20,7 +21,12 @@ export default async function VaultCodeBlock({
   const lines = rawCode.split('\n');
 
   return (
-    <pre className="bg-code-bg overflow-x-auto rounded-md p-4 text-lg leading-relaxed">
+    <pre className="bg-code-bg group relative overflow-x-auto rounded-md p-4 text-lg leading-relaxed">
+      <CopyCode
+        code={code}
+        className="absolute top-2 right-2 z-10 opacity-0 transition-opacity duration-200 ease-in-out group-hover:opacity-100"
+        aria-label="Copy code to clipboard"
+      />
       <code className="language-js font-code">
         {lines.map((line, i) => (
           <span key={i} className="line flex">
