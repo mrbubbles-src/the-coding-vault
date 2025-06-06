@@ -106,6 +106,7 @@ export default async function VaultEntryPage({
           author={entry.author}
           dates={{ createdAt: entry.createdAt, updatedAt: entry.updatedAt }}
         />
+        <hr className="border-muted-foreground/15 rounded-md" />
         <MDXRemote source={mdx} options={options} components={components} />
       </Suspense>
     </section>
