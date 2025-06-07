@@ -7,6 +7,7 @@ import remarkGfm from 'remark-gfm';
 import { notFound } from 'next/navigation';
 import { getVaultEntryBySlug } from '@/lib/db';
 import VaultAuthor from '@/components/layout/vault/vault-author/vault-author';
+import VaultEntrySkeleton from '@/components/ui/loading/vault-entry-skeleton';
 
 export async function generateMetadata({
   params,
@@ -100,8 +101,8 @@ export default async function VaultEntryPage({
   };
 
   return (
-    <section className="container flex flex-col gap-4 p-2 text-pretty">
-      <Suspense fallback={'loading'}>
+    <section className="container mx-auto flex flex-col gap-4 p-2 text-pretty">
+      <Suspense fallback={<VaultEntrySkeleton />}>
         <VaultAuthor
           author={entry.author}
           dates={{ createdAt: entry.createdAt, updatedAt: entry.updatedAt }}
