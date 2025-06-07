@@ -1,4 +1,4 @@
-import HomeLogo from '@/public/images/homelogo.svg';
+import HomeLogo from '@/public/images/homelogo.png';
 import Image from 'next/image';
 export default function Home() {
   return (
@@ -9,6 +9,8 @@ export default function Home() {
         alt='The Coding Vault Logo With Macot "Vaulty"'
         width={600}
         height={600}
+        placeholder="blur"
+        blurDataURL={HomeLogo.blurDataURL}
       />
     </header>
   );
