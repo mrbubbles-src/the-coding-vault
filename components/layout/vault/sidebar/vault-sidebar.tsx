@@ -55,6 +55,7 @@ const VaultSidebar = async ({
                       className="cursor-pointer"
                       width={45}
                       height={45}
+                      priority
                     />
 
                     <Image
@@ -63,6 +64,7 @@ const VaultSidebar = async ({
                       className="cursor-pointer"
                       width={210}
                       height={45}
+                      priority
                     />
                   </Link>
                 </SidebarMenuButton>

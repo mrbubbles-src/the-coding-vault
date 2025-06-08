@@ -9,8 +9,7 @@ export default function Home() {
         alt='The Coding Vault Logo With Macot "Vaulty"'
         width={600}
         height={600}
-        placeholder="blur"
-        blurDataURL={HomeLogo.blurDataURL}
+        priority
       />
     </header>
   );
