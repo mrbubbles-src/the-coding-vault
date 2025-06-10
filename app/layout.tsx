@@ -1,13 +1,10 @@
 import type { Metadata } from 'next';
-import { cookies } from 'next/headers';
 import { Fira_Code, Fira_Mono, Montserrat, Poppins } from 'next/font/google';
-import { SidebarProvider } from '@/components/ui/shadcn/sidebar';
 import { ThemeProvider } from '@/context/theme-provider';
-import AdminSidebar from '@/components/layout/admin/sidebar/admin-sidebar';
-import Navbar from '@/components/layout/general/navbar';
-import Footer from '@/components/layout/general/footer';
-import { Toaster } from '@/components/ui/shadcn/sonner';
 import '@/app/globals.css';
+
+export const dynamic = 'force-static';
+export const revalidate = 3600;
 
 const firaCode = Fira_Code({
   variable: '--font-fira-code',
@@ -35,24 +32,29 @@ export const metadata: Metadata = {
     process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000',
   ),
   title: 'The Coding Vault',
-  description: 'Work in progress. Stay tuned.',
+  description: 'Ein Ort für alle deine Coding-Fragen!',
   openGraph: {
     title: 'The Coding Vault',
-    description: 'Work in progress. Stay tuned.',
+    description: 'Ein Ort für alle deine Coding-Fragen!',
     images: [
       {
-        url: '/images/homelogo.svg',
-        width: 600,
-        height: 600,
-        alt: 'The Coding Vault Hero',
+        url: 'https://thecodingvault.mrbubbles-src.dev/api/og',
+        width: 1200,
+        height: 630,
+        alt: 'The Coding Vault Logo',
       },
     ],
     type: 'website',
     locale: 'de_DE',
   },
-  other: {
-    'apple-mobile-web-app-title': 'The Coding Vault',
+  twitter: {
+    card: 'summary_large_image',
+    title: 'The Coding Vault',
+    description: 'Ein Ort für alle deine Coding-Fragen!',
+    images: ['https://thecodingvault.mrbubbles-src.dev/api/og'],
+    creator: '@_MstrBubbles',
   },
+  other: { 'apple-mobile-web-app-title': 'thecodingvault.mrbubbles-src.dev' },
 };
 
 export default async function RootLayout({
@@ -60,8 +62,6 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const cookieStore = await cookies();
-  const defaultOpen = cookieStore.get('sidebar_state')?.value === 'true';
   return (
     <html lang="de" suppressHydrationWarning>
       <body
@@ -71,17 +71,7 @@ export default async function RootLayout({
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange>
-          <SidebarProvider defaultOpen={defaultOpen}>
-            <AdminSidebar />
-            <div className="flex w-full flex-col px-2 py-2 md:px-0 md:pr-2">
-              <Navbar />
-              <main className="flex flex-1 flex-col px-1 pt-2 md:px-0">
-                {children}
-              </main>
-              <Footer />
-            </div>
-          </SidebarProvider>
-          <Toaster richColors position="top-right" />
+          {children}
         </ThemeProvider>
       </body>
     </html>

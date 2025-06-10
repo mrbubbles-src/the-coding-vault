@@ -1,28 +1,26 @@
 import { cookies } from 'next/headers';
 import { SidebarProvider } from '@/components/ui/shadcn/sidebar';
-import VaultSidebar from '@/components/layout/vault/sidebar/vault-sidebar';
+import AdminSidebar from '@/components/layout/admin/sidebar/admin-sidebar';
 import Navbar from '@/components/layout/general/navbar';
 import Footer from '@/components/layout/general/footer';
-import { ICategories } from '@/types/types';
-import { getCachedCategories } from '@/lib/cache';
 import { Toaster } from '@/components/ui/shadcn/sonner';
+import '@/app/globals.css';
 
-export default async function VaultLayout({
+export default async function AdminLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   const cookieStore = await cookies();
   const defaultOpen = cookieStore.get('sidebar_state')?.value === 'true';
-  const categories: Array<ICategories> = await getCachedCategories();
   return (
     <SidebarProvider defaultOpen={defaultOpen}>
-      <VaultSidebar categories={categories} />
+      <AdminSidebar />
       <div className="flex w-full flex-col px-2 py-2 md:px-0 md:pr-2">
         <Navbar />
-        <main className="flex w-full flex-1 flex-col place-self-center px-1 pt-2 md:px-0">
+        <main className="flex flex-1 flex-col px-1 pt-2 md:px-0">
           {children}
-          <Toaster position="top-right" richColors />
+          <Toaster richColors position="top-right" />
         </main>
         <Footer />
       </div>

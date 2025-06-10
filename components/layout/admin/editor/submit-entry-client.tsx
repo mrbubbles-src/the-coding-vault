@@ -1,5 +1,6 @@
 'use client';
 
+import Loading from '@/app/loading';
 import { ICategories } from '@/types/types';
 import dynamic from 'next/dynamic';
 
@@ -9,7 +10,7 @@ const Editor = dynamic<{
   categories: ICategories[];
 }>(() => import('@/components/layout/admin/editor/editor'), {
   ssr: false,
-  loading: () => <p>Lade Editor...</p>,
+  loading: () => <Loading />,
 });
 
 export default function SubmitEntryClient({
