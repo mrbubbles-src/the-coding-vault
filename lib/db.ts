@@ -1,7 +1,5 @@
 import { ICategories, IVaultEntry, TContent } from '@/types/types';
 import { db } from '@/drizzle/db/index';
-import { vaultEntries } from '@/drizzle/db/schema';
-import { desc } from 'drizzle-orm';
 import { toast } from 'sonner';
 import { cache } from 'react';
 
@@ -34,13 +32,13 @@ const getCategories = cache(async (): Promise<Array<ICategories>> => {
 
 const getMaxOrder = async (): Promise<number> => {
   try {
-    const maxOrder = await db
-      .select({ order: vaultEntries.order })
-      .from(vaultEntries)
-      .orderBy(desc(vaultEntries.order))
-      .limit(1)
-      .then((rows) => rows[0]?.order ?? 0);
-    return maxOrder;
+    const result = await db.query.vaultEntries.findMany({
+      columns: { order: true },
+      orderBy: (entries, { desc }) => [desc(entries.order)],
+      limit: 1,
+    });
+
+    return result[0]?.order ?? 0;
   } catch (error) {
     console.error('Fehler beim Abrufen der maximalen Reihenfolge:', error);
     toast.error(
