@@ -9,6 +9,7 @@ import Footer from '@/components/layout/general/footer';
 import '@/app/globals.css';
 import { ICategories } from '@/types/types';
 import { getCachedCategories } from '@/lib/cache';
+import { Toaster } from '@/components/ui/shadcn/sonner';
 
 export const dynamic = 'force-static';
 export const revalidate = 3600;
@@ -87,6 +88,7 @@ export default async function RootLayout({
               <Navbar />
               <main className="flex w-full flex-1 flex-col place-self-center px-1 pt-2 md:px-0">
                 {children}
+                <Toaster position="top-right" richColors />
               </main>
               <Footer />
             </div>
