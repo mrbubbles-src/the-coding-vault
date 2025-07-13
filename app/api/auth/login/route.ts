@@ -5,13 +5,13 @@ import { createJWT } from '@/lib/auth';
 import { createCookie } from '@/lib/cookies';
 
 import bcrypt from 'bcryptjs';
-import { sql } from 'drizzle-orm';
+// import { sql } from 'drizzle-orm';
 import { NextResponse } from 'next/server';
 
 export async function POST(req: Request) {
   try {
-    const whoami = await db.execute(sql`SELECT current_user`);
-    console.log('[CURRENT USER]', whoami);
+    // const whoami = await db.execute(sql`SELECT current_user`);
+    // console.log('[CURRENT USER]', whoami);
     const body = await req.json();
     console.log('[LOGIN BODY]', body);
     const { username, password } = body;
