@@ -4,10 +4,13 @@ import { categories } from '@/drizzle/db/schema';
 import { asc } from 'drizzle-orm';
 
 export async function GET() {
-  const dbCategories = await db
-    .select()
-    .from(categories)
-    .orderBy(asc(categories.order));
+  // const dbCategories = await db
+  //   .select()
+  //   .from(categories)
+  //   .orderBy(asc(categories.order));
+  const dbCategories = await db.query.categories.findMany({
+    orderBy: (categories, { asc }) => asc(categories.order),
+  });
 
   return NextResponse.json(dbCategories, {
     headers: {
