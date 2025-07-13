@@ -10,6 +10,9 @@ import { NextResponse } from 'next/server';
 export async function POST(req: Request) {
   const body = await req.json();
   const { username, password } = body;
+  console.log('~ route.ts:13 ~ POST ~ password:', password);
+  console.log('~ route.ts:13 ~ POST ~ username:', username);
+  console.log('~ route.ts:13 ~ POST ~ body:', body);
 
   try {
     const [{ current_user }] = await db.execute('SELECT current_user;');
@@ -27,6 +30,8 @@ export async function POST(req: Request) {
 
     const validatePassword = await bcrypt.compare(password, user.password);
 
+    console.log('~ route.ts:29 ~ POST ~ validatePassword:', validatePassword);
+
     if (!validatePassword)
       return NextResponse.json(
         { msg: 'Das eingegebene Passwort ist nicht korrekt.' },
@@ -43,7 +48,7 @@ export async function POST(req: Request) {
     const response = NextResponse.redirect(
       new URL('/admin/dashboard', req.url),
     );
-    console.log('🚀 ~ route.ts:46 ~ POST ~ response:', response);
+    console.log('~ route.ts:46 ~ POST ~ response:', response);
 
     response.cookies.set({
       name: 'token',
@@ -54,7 +59,7 @@ export async function POST(req: Request) {
       path: '/',
       maxAge: 60 * 60 * 24 * 30, // 30 Tage
     });
-    console.log('🚀 ~ route.ts:57 ~ POST ~ response w cookie:', response);
+    console.log('~ route.ts:57 ~ POST ~ response w cookie:', response);
 
     return response;
   } catch (error) {
