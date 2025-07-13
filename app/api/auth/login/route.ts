@@ -16,9 +16,20 @@ export async function POST(req: Request) {
     console.log('[LOGIN BODY]', body);
     const { username, password } = body;
 
-    const user = await db.query.users.findFirst({
-      where: (users, { eq }) => eq(users.username, username),
-    });
+    console.log('[LOGIN DEBUG] DB-Query startet...');
+    let user;
+    try {
+      user = await db.query.users.findFirst({
+        where: (users, { eq }) => eq(users.username, username),
+      });
+      console.log('[LOGIN DEBUG] DB-Query erfolgreich', user);
+    } catch (e) {
+      console.error('[LOGIN DB ERROR]', e);
+      return NextResponse.json(
+        { msg: 'Fehler bei Datenbankabfrage', error: String(e) },
+        { status: 500 },
+      );
+    }
 
     if (!user) {
       console.log('[LOGIN ERROR] Benutzer nicht gefunden');
