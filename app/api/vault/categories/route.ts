@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/drizzle/db/index';
-import { categories } from '@/drizzle/db/schema';
-import { asc } from 'drizzle-orm';
+// import { categories } from '@/drizzle/db/schema';
+// import { asc } from 'drizzle-orm';
 
 export async function GET() {
   // const dbCategories = await db
