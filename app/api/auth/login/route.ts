@@ -11,26 +11,28 @@ export async function POST(req: Request) {
   const body = await req.json();
   const { username, password } = body;
 
-  const [user] = await db
-    .select()
-    .from(users)
-    .where(eq(users.username, username));
-
-  if (!user)
-    return NextResponse.json(
-      { msg: 'Benutzername konnte nicht gefunden werden.' },
-      { status: 401, statusText: 'Unauthorized' },
-    );
-
-  const validatePassword = await bcrypt.compare(password, user.password);
-
-  if (!validatePassword)
-    return NextResponse.json(
-      { msg: 'Das eingegebene Passwort ist nicht korrekt.' },
-      { status: 401, statusText: 'Unauthorized' },
-    );
-
   try {
+    const [{ current_user }] = await db.execute('SELECT current_user;');
+    console.log('Aktueller DB-User:', current_user);
+    const [user] = await db
+      .select()
+      .from(users)
+      .where(eq(users.username, username));
+
+    if (!user)
+      return NextResponse.json(
+        { msg: 'Benutzername konnte nicht gefunden werden.' },
+        { status: 401, statusText: 'Unauthorized' },
+      );
+
+    const validatePassword = await bcrypt.compare(password, user.password);
+
+    if (!validatePassword)
+      return NextResponse.json(
+        { msg: 'Das eingegebene Passwort ist nicht korrekt.' },
+        { status: 401, statusText: 'Unauthorized' },
+      );
+
     const token = await createJWT({
       id: user.id,
       username: user.username,
