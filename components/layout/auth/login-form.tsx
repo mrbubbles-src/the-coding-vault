@@ -13,10 +13,7 @@ import {
 } from '@/components/ui/shadcn/form';
 import { Button } from '@/components/ui/shadcn/button';
 import { Input } from '@/components/ui/shadcn/input';
-import { useRouter } from 'next/navigation';
-
 const LoginForm = () => {
-  const router = useRouter();
   const form = useForm<IInputs>({
     defaultValues: { username: '', password: '' },
   });
@@ -38,8 +35,8 @@ const LoginForm = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       });
-      if (res.ok) {
-        router.push('/admin/dashboard');
+      if (res.redirected) {
+        window.location.href = res.url;
       } else {
         const error = await res.json();
         console.error('Login fehlgeschlagen:', error.msg);

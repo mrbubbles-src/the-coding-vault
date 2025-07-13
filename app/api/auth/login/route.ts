@@ -46,7 +46,9 @@ export async function POST(req: Request) {
     });
     console.log('JWT-Token erstellt:', token);
 
-    const response = NextResponse.json({ success: true });
+    const response = NextResponse.redirect(
+      new URL('/admin/dashboard', req.url),
+    );
     console.log('~ route.ts:46 ~ POST ~ response:', response);
 
     response.cookies.set({
