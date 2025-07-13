@@ -38,10 +38,12 @@ export async function POST(req: Request) {
       username: user.username,
       role: user.role,
     });
+    console.log('JWT-Token erstellt:', token);
 
     const response = NextResponse.redirect(
       new URL('/admin/dashboard', req.url),
     );
+    console.log('🚀 ~ route.ts:46 ~ POST ~ response:', response);
 
     response.cookies.set({
       name: 'token',
@@ -52,6 +54,7 @@ export async function POST(req: Request) {
       path: '/',
       maxAge: 60 * 60 * 24 * 30, // 30 Tage
     });
+    console.log('🚀 ~ route.ts:57 ~ POST ~ response w cookie:', response);
 
     return response;
   } catch (error) {
