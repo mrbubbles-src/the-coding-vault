@@ -15,6 +15,7 @@ export async function POST(req: Request) {
   console.log('~ route.ts:13 ~ POST ~ body:', body);
 
   try {
+    console.log('fetch arrived in login route at ', new Date().toISOString());
     const [{ current_user }] = await db.execute('SELECT current_user;');
     console.log('Aktueller DB-User:', current_user);
     const [user] = await db
@@ -45,9 +46,7 @@ export async function POST(req: Request) {
     });
     console.log('JWT-Token erstellt:', token);
 
-    const response = NextResponse.redirect(
-      new URL('/admin/dashboard', req.url),
-    );
+    const response = NextResponse.json({ success: true });
     console.log('~ route.ts:46 ~ POST ~ response:', response);
 
     response.cookies.set({
@@ -60,7 +59,7 @@ export async function POST(req: Request) {
       maxAge: 60 * 60 * 24 * 30, // 30 Tage
     });
     console.log('~ route.ts:57 ~ POST ~ response w cookie:', response);
-
+    console.log('login route completed at ', new Date().toISOString());
     return response;
   } catch (error) {
     return NextResponse.json(
