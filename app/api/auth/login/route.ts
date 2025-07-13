@@ -18,7 +18,7 @@ export async function POST(req: Request) {
       .select()
       .from(users)
       .where(eq(users.username, username));
-
+    console.log('Gefundener Benutzer:', user);
     if (!user)
       return NextResponse.json(
         { msg: 'Benutzername konnte nicht gefunden werden.' },
