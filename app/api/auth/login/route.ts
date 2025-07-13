@@ -38,8 +38,9 @@ export async function POST(req: Request) {
         { status: 401 },
       );
     }
-
+    console.log('[LOGIN DEBUG] Passwort wird validiert...');
     const validatePassword = await bcrypt.compare(password, user.password);
+
     if (!validatePassword) {
       console.log('[LOGIN ERROR] Passwort ungültig');
       return NextResponse.json(
@@ -47,7 +48,7 @@ export async function POST(req: Request) {
         { status: 401 },
       );
     }
-
+    console.log('[LOGIN DEBUG] Passwort-Vergleich Ergebnis:', validatePassword);
     const token = await createJWT({
       id: user.id,
       username: user.username,
