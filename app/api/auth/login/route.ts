@@ -1,6 +1,6 @@
 import { db } from '@/drizzle/db';
-import { users } from '@/drizzle/db/schema';
-import { eq } from 'drizzle-orm';
+// import { users } from '@/drizzle/db/schema';
+// import { eq } from 'drizzle-orm';
 import { createJWT } from '@/lib/auth';
 import { createCookie } from '@/lib/cookies';
 
@@ -10,11 +10,9 @@ import { NextResponse } from 'next/server';
 export async function POST(req: Request) {
   const body = await req.json();
   const { username, password } = body;
-
-  const [user] = await db
-    .select()
-    .from(users)
-    .where(eq(users.username, username));
+  const user = await db.query.users.findFirst({
+    where: (users, { eq }) => eq(users.username, username),
+  });
 
   if (!user)
     return NextResponse.json(

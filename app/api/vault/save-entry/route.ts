@@ -30,6 +30,8 @@ export async function POST(req: Request) {
   }
 
   try {
+    const test = await db.query.vaultEntries.findFirst();
+    console.log(test);
     await db.insert(vaultEntries).values({
       title,
       content: parsedContent,
