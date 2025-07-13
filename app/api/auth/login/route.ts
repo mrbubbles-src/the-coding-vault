@@ -2,7 +2,7 @@ import { db } from '@/drizzle/db';
 import { users } from '@/drizzle/db/schema';
 import { eq } from 'drizzle-orm';
 import { createJWT } from '@/lib/auth';
-import { createCookie } from '@/lib/cookies';
+// import { createCookie } from '@/lib/cookies';
 
 import bcrypt from 'bcryptjs';
 import { NextResponse } from 'next/server';
@@ -38,8 +38,22 @@ export async function POST(req: Request) {
       username: user.username,
       role: user.role,
     });
-    await createCookie(token);
-    return NextResponse.redirect(new URL('/admin/dashboard', req.url));
+
+    const response = NextResponse.redirect(
+      new URL('/admin/dashboard', req.url),
+    );
+
+    response.cookies.set({
+      name: 'token',
+      value: token,
+      httpOnly: true,
+      secure: true,
+      sameSite: 'lax',
+      path: '/',
+      maxAge: 60 * 60 * 24 * 30, // 30 Tage
+    });
+
+    return response;
   } catch (error) {
     return NextResponse.json(
       {
