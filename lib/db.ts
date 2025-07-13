@@ -2,9 +2,12 @@ import { ICategories, IVaultEntry, TContent } from '@/types/types';
 import { db } from '@/drizzle/db/index';
 import { toast } from 'sonner';
 import { cache } from 'react';
+import { sql } from 'drizzle-orm';
 
 const getCategories = cache(async (): Promise<Array<ICategories>> => {
   try {
+    const result = await db.execute(sql`SELECT current_user, session_user`);
+    console.log(result);
     const dbCategories = await db.query.categories.findMany({
       with: {
         vaultEntries: {
