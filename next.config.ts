@@ -7,6 +7,7 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   experimental: {
+    devtoolSegmentExplorer: true,
     typedRoutes: true,
     useCache: true,
     mdxRs: {
