@@ -2,10 +2,11 @@
 
 ## Überblick & Architektur
 
-- **The Coding Vault** ist ein MDX-basiertes CMS, gebaut mit Next.js, TailwindCSS und Supabase.
-- Die App ist in **Admin**- und **Vault**-Bereiche unterteilt (`app/(admin)/`, `app/(vault)/`).
+- **The Coding Vault** ist ein selbstverwaltender Doku-Hub, der Manuel (und eingeladenen Nutzer\:innen) gleichzeitig als CMS, Nachschlagewerk und Lehrhilfe dient.
+- Die App ist MDX-basiert, gebaut mit Next.js, TailwindCSS und Supabase.
 - Inhalte werden in PostgreSQL gespeichert (Supabase als Backend), Markdown/MDX wird für die Darstellung verwendet.
 - Authentifizierung und Rollenverwaltung sind zentral (`lib/auth.ts`, `lib/roles.ts`).
+- Die App ist in **Admin**- und **Vault**-Bereiche unterteilt (`app/(admin)/`, `app/(vault)/`).
 
 ## Projektstruktur
 
@@ -59,6 +60,11 @@ root/
 - NEXT_PUBLIC_APP_URL
 - DISCORD_WEBHOOK_URL (für Error-Reporting)
 
+## UX & Suchfunktion
+
+- Inhalte sollen mittels leistungsfähiger Suchfunktion mit Autocomplete auffindbar sein.
+- Sortierung, Tags und dynamische Routen (`/docs/[slug]`) sind elementarer Bestandteil der UX.
+
 ## Datei- und Verzeichnis-Überblick
 
 - **app/(admin)/admin/dashboard/**: Admin-Dashboard, Einträge und Userverwaltung
@@ -80,6 +86,12 @@ root/
 - **lib/error.ts**: Fehler-Reporting (Discord, Logging)
 - **mdx-components.tsx**: Registrierung und Styling von MDX-Komponenten
 - **types/types.ts**: Globale Typen (User, VaultEntry, Category, Content, JWT, etc.)
+
+## Zukünftige Ideen & ToDos
+
+- Erweiterte MDX-Komponenten: Callout, Hint, Tabs
+- Export der Inhalte nach PDF oder ZIP (für Schüler\:innen und Lernende)
+- Autocomplete / erweiterte Suchfunktion
 
 ## Patterns & Workflows
 
@@ -114,7 +126,7 @@ root/
 - API-Routen immer als JSON, Fehler konsistent melden
 - Dokumentiere neue Patterns/Workflows im README und copilot-instructions
 - Prüfe Umgebungsvariablen vor Supabase/Cloudinary-Nutzung
+- Projektstruktur, UX-Flows oder Architekturfragen dürfen gerne detailliert besprochen werden
+- Antworten dürfen auch technische Implementierungsdetails enthalten, solange sie Manuel nicht mit finalem Code erschlagen 😉
 
----
-
-Feedback willkommen! Falls Details fehlen oder Workflows/Patterns unklar sind, bitte melden.
+Happy vault-building! 💾🧱✨
