@@ -6,9 +6,8 @@ const nextConfig: NextConfig = {
   pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
   reactStrictMode: true,
   poweredByHeader: false,
+  typedRoutes: true,
   experimental: {
-    devtoolSegmentExplorer: true,
-    typedRoutes: true,
     useCache: true,
     mdxRs: {
       mdxType: 'gfm',

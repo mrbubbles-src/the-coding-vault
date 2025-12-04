@@ -64,7 +64,7 @@ const multiRoleGuard = async (
   }
 
   if (!allowedRoles.includes(result.user.role)) {
-    redirect('/unauthorized');
+    redirect('/admin/login');
   }
 
   return result.user;
