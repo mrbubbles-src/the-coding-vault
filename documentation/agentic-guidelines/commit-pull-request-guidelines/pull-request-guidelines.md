@@ -1,0 +1,4 @@
+- Describe what the PR changes and why.
+- Reference related issues or tickets when applicable (e.g. `Closes #123`, `Relates to #456`).
+- Keep PRs focused; avoid mixing unrelated changes.
+- Include tests or explain why tests are unnecessary.

@@ -1,0 +1,1 @@
+- File and folder names use kebab-case with all lower-case characters (e.g. `user-list.tsx`).

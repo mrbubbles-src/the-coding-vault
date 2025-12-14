@@ -1,0 +1,3 @@
+- Place shared types under `types/`, named `feature-name.d.ts`.
+- Keep component props types in their own files, using the format `ComponentProps` (e.g., `SidebarProps`).
+- Do not prematurely extract one-off types.

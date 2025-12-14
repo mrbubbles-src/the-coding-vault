@@ -1,0 +1,2 @@
+- Use clear, descriptive type and interface names (e.g., `CourseModule`, `UserProfile`).
+- Prefer PascalCase for types and interfaces.

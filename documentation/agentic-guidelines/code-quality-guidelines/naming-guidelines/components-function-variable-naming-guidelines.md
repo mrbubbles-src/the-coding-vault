@@ -1,0 +1,2 @@
+- Component names must match filenames (e.g., `user-card.tsx` → `UserCard`).
+- Use camelCase for function and variable names (e.g., `userInput`).

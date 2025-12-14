@@ -1,0 +1,12 @@
+- Store project documentation under `documentation/project-docs/`; create folder if missing.
+- Split docs into focused files (e.g., `components.md`, `routes.md`, `dependencies.md`, `structure.md`).
+- Keep documentation human-readable and concise.
+- Align documentation with the current codebase.
+- README.md should include:
+  - Installation steps
+  - Usage examples
+  - Architecture and folder structure
+  - Configuration and env variables
+  - Testing instructions
+  - Contribution guidelines
+  - License and credits
